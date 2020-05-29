@@ -1,0 +1,347 @@
+﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
+@{
+    ViewBag.Title = "EventTicket";
+}
+@Html.HiddenFor(model => model.TicketType, new { id = "TicketType" })
+<div class="prs_contact_form_main_wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="prs_contact_left_wrapper">
+                    <h2>EVENT BOOKING</h2>
+                </div>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Full Name <span style="color:red">*</span></label>
+                            <input type="text" id="Fullname" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Phone No  <span style="color:red">*</span></label>
+                            <input type="text" id="phoneNo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email  <span style="color:red">*</span></label>
+                            <input type="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">No of Person(s)  <span style="color:red">*</span></label>
+                            @Html.DropDownListFor(model => model.MovieCategory, new List<SelectListItem>
+                                            {
+
+                                            new SelectListItem{ Text="1 Person", Value = "1" },
+                                            new SelectListItem{ Text="2 Person(s) ", Value = "2" },
+                                            new SelectListItem{ Text="3 Person(s) ", Value = "3" },
+                                            new SelectListItem{ Text="4 Person(s) ", Value = "4" },
+                                            new SelectListItem{ Text="5 Person(s) ", Value = "5" },
+                                            new SelectListItem{ Text="6 Person(s) ", Value = "6" },
+                                            new SelectListItem{ Text="7 Person(s) ", Value = "7" },
+                                            new SelectListItem{ Text="8 Person(s) ", Value = "8" },
+                                            new SelectListItem{ Text="9 Person(s) ", Value = "9" },
+                                            new SelectListItem{ Text="10 Person(s) ", Value = "10" },
+                                            }, new { @class = "form-control", id = "NoOfPersons" })
+                        </div>
+                    </div>
+                    @if (Model.IsFreeEvent == "N")
+                    {
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Ticket Category  <span style="color:red">*</span></label>
+                                @Html.DropDownListFor(model => model.TicketCategory,
+                  new SelectList(Model.drpEventCategory, "Value", "Text"), "--Select Ticket Category--", new { @class = "form-control", id = "TicketCategory", data_required = "true" })
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Amount  <span style="color:red">*</span> </label>
+                                <input type="text" id="Amount" readonly="readonly" class="form-control">
+                                <input type="hidden" id="eventName" value="@Model.EventName" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input id="IntializePayment" type="image" src="~/images/Partners/stackPay.jpg" />
+
+
+                            </div>
+                            <div class="form-group col-md-6">
+
+                            </div>
+                        </div>
+
+                    }
+
+
+                </form>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="prs_contact_right_section_wrapper">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i> &nbsp;&nbsp;&nbsp;facebook.com/presenter</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i> &nbsp;&nbsp;&nbsp;twitter.com/presenter</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-vimeo"></i> &nbsp;&nbsp;&nbsp;vimeo.com/presenter</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-instagram"></i> &nbsp;&nbsp;&nbsp;instagram.com/presenter</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-youtube-play"></i> &nbsp;&nbsp;&nbsp;youtube.com/presenter</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery_min.js"></script>
+<script>
+    $("#TicketCategory").on('change', function () {
+
+        $('#loaderbody').show();
+        var TicketCategory = $("#TicketCategory").val();
+        var eventName = $("#eventName").val();
+        var NoOfPersons = $("#NoOfPersons").val();
+        var TicketCategoryName = $("#TicketCategory>option:selected").text();
+        //var NoOfPersons = $("#NoOfPersons").val();
+        var CouponValue = $("#CouponValue").val();
+        //   alert(FromRoute)
+        $.ajax({
+            url: "/Events/GetEventAmount",
+            data: { TicketCategoryID: TicketCategory, TicketCategoryName: TicketCategoryName, NoOfPersons: NoOfPersons, CouponValue: CouponValue, EventName: eventName },
+            dataType: "json",
+            type: "POST",
+
+            success: function (data) {
+
+                if (data.nErrorCode == 0) {
+                    if (data.OrigAmount == null) {
+                        $("#Amount").val(data.Amount);
+                        $('#loaderbody').hide();
+                    }
+                    else if (data.OrigAmount != null) {
+                        $("#Amount").val(data.Amount);
+                        $("#OrigAmount").text("₦" + data.OrigAmount);
+                        $("#OrigAmount").show();
+                        $("#NewAmount").text(data.OrigAmount);
+                        $("#OrigAmount").show();
+                        $('#loaderbody').hide();
+                    }
+                }
+                else {
+                    $('#loaderbody').hide();
+                    alert("No Amount Available");
+                    $("#Amount").val(data.Amount);
+                }
+
+
+            }
+        });
+
+
+    });
+
+    $("#NoOfPersons").on('change', function () {
+        //$('#loaderbody').show();
+        var TicketCategory = $("#TicketCategory").val();
+        var eventName = $("#eventName").val();
+        var NoOfPersons = $("#NoOfPersons").val();
+        var TicketCategoryName = $("#TicketCategory>option:selected").text();
+        //var NoOfPersons = $("#NoOfPersons").val();
+        var CouponValue = $("#CouponValue").val();
+        //   alert(FromRoute)
+        $.ajax({
+            url: "/Events/GetEventAmount",
+            data: { TicketCategoryID: TicketCategory, TicketCategoryName: TicketCategoryName, NoOfPersons: NoOfPersons, CouponValue: CouponValue, EventName: eventName },
+            dataType: "json",
+            type: "POST",
+
+            success: function (data) {
+
+                if (data.nErrorCode == 0) {
+                    if (data.OrigAmount == null) {
+                        $("#Amount").val(data.Amount);
+                        //alert(data.discountPercentage);
+                        //$('#loaderbody').hide();
+                    }
+                    else if (data.OrigAmount != null) {
+                        $("#Amount").val(data.Amount);
+                        $("#OrigAmount").text("₦" + data.OrigAmount);
+                        $("#OrigAmount").show();
+                        $("#NewAmount").text(data.OrigAmount);
+                        $("#OrigAmount").show();
+                        //$('#loaderbody').hide();
+                    }
+                }
+                else {
+                    $("#Amount").val(data.Amount);
+                    //$('#loaderbody').hide();
+                    alert("No Amount Available");
+                }
+
+
+            }
+        });
+
+    });
+
+
+    $(function () {
+
+
+
+        function InitTransaction(data) {
+            return $.ajax({
+                type: "POST",
+                url: "/Events/InitializeEventPayment",
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8'
+            });
+        }
+
+
+        $("#IntializePayment").click(function (e) {
+            if ($("#IsFreeEvent").val() == "N") {
+
+                if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                    $('#email').val() === "" ||
+                    $('#NoOfPersons').val() === "" ||
+                    $('#TicketCategory').val() === "" ||
+                    $('#Amount').val() === "" ||
+                    $('#comments').val() === "") {
+
+                    alertify.error("One or Two Compulsory Fields is Empty");
+                    return;
+                }
+
+            }
+            else {
+                if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                    $('#email').val() === "" ||
+                    $('#NoOfPersons').val() === "") {
+
+                    alertify.error("One or Two Compulsory Fields is Empty");
+                    return;
+                }
+            }
+
+            $("#loaderbody").show();
+            e.preventDefault();
+
+
+            var data = JSON.stringify({
+                Fullname: $("#Fullname").val(),
+                phoneNo: $("#phoneNo").val(),
+                email: $("#email").val(),
+                NoOfPersons: $("#NoOfPersons").val(),
+                TicketCategory: $("#TicketCategory").val(),
+                Amount: $("#Amount").val(),
+                comments: $("#comments").val(),
+                IsFreeEvent: $("#IsFreeEvent").val(),
+                TicketType: $("#TicketType").val(),
+                TicketCategoryName: $("#TicketCategory>option:selected").text(),
+                CouponValue: $("#CouponValue").val(),
+                Validated: "N",
+                ReferalId: $("#referalId").val()
+            });
+
+            console.log("Res", data)
+            $.when(InitTransaction(data)).then(function (response) {
+
+
+                if (response.error == false) {
+
+                    window.location.href = response.result.data.authorization_url;
+                    console.log(response.result.data);
+                } else {
+                    $("#loaderbody").hide();
+                }
+
+            }).fail(function () {
+                $("#loaderbody").hide()
+            });
+
+        });
+
+        $("#IntializeFreePayPayment").click(function (e) {
+            //  alert("test")
+            if ($("#IsFreeEvent").val() == "N") {
+
+                if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                    $('#email').val() === "" ||
+                    $('#NoOfPersons').val() === "" ||
+                    $('#TicketCategory').val() === "" ||
+                    $('#Amount').val() === "" ||
+                    $('#comments').val() === "") {
+
+                    alertify.error("One or Two Compulsory Fields is Empty");
+                    return;
+                }
+
+            }
+            else {
+                if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                    $('#email').val() === "" ||
+                    $('#NoOfPersons').val() === "") {
+
+                    alertify.error("One or Two Compulsory Fields is Empty");
+                    return;
+                }
+
+
+            }
+
+            $("#loaderbody").show();
+            e.preventDefault();
+
+            var data = JSON.stringify({
+                Fullname: $("#Fullname").val(),
+                phoneNo: $("#phoneNo").val(),
+                email: $("#email").val(),
+                NoOfPersons: $("#NoOfPersons").val(),
+                TicketCategory: $("#TicketCategory").val(),
+                Amount: $("#Amount").val(),
+                comments: $("#comments").val(),
+                IsFreeEvent: $("#IsFreeEvent").val(),
+                TicketType: $("#TicketType").val(),
+                TicketCategoryName: $("#TicketCategory>option:selected").text(),
+                CouponValue: $("#CouponValue").val()
+
+            });
+            $.ajax({
+                url: "/Events/InitializeFreeEventPayment",
+                data: { Fullname: $("#Fullname").val(), phoneNo: $("#phoneNo").val(), email: $("#email").val(), NoOfPersons: $("#NoOfPersons").val(), TicketType: $("#TicketType").val() },
+                dataType: "json",
+                type: "POST",
+
+                success: function (data) {
+                    $("#loading").hide();
+                    if (data.nErrorCode == 0) {
+                        alert(data.sErrorText)
+                        $("#Fullname").val()
+                        $("#phoneNo").val()
+                        $("#email").val()
+                        $("#NoOfPersons").val()
+                    }
+                    else {
+                        alert(data.sErrorText)
+                    }
+                }
+            });
+
+        });
+
+    });
+</script>

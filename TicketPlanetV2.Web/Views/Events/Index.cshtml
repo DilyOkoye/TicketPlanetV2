@@ -1,0 +1,102 @@
+﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
+    <style>
+        .btnSubmit 
+        {
+            display:inline-block;
+	width:150px;
+	height:50px;
+	text-align:center;
+	line-height:50px;
+	border:1px solid #DF3E3D;
+	/*margin-right:-900px;*/
+	background:transparent;
+	color:#ffffff;
+	margin-top:10px;
+	    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	-webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+        }
+
+        .btnSubmit:hover
+        {
+          background:#DF3E3D;
+	border:1px solid #DF3E3D;
+	-webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+        }
+    </style>
+
+<div class="prs_upcom_slider_main_wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="prs_heading_section_wrapper">
+                    <h2>Events</h2>
+                </div>
+            </div>
+
+            <div class="prs_upcom_slider_slides_wrapper">
+                <div class="owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="row">
+                            @using (Html.BeginForm("EventTicket", "Events", FormMethod.Post,new {id="fooForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                foreach (var i in Model.EventList)
+                                {
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first">
+                                        <div class="prs_upcom_movie_box_wrapper">
+                                            <div class="prs_upcom_movie_img_box">
+                                                <img src="@i.EventImageName" alt="movie_img" width="400" height="380" />
+                                                <div class="prs_upcom_movie_img_overlay"></div>
+                                                <div class="prs_upcom_movie_img_btn_wrapper">
+
+                                                    <ul>
+                                                        <li>
+                                                            <button class="btnSubmit"  type="submit" value="@i.Itbid" name="TicketType" id="TicketType" > Buy Ticket</button>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">View Details</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="prs_upcom_movie_content_box">
+                                                <div class="prs_upcom_movie_content_box_inner">
+                                                    <center><h2><a href="#">@i.EventTitle</a></h2></center>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery_min.js"></script>
+<script type="text/javascript">
+    $(function() {
+    $('a#TicketType').click(function() {
+        $('form#fooForm').submit();
+    });
+});
+</script>
