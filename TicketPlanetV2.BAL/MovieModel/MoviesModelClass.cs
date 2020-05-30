@@ -676,6 +676,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                 if (retV1)
                 {
 
+
                     //Update batch Counter
                     counter.BatchNo = counter.BatchNo + 1;
                     repotk_BatchCounter.Update(counter);
