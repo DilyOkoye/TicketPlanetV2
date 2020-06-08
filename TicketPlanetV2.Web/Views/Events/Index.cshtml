@@ -42,12 +42,27 @@
                     <h2>Events</h2>
                 </div>
             </div>
+            <div class="row">
+                
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
 
+                    <div class="prs_contact_input_wrapper">
+                        <input type="text" id="textSearchEvent" onkeyup="SearchMovie()" placeholder="Search for Event Name..." style="height:30px;" />
+                        
+                    </div>
+
+                   
+                       
+
+
+                </div>
+                </div>
+            </div>
             <div class="prs_upcom_slider_slides_wrapper">
                 <div class="owl-carousel owl-theme">
                     <div class="item">
                         <div class="row">
-                            @using (Html.BeginForm("EventTicket", "Events", FormMethod.Post,new {id="fooForm" }))
+                            @using (Html.BeginForm("EventTicket", "Events", FormMethod.Post, new { id = "fooForm" }))
                             {
                                 @Html.AntiForgeryToken()
                                 foreach (var i in Model.EventList)
@@ -61,7 +76,7 @@
 
                                                     <ul>
                                                         <li>
-                                                            <button class="btnSubmit"  type="submit" value="@i.Itbid" name="TicketType" id="TicketType" > Buy Ticket</button>
+                                                            <button class="btnSubmit" type="submit" value="@i.Itbid" name="TicketType" id="TicketType"> Buy Ticket</button>
                                                         </li>
                                                         <li>
                                                             <a href="#">View Details</a>
@@ -98,5 +113,21 @@
     $('a#TicketType').click(function() {
         $('form#fooForm').submit();
     });
-});
+    });
+    function SearchMovie()
+    {
+       //alert("test")
+  var input = document.getElementById("textSearchEvent");
+  var filter = input.value.toLowerCase();
+  var nodes = document.getElementsByClassName('col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first');
+
+  for (i = 0; i < nodes.length; i++) {
+      if (nodes[i].innerText.toLowerCase().includes(filter))
+      {
+      nodes[i].style.display = "block";
+    } else {
+      nodes[i].style.display = "none";
+    }
+  }
+}
 </script>

@@ -1,0 +1,392 @@
+﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
+
+<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+
+<style>
+    @@media only screen and (max-width:360px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 10px;
+        }
+    }
+
+    @@media only screen and (max-width:420px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 10px;
+        }
+    }
+
+    @@media only screen and (max-width:800px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 10px;
+        }
+    }
+
+    @@media only screen and (max-width:1100px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div id="loading">
+    <div class="looding-in background-light-grey padding-tb-200px z-index-99">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-6 text-center">
+                    <!-- Loading -->
+                    <div class="loading-page">
+                        <div class="counter">
+                            <div class="text-center"><a href="#"><img src="~/images/tk_paymentLogo2.png" alt=""></a></div>
+                            <div class="margin-tb-30px padding-8px background-white">
+                                <div class="animation padding-2px background-main-color"></div>
+                            </div>
+                            <p>Please wait..</p>
+                            <p>You are been redirected to a secure payment system</p>
+                            <div>loading <span class="num">0%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- // Loading -->
+                </div>
+            </div>
+            <!-- // row -->
+        </div>
+        <!-- // container -->
+    </div>
+</div>
+
+
+<div id="loadVoucherCode" style="display:none">
+    <div class="looding-in background-light-grey padding-tb-200px z-index-99">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-6 text-center">
+                    <!-- Loading -->
+                    <div class="loading-page">
+                        <div class="counter">
+                            <div class="text-center"><a href="#"><img src="~/images/lo1.png" alt=""></a></div>
+                            <div class="margin-tb-30px padding-8px background-white">
+                                <div class="animation padding-2px background-main-color"></div>
+                            </div>
+                            <p>Please wait..</p>
+                            <p>Verifying Voucher Code</p>
+                            <div>loading <span class="num">0%</span></div>
+                        </div>
+                    </div>
+                    <!-- // Loading -->
+                </div>
+            </div>
+            <!-- // row -->
+        </div>
+        <!-- // container -->
+    </div>
+</div>
+
+
+
+
+<style>
+
+    .loaderbody {
+        width: 100%;
+        height: 200%;
+        left: 0px;
+        top: 30%;
+        position: absolute;
+        background-color: rgba(128, 128, 128, 0.2);
+        z-index: 2147453647;
+    }
+
+    .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-right: 8px solid #3498db;
+        border-bottom: 8px thin #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loaderbody p {
+        position: fixed;
+        top: 55%;
+        left: 45%;
+        text-align: center;
+        color: #f3f3f3;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        display: none;
+        opacity: .9;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #loading-image {
+        position: absolute;
+        top: 250px;
+        left: 550px;
+        z-index: 600;
+    }
+
+    button:hover {
+        border-color: #2196F3;
+    }
+</style>
+
+
+
+
+
+<div id="MovieTicket" class="padding-tb-40px" style="background-color: transparent; background-repeat:no-repeat">
+
+    <div class="container">
+        <a href="@Url.Action("MoviesHome", "Movies")" class="text-blue" style="color:white;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+
+
+                <div class="background-white border border-grey-1 padding-30px margin-tb-30px">
+                    <div class="prs_contact_left_wrapper">
+                        <h2>MOVIE BOOKING </h2>
+                    </div>
+                    <div class="padding-top-10px">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Movie Name <span style="color:red">*</span></label>
+                                <input type="text" id="MovieName" readonly="readonly" value="@Model.MovieName" class="form-control">
+                                @*<input type="hidden" id="FilmCode1" name="FilmCode1" value="@Model.FilmCode" />*@
+                                <input type="hidden" id="FilmCode" name="FilmCode" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Cinema Name <span style="color:red">*</span> </label>
+                                @Html.DropDownListFor(model => model.CinemaID,
+                                                                   new SelectList(Model.drpMovieLocatn, "Value", "Text"), "--Select Cinema--", new { @class = "form-control", id = "CinemaCompanyID", data_required = "true" })
+
+
+                                @*<input type="text" id="CinemaLocation" readonly="readonly" value="@Model.CinemaName" class="form-control">*@
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Full Name <span style="color:red">*</span></label>
+                                <input type="text" id="Fullname" class="form-control">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Phone No <span style="color:red">*</span> </label>
+                                <input type="text" id="phoneNo" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Email <span style="color:red">*</span> </label>
+                                <input type="email" id="email" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">No of Person(s) <span style="color:red">*</span> </label>
+                                @Html.DropDownListFor(model => model.MovieCategory, new List<SelectListItem>
+                                            {
+
+                                                new SelectListItem{ Text="1 Person", Value = "1" },
+                                                new SelectListItem{ Text="2 Person(s) ", Value = "2" },
+                                                new SelectListItem{ Text="3 Person(s) ", Value = "3" },
+                                                 new SelectListItem{ Text="4 Person(s) ", Value = "4" },
+                                                  new SelectListItem{ Text="5 Person(s) ", Value = "5" },
+                                                   new SelectListItem{ Text="6 Person(s) ", Value = "6" },
+                                                   new SelectListItem{ Text="7 Person(s) ", Value = "7" },
+                                             }, new { @class = "form-control", id = "NoOfPersons" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Movie Day <span style="color:red">*</span> </label>
+                                <select id="MovieDay" required="required" name="MovieDay" class="form-control"></select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Movie Time <span style="color:red">*</span> </label>
+                                <select id="MovieTime" required="required" name="MovieTime" class="form-control"></select>
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Movie Category <span style="color:red">*</span> </label>
+
+                                @Html.DropDownListFor(model => model.MovieDay,
+                                                          new SelectList(Model.drpMovieCategory, "Value", "Text"), "--Select Category--", new { @class = "form-control", id = "MovieCategory", data_required = "true" })
+
+
+                            </div>
+                            <div class="form-group col-md-6" id="amtDiv">
+                                <label for="inputEmail4">Amount <span style="color:red">*</span> </label>
+                                <input type="text" id="Amount" readonly="readonly" class="form-control">
+                                <span id="lblCoupon" style="display:none" class="badge badge-warning">% Discount Applies</span>
+                                <strike id="OrigAmount" style="display:none" class="badge badge-warning">
+
+                                </strike>
+
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+
+                            </div>
+                            <div class="form-group col-md-6" id="amtChargeDiv" style="display:none;">
+                                <label for="inputEmail4">Charge+ </label>
+                                <input type="text" id="amtCharge" readonly="readonly" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="body-title">
+                            <div class="row">
+                                <div class="col-lg-10 col-xs-10">
+                                    <h6><b>Select payment method</b></h6>
+                                </div>
+                                <div class="row">
+                                    <div class="payment-option left-padd">
+                                        <div class="col-xs-12 col-lg-12 col-md-12">
+                                            <div class="prompt-section">
+                                                &nbsp;
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid a timeout.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <p></p>
+                        <br />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input id="IntializePayment" type="image" src="~/images/Partners/stackPay.jpg" />
+
+
+                            </div>
+                            <div class="form-group col-md-6">
+
+                            </div>
+                        </div>
+
+                        <button type="button" style="display:none" id="btnSaveTrans" class="btn btn-primary"> Process</button>
+
+                        <input type="hidden" id="CouponValue" />
+                        <input type="hidden" id="nErrorCode" />
+                        <input type="hidden" id="IsCoupon" />
+                        <input type="hidden" id="Coupon" />
+                        <input type="hidden" id="CouponAgentId" />
+                        <input type="hidden" id="CouponAssignId" />
+                        <input type="hidden" id="CouponID" />
+                        <input type="hidden" id="PromoCode" />
+                        <p></p>
+                        <p></p>
+                        <p></p>
+
+
+                    </div>
+                    <!-- form -->
+
+
+                </div>
+                <!-- // col-lg-8 -->
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+               
+                <div class="widget">
+
+                    @if (!string.IsNullOrEmpty(Model.MovieYouTube))
+                    {
+                        <center><p><b>Watch the Thriller</b></p></center>
+                        <iframe width="400" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                    }
+                    else
+                    {
+                        <center>
+                            <p>
+                                <span class="badge badge-danger">No Trailer Available for this Movie</span>
+                            </p>
+                        </center>
+                    }
+                    <center><p><b>Synopsis</b></p></center>
+                    @if (!string.IsNullOrEmpty(Model.MovieSynopsis))
+                    {
+
+                        <p><i>@Model.MovieSynopsis</i></p>
+                    }
+                    else
+                    {
+                        <center>
+                            <p>
+                                <span class="badge badge-danger">No Synopsis Available for this Movie</span>
+                            </p>
+                        </center>
+                    }
+
+                </div>
+
+            </div>
+            <!-- // row -->
+        </div>
+        <!-- // container -->
+    </div>
+</div>
+
+<div class="loaderbody" id="loaderbody" style="display:none;">
+    <div class="loader"></div>
+    <p style="text-align:center; color:blue;"><b>loading please.......</b></p>
+</div>
+<script src="~/js/jquery_min.js"></script>
+<script>
+
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#loaderbody").addClass('hide');
+    });
+</script>
+
+<script src="~/js/ticketplanetjs/ScriptingMovies.js"></script>
+<script src="~/js/ticketplanetjs/promoScript.js"></script>
+<script src="~/js/ticketplanetjs/moviesPaystackInitialize.js"></script>
+<script src="~/js/ticketplanetjs/flutterEventInitialize.js"></script>
+
+
+

@@ -18,14 +18,9 @@
                     // alert(lct.LocationName)
                     $("#drpLocation").append($('<option></option>').val(cinema === "3" ? lct.SiteId:lct.Itbid).html(lct.CinemaName));
                 });
-                $("#drpLocation").niceSelect('update'); //Tell the plugin to recreate the DIV.
+               
 
-                $("#OtherCinema").niceSelect('update');
-                $("#Others").niceSelect('update');
-                $("#FilmHouse").niceSelect('update');
-                $("#OthersFilmHouse").niceSelect('update');
-
-               // GetMovies();
+                GetMovies();
             },
             error: function () {
                 alert("Whooaaa! Something went wrong..");
@@ -33,8 +28,9 @@
         });
 } 
 
+
 $("#drpLocation").on('change', function () {
-    $('#screenDiv').show();
+    $('#OthersFilmHouse').html('');
     var company = $('#drpCinemaCompany').val();
     var location = $('#drpLocation').val();
     $.ajax({
@@ -44,44 +40,13 @@ $("#drpLocation").on('change', function () {
         dataType: 'html',
         data: { company: company, location: location },
         success: function (data, textStatus, XMLHttpRequest) {
-            if (data !== null) {
-                console.log("Film Result", data);
-                if (company === "3") {
-                    alert(data);
-                    $('#OtherCinema').hide();
-                    $('#Others').hide();
-                    $('#FilmHouse').show();
-                    $('#OthersFilmHouse').html('');
-                    $('#OthersPartial').html('');
-                    $('#OthersFilmHouse').html(data);
+            if (data !== null)
+            {
+             
+                $('#FilmHouse').show();
+                $('#OthersFilmHouse').html('');
+                $('#OthersFilmHouse').html(data);
                    
-
-
-                    //$("#OtherCinema").niceSelect('update');
-                    //$("#Others").niceSelect('update');
-                    //$("#FilmHouse").niceSelect('update');
-                    //$("#OthersFilmHouse").niceSelect('update');
-                }
-                else {
-                    alert("Genesis" + data);
-                    $('#Others').hide();
-                    $('#OtherCinema').show();
-                    
-                    
-                    $('#FilmHouse').hide();
-                    $('#OthersPartial').html('');
-                    $('#OthersFilmHouse').html('');
-                    $('#OthersPartial').html(data);
-
-                    //$("#OtherCinema").niceSelect('update');
-                    //$("#Others").niceSelect('update');
-                    //$("#FilmHouse").niceSelect('update');
-                    //$("#OthersFilmHouse").niceSelect('update');
-
-
-
-                }
-
             }
 
            
@@ -97,6 +62,37 @@ $("#drpLocation").on('change', function () {
 });
 
 
+function GetMovies()
+{
+    var company = $('#drpCinemaCompany').val();
+    var location = $('#drpLocation').val();
+    $.ajax({
+        url: "GetMoviesViaLocation/Movies",
+        type: 'POST',
+        cache: false,
+        dataType: 'html',
+        data: { company: company, location: location },
+        success: function (data, textStatus, XMLHttpRequest) {
+            if (data !== null) {
+
+                $('#FilmHouse').show();
+                $('#OthersFilmHouse').html('');
+                $('#OthersFilmHouse').html(data);
+
+            }
+
+
+        },
+
+        error: function (xhr, ajaxOptions, thrownError) {
+            $('#screenDiv').hide();
+        },
+
+
+    });
+
+
+}
 
 
 

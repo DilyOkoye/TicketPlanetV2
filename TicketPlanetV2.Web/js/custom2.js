@@ -63,7 +63,7 @@
         /*--------------------------
     nice Select active
     ---------------------------- */
-        $('select').niceSelect();
+       // $('select').niceSelect();
 
 
 

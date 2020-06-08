@@ -68,7 +68,7 @@ namespace TicketPlanetV2.BAL.MovieModel
         private readonly ISliderRepository repoSliders;
         private readonly IBatchCounterRpository repotk_BatchCounter;
         private readonly ICinemaPricingRepository repoCinemaPricing;
-
+        private readonly IClientProfileRepository repoClientProfileRepository;
         private readonly IFlightRoutesRepository repoRoutes;
         private readonly IUnitOfWork unitOfWork;
         private readonly IDbFactory idbfactory;
@@ -107,6 +107,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             repoWarriPerformance = new WarriPerformanceRepository(idbfactory);
             repoCoupon = new CouponsRepository(idbfactory);
             repoSms = new SmsRepository(idbfactory);
+            repoClientProfileRepository = new ClientProfileRepository(idbfactory);
             repoCouponAssign = new CouponCodeAssignmentRepository(idbfactory);
             repoCouponSetUp = new CouponsSetUpRepository(idbfactory);
             db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
@@ -6234,6 +6235,16 @@ namespace TicketPlanetV2.BAL.MovieModel
             return custList;
         }
 
+        public async Task<tk_ClientProfile> GetClientProfileDetails(string code)
+        {
+
+            var tk =await repoClientProfileRepository.Get(x => x.ClientCode == code);
+            return tk;
+
+        }
+
+
+
         public tk_CinemaTransactionLog GetTicketDetails(string TranRef)
         {
 
@@ -6398,6 +6409,8 @@ namespace TicketPlanetV2.BAL.MovieModel
             return result.ToList();
 
         }
+
+      
 
         public IEnumerable<SelectListItem> ListOfCinemas(string movieName)
         {

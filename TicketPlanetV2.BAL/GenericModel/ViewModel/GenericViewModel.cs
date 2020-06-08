@@ -123,10 +123,10 @@ namespace TicketPlanetV2.BAL.GenericModel.ViewModel
         public tk_BusCompany tk_BusCompany { get; set; }
 
 
-        //public string GetFilmHouseLocation(string id)
-        //{
-        //    return new TicketPlanetBusModels().GetFilmHouseLocation(id);
-        //}
+        public string GetFilmHouseLocation(string id)
+        {
+            return new MoviesModelClass().GetFilmHouseLocation(id);
+        }
 
         public string FormattedAmount(decimal amount)
         {

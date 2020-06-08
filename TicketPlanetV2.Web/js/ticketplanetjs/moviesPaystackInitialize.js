@@ -1,0 +1,77 @@
+﻿$(function () {
+
+
+
+    function InitTransaction(data) {
+        return $.ajax({
+            type: "POST",
+            url: "/Movies/InitializeMoviePayment",
+            data: data,
+            dataType: 'json',
+        contentType: 'application/json;charset=utf-8'
+    });
+}
+
+           $("#IntializePayment").click(function (e) {
+
+
+               if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                        $('#email').val() === "" ||
+                        $('#NoOfPersons').val() === "" ||
+                        $('#MovieCategory').val() === "" ||
+                        $('#Amount').val() === "" || $('#MovieDay').val() === "" || $('#MovieTime').val() === "")
+               {
+
+                   alertify.error("One or Two Compulsory Fields is Empty");
+                   return;
+               }
+
+               $("#loaderbody").show();
+               e.preventDefault();
+
+               var data = JSON.stringify({
+                   Fullname: $("#Fullname").val(),
+                   phoneNo: $("#phoneNo").val(),
+                   email: $("#email").val(),
+                   NoOfPersons: $("#NoOfPersons").val(),
+                   MovieCategory: $("#MovieCategory").val(),
+                   Amount: $("#Amount").val(),
+                   comments: $("#comments").val(),
+
+                   CinemaLocation: $("#CinemaCompanyID").val(),
+                   CinemaCompanyID: $("#CinemaCompanyID").val(),
+
+                   MovieDay: $("#MovieDay").val(),
+                   MovieTime: $("#MovieTime").val(),
+                   MovieName: $("#MovieName").val(),
+
+                   IsCoupon: $("#IsCoupon").val(),
+                   Coupon: $("#Coupon").val(),
+                   CouponAgentId: $("#CouponAgentId").val(),
+                   CouponAssignId: $("#CouponAssignId").val(),
+                   CouponID: $("#CouponID").val(),
+                   nErrorCode: $("#nErrorCode").val(),
+                   CouponValue: $("#CouponValue").val()
+               });
+
+
+
+               $.when(InitTransaction(data)).then(function (response) {
+
+
+                   if (response.error == false) {
+                       $('#loaderbody').hide();
+                       //console.log(response.result);
+                       window.location.href = response.result.data.authorization_url;
+                        
+                   } else {
+                       $("#loaderbody").hide();
+                   }
+
+               }).fail(function () {
+                   $("#loaderbody").hide();
+               });
+
+           });
+
+});

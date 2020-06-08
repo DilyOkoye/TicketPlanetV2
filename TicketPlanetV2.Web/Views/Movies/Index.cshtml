@@ -12,46 +12,41 @@
                 <div role="tabpanel" class="tab-pane fade in active" id="best">
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
 
                             <div class="prs_contact_input_wrapper">
                                 <select id="drpCinemaCompany" class="form-control" onchange="GetCinemaLoactions()">
+
                                     <option value="1">Genesis Cinema's</option>
                                     <option value="3">Film House Cinema's</option>
                                     <option value="2">Maturion Cinema's</option>
                                 </select>
 
+                        
 
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
 
                             <div class="prs_contact_input_wrapper">
-                                <select id="drpLocation"></select>
+                                <select id="drpLocation" class="form-control">
+                                </select>
 
                             </div>
                         </div>
-                    </div>
 
-                    
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
 
+                            <div class="prs_contact_input_wrapper">
+                                <input type="text" id="textSearchMovie" onkeyup="SearchMovie()" placeholder="Search for Movie Name..." style="height:30px;" />
 
-                    <div class="prs_upcom_slider_slides_wrapper" id="OtherCinema" style="display:none">
-                        <div class="owl-carousel owl-theme">
-                            <div class="item">
-                                <div class="row">
-                                    <div id="OthersPartial">
-
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                     </div>
 
                     <div class="prs_upcom_slider_slides_wrapper" id="FilmHouse" style="display:none">
-                        <div class="owl-carousel owl-theme">
+                        <div class="owl-carou">
                             <div class="item">
                                 <div class="row">
                                     <div id="OthersFilmHouse">
@@ -92,6 +87,43 @@
             })
             //$("#drpLocation").niceSelect('update'); //Tell the plugin to recreate the DIV.
             }
-            });
-});
+        });
+
+          var company = $('#drpCinemaCompany').val();
+          var location = 1;
+
+        //alert(company)
+        //alert(location)
+    if (location != null && company != null)
+    {
+        $('#OthersFilmHouse').html('');
+        $.ajax({
+            url: "GetMoviesViaLocation/Movies",
+            type: 'POST',
+            cache: false,
+            dataType: 'html',
+            data: { company: company, location: 1 },
+            success: function (data, textStatus, XMLHttpRequest) {
+                if (data !== null)
+                {
+
+                    $('#FilmHouse').show();
+                    $('#OthersFilmHouse').html('');
+                    $('#OthersFilmHouse').html(data);
+
+                }
+
+
+            },
+
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#screenDiv').hide();
+            },
+
+
+        });
+
+    }
+    });
+    
 </script>

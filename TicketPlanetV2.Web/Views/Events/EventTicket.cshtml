@@ -3,13 +3,19 @@
     ViewBag.Title = "EventTicket";
 }
 @Html.HiddenFor(model => model.TicketType, new { id = "TicketType" })
+
+
 <div class="prs_contact_form_main_wrapper">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="prs_contact_left_wrapper">
-                    <h2>EVENT BOOKING</h2>
+                    <h2>EVENT BOOKING </h2>
                 </div>
+
+
+
 
                 <form>
                     <div class="form-row">
@@ -80,25 +86,7 @@
 
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="prs_contact_right_section_wrapper">
-                    <ul>
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i> &nbsp;&nbsp;&nbsp;facebook.com/presenter</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i> &nbsp;&nbsp;&nbsp;twitter.com/presenter</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-vimeo"></i> &nbsp;&nbsp;&nbsp;vimeo.com/presenter</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i> &nbsp;&nbsp;&nbsp;instagram.com/presenter</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-youtube-play"></i> &nbsp;&nbsp;&nbsp;youtube.com/presenter</a>
-                        </li>
-                    </ul>
-                </div>
+                <img src="@Model.EventImagePath" width="400" height="400" style="border-radius:5px" />
 
             </div>
 
