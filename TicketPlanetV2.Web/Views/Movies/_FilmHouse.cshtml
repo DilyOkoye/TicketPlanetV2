@@ -158,7 +158,9 @@ else if (Model.cinemaCompany == "2")
 <script>
 
     $(".btnGenesis").on('click', function () {
+       
         var location = $('#drpLocation').val();
+       // alert(location)
         var id = $(this).data('key');
         if (location != null && id != null)
         {
@@ -168,7 +170,8 @@ else if (Model.cinemaCompany == "2")
     });
 
      $(".btnFilmHouse").on('click', function () {
-        var location = $('#drpLocation').val();
+         var location = $('#drpLocation').val();
+        //  alert(location)
         var id = $(this).data('key');
         if (location != null && id != null)
         {
