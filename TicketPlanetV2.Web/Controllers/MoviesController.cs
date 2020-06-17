@@ -1,4 +1,5 @@
-﻿using Paystack.Net.SDK.Transactions;
+﻿using Hangfire;
+using Paystack.Net.SDK.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -165,6 +166,12 @@ namespace TicketPlanetV2.Web.Controllers
                         if (oGenericViewModel.BookingId != null)
                         {
                             await oMoviesModelClass.UpdateBookingRef(oGenericViewModel.BookingId, tranxRef);
+                            var res = oMoviesModelClass.SendFilmHouseEmail((oGenericViewModel.tk_CinemaTransactionLog));
+                            if (res != null) 
+                            {
+                                BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain(oGenericViewModel.tk_CinemaTransactionLog.ContactEmail, "Payment Receipt - " + oGenericViewModel.BookingId, res, null, "enwakire@ticketplanet.ng"));
+
+                            }
 
                         }
                     }
@@ -820,6 +827,16 @@ namespace TicketPlanetV2.Web.Controllers
                     oGenericViewModel.tk_CinemaTransactionLog = oMoviesModelClass.GetTicketDetails(tranxRef);
                     oGenericViewModel.TransactionRef = tranxRef;
                     var BatchCounter = oMoviesModelClass.GetCurrentCounter();
+
+                  
+                    var res = oMoviesModelClass.SendGenesisMaturionEmail((oGenericViewModel.tk_CinemaTransactionLog));
+                    if (res != null)
+                    {
+                        BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain(oGenericViewModel.tk_CinemaTransactionLog.ContactEmail, "Payment Receipt - " + oGenericViewModel.tk_CinemaTransactionLog.ReferenceNo, res, null, "enwakire@ticketplanet.ng"));
+
+                    }
+
+
                     return View(oGenericViewModel);
                 }
             }

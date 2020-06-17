@@ -38,6 +38,7 @@ namespace TicketPlanetV2.BAL.EventModel
         private readonly IClientProfileRepository repotk_ClientProfile;
         private readonly ITransactionLogRepository repotk_TranLog;
         private readonly IEventCustomerRepository repoEventCustomer;
+        public GenericViewModel oGenericViewModel;
         private readonly IBatchCounterRpository repotk_BatchCounter;
         private readonly ISmsRepository repoSms;
         private readonly IPassengerRepository repotk_Passenger;
@@ -66,6 +67,7 @@ namespace TicketPlanetV2.BAL.EventModel
             repotk_SeatMapping = new SeatMappingRepository(idbfactory);
             repotk_TranLog = new TransactionLogRepository(idbfactory);
             repoFreeEvents = new FreeEventsRepository(idbfactory);
+            oGenericViewModel = new GenericViewModel();
             repoFreeEventCustomers = new FreeEventCustomersRepository(idbfactory);
            
             repoSms = new SmsRepository(idbfactory);
@@ -991,6 +993,45 @@ namespace TicketPlanetV2.BAL.EventModel
             rtv.nErrorCode = 0;
 
             return rtv;
+        }
+
+        public string SendEvent(tk_EventCustomers msg)
+        {
+            try
+            {
+                var category = repoEventCategory.GetNonAsync(o => o.Itbid == msg.TicketCategory);
+                var eventName = repoEvent.GetNonAsync(o => o.Itbid == msg.EventId);
+                if (category != null && eventName != null) 
+                {
+                    string message = SmartObject.PopulateUserBody(3);
+                    message = message.Replace("{{EventName}}", eventName.EventTitle)
+                                    .Replace("{{user}}", msg.Fullname)
+                                    .Replace("{{TKReference}}", msg.ReferenceNo == "" ? "" : msg.ReferenceNo)
+                                    .Replace("{{ReferenceNo}}", msg.PayStackReferenceNo == "" ? "" : msg.PayStackReferenceNo)
+                                    .Replace("{{EventDate}}", oGenericViewModel.FormatDate(eventName.StartDate))
+                                    .Replace("{{EventCategory}}", category.CategoryName)
+                                    .Replace("{{EventVenue}}", eventName.EventLocation)
+                                    .Replace("{{EventTime}}", eventName.EventTime)
+                                    .Replace("{{ContactFullname}}", msg.Fullname == "" ? "" : msg.Fullname)
+                                    .Replace("{{ContactEmail}}", msg.Email == "" ? "" : msg.Email)
+                                    .Replace("{{ContactPhoneNo}}", msg.PhoneNo == "" ? "" : msg.PhoneNo)
+                                    .Replace("{{Units}}", msg.NoOfPersons.ToString())
+                                    .Replace("{{Amount}}", msg.TotalAmount == null ? null : FormattedAmount((decimal)msg.TotalAmount));
+
+                    return message;
+                }
+
+
+
+                return null;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+
         }
         public ReturnValues SaveIntoTransactionLog(string tranRef)
         {

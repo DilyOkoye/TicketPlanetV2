@@ -1,4 +1,5 @@
-﻿using Paystack.Net.SDK.Transactions;
+﻿using Hangfire;
+using Paystack.Net.SDK.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -366,6 +367,13 @@ namespace TicketPlanetV2.Web.Controllers
                     oGenericViewModel.EventImagePath = oEventClassModel.GetEventImagePath((int)oGenericViewModel.tk_EventCustomers.EventId);
                     //Insert Into Transaction Log
                     oEventClassModel.SaveIntoTransactionLog(tranxRef);
+
+                    var res = oEventClassModel.SendEvent((oGenericViewModel.tk_EventCustomers));
+                    if (res != null)
+                    {
+                        BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain(oGenericViewModel.tk_EventCustomers.Email, "Payment Receipt - " + oGenericViewModel.tk_EventCustomers.ReferenceNo, res, null, "enwakire@ticketplanet.ng"));
+
+                    }
 
                     return View(oGenericViewModel);
                 }

@@ -105,11 +105,13 @@
     <Compile Include="Utilities\Class1.cs" />
     <Compile Include="Utilities\Cryptors.cs" />
     <Compile Include="Utilities\DapperCalls.cs" />
+    <Compile Include="Utilities\EmailNotificationMail.cs" />
     <Compile Include="Utilities\JsonResponseFactory.cs" />
     <Compile Include="Utilities\PriviledgeManager.cs" />
     <Compile Include="Utilities\ProfileHelper.cs" />
     <Compile Include="Utilities\RefferenceGenerator.cs" />
     <Compile Include="Utilities\ReturnValues.cs" />
+    <Compile Include="Utilities\SmartObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketPlanetV2.DAL\TicketPlanetV2.DAL.csproj">

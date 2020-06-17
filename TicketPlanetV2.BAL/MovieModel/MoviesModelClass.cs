@@ -24,6 +24,7 @@ using TicketPlanetV2.DAL.Implementation;
 using TicketPlanetV2.DAL.Interfaces;
 using TicketPlanetV2.DAL.Entity;
 using static TicketPlanetV2.BAL.MovieModel.ViewModel.MovieViewModel;
+using TicketPlanetV2.BAL.GenericModel.ViewModel;
 
 namespace TicketPlanetV2.BAL.MovieModel
 {
@@ -57,6 +58,7 @@ namespace TicketPlanetV2.BAL.MovieModel
         private readonly IWarriFilmRepository repoWarriFilms;
         private readonly IWarriPerformanceRepository repoWarriPerformance;
         IDbConnection db = null;
+        public GenericViewModel oGenericViewModel;
         private readonly IPromoDayControlLogRepository repoPromoLog;
         private readonly ICinemaRepository repoCinema;
         private readonly IMoviesRepository repoMovies;
@@ -107,6 +109,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             repoWarriPerformance = new WarriPerformanceRepository(idbfactory);
             repoCoupon = new CouponsRepository(idbfactory);
             repoSms = new SmsRepository(idbfactory);
+            oGenericViewModel = new GenericViewModel();
             repoClientProfileRepository = new ClientProfileRepository(idbfactory);
             repoCouponAssign = new CouponCodeAssignmentRepository(idbfactory);
             repoCouponSetUp = new CouponsSetUpRepository(idbfactory);
@@ -127,6 +130,13 @@ namespace TicketPlanetV2.BAL.MovieModel
         {
 
             return repoCinema.GetNonAsync(o => o.SiteId == siteId).CinemaName;
+
+        }
+
+        public string GetGenesisorManturioLocation(int Id)
+        {
+
+            return repoCinema.GetNonAsync(o => o.Itbid == Id).CinemaName;
 
         }
         public class TicketTypesRtv
@@ -286,6 +296,71 @@ namespace TicketPlanetV2.BAL.MovieModel
             return null;
         }
         public HttpPostedFileBase File { get; set; }
+
+      
+
+        public string SendFilmHouseEmail(tk_CinemaTransactionLog item)
+        {
+            try
+            {
+                string message = SmartObject.PopulateUserBody(2);
+                message = message.Replace("{{user}}", item.ContactFullname)
+                                 .Replace("{{amt}}", "(₦) " + oGenericViewModel.FormattedAmount((decimal)item.TotalAmount))
+                                 .Replace("{{moviename}}", item.MovieName)
+                                 .Replace("{{bookingID}}", item.BookingRef)
+                                 .Replace("{{Fullname}}", item.ContactFullname)
+                                 .Replace("{{amt}}", "(₦) " + oGenericViewModel.FormattedAmount((decimal)item.TotalAmount))
+                                 .Replace("{{location}}", oGenericViewModel.GetGenesisorManturioLocation((int)item.CinemaCompanyLocation))
+                                 .Replace("{{movieDate}}", item.MovieDate)
+                                 .Replace("{{movieTime}}", item.MovieTime)
+                                 .Replace("{{category}}", item.ViewType)
+                                 .Replace("{{emailAddress}}", item.ContactEmail)
+                                 .Replace("{{phone}}", item.ContactPhoneNo)
+                                 .Replace("{{noOfTickets}}", item.Units.ToString())
+                                 .Replace("{{phone}}", item.ContactPhoneNo)
+                                 .Replace("{{tranDate}}", oGenericViewModel.FormatDate((DateTime)item.TransactionDate));
+                return message;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        public string SendGenesisMaturionEmail(tk_CinemaTransactionLog item) 
+        {
+            try
+            {
+                string message = SmartObject.PopulateUserBody(0);
+                message = message.Replace("{{user}}", item.ContactFullname)
+                                 .Replace("{{amt}}", "(₦) " + oGenericViewModel.FormattedAmount((decimal)item.TotalAmount))
+                                 .Replace("{{moviename}}", item.MovieName)
+                                 .Replace("{{bookingID}}", item.ReferenceNo)
+                                 .Replace("{{Fullname}}", item.ContactFullname)
+                                 .Replace("{{amt}}", "(₦) " + oGenericViewModel.FormattedAmount((decimal)item.TotalAmount))
+                                 .Replace("{{location}}", oGenericViewModel.GetGenesisorManturioLocation((int)item.CinemaCompanyLocation))
+                                 .Replace("{{movieDate}}", item.MovieDate)
+                                 .Replace("{{movieTime}}", item.MovieTime)
+                                 .Replace("{{category}}", item.ViewType == "1" ? "Regular 2D" : (item.ViewType == "2" ? "VIP" : (item.ViewType == "3" ? "3D" : "Combo")))
+                                 .Replace("{{emailAddress}}", item.ContactEmail)
+                                 .Replace("{{phone}}", item.ContactPhoneNo)
+                                  .Replace("{{noOfTickets}}", item.Units.ToString())
+                                 .Replace("{{tranDate}}", oGenericViewModel.FormatDate((DateTime)item.TransactionDate));
+                return message;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        
+        
+        }
 
         public int GetCurrentCounter()
         {

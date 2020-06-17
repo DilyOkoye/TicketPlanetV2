@@ -128,6 +128,11 @@ namespace TicketPlanetV2.BAL.GenericModel.ViewModel
             return new MoviesModelClass().GetFilmHouseLocation(id);
         }
 
+        public string GetGenesisorManturioLocation(int id)
+        {
+            return new MoviesModelClass().GetGenesisorManturioLocation(id);
+        }
+        
         public string FormattedAmount(decimal amount)
         {
             return amount.ToString("N2", CultureInfo.InvariantCulture);

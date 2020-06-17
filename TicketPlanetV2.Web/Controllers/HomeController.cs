@@ -28,7 +28,11 @@ namespace TicketPlanetV2.Web.Controllers
             oGenericViewModel.sliderImages =await oMoviesModelClass.GetLoadingImages();
             return View(oGenericViewModel);
         }
+        public async Task<ActionResult> Contact()
+        {
+           
+            return View(oGenericViewModel);
+        }
 
-       
     }
 }
