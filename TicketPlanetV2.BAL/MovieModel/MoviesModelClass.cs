@@ -138,14 +138,14 @@ namespace TicketPlanetV2.BAL.MovieModel
             public bool isAllocatedSeating { get; set; }
         }
 
-        public tk_LoadingImages GetLoadingImages()
+        public async Task<tk_LoadingImages> GetLoadingImages()
         {
             try
             {
 
 
-                var details = repoSliders.GetNonAsync(null);
-
+                var details =await repoSliders.Get(null);
+               // var details = repoSliders.GetNonAsync(x => x.UserId == 2);
 
                 return details;
 

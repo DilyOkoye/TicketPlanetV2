@@ -3,7 +3,7 @@
     var cinema = $("#drpCinemaCompany").val();
     $.ajax
         ({
-            url: "GetCinemaLocation/Movies",
+            url: $('#GetCinemaCompnies').data('request-url'),
             type: 'POST',
             datatype: 'application/json',
             contentType: 'application/json',
@@ -30,11 +30,13 @@
 
 
 $("#drpLocation").on('change', function () {
+    //alert("test")
     $('#OthersFilmHouse').html('');
     var company = $('#drpCinemaCompany').val();
     var location = $('#drpLocation').val();
+  //  alert(location)
     $.ajax({
-        url: "GetMoviesViaLocation/Movies",
+        url: $('#GetMovies').data('request-url'),
         type: 'POST',
         cache: false,
         dataType: 'html',
@@ -66,8 +68,10 @@ function GetMovies()
 {
     var company = $('#drpCinemaCompany').val();
     var location = $('#drpLocation').val();
+    //alert(company)
+    //alert(location)
     $.ajax({
-        url: "GetMoviesViaLocation/Movies",
+        url: $('#GetMovies').data('request-url'),
         type: 'POST',
         cache: false,
         dataType: 'html',
@@ -93,6 +97,19 @@ function GetMovies()
 
 
 }
+
+
+$(".btnEventIndexGrid").on('click', function () {
+    //alert("hhh")
+    var TicketType = $(this).data('key');
+    var ref = "";
+    if (TicketType != null) {
+       
+        window.location = $('#gotoEventTicket').data('request-url') + '?TicketType=' + TicketType + '&referalId=' + ref;
+
+    }
+
+});
 
 
 

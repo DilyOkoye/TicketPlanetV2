@@ -25,7 +25,7 @@
                                             <a href="#">View Trailer</a>
                                         </li>
                                         <li>
-                                            <a class="btnGenesis" data-key='@movie.id*@movie.siteId' href="#">Buy Ticket</a>
+                                            <a class="btnFilmHouse" data-key='@movie.id*@movie.siteId' href="#">Buy Ticket</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -84,7 +84,7 @@ else if (Model.cinemaCompany == "1")
                                         </li>
                                         <li>
 
-                                            <a class="btnFilmHouse" data-key='@i.filmCode*@i._FilmTitle' href="#">Buy Ticket</a>
+                                            <a class="btnGenesis" data-key='@i.filmCode*@i._FilmTitle' href="#">Buy Ticket</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -93,9 +93,9 @@ else if (Model.cinemaCompany == "1")
                                 <div class="prs_upcom_movie_content_box_inner">
                                     <b style="color:black">@i._FilmTitle</b>
                                     <p> @i.ComingSoon</p>	@*<i class="fa fa-star"></i>*@
-                                   
+
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -141,10 +141,10 @@ else if (Model.cinemaCompany == "2")
                             <div class="prs_upcom_movie_content_box">
                                 <div class="prs_upcom_movie_content_box_inner">
                                     <b style="color:black">@i._FilmTitle</b>
-                                    <p> @i.ComingSoon</p>	
-                                 
+                                    <p> @i.ComingSoon</p>
+
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div>
@@ -155,59 +155,93 @@ else if (Model.cinemaCompany == "2")
 
 }
 <script src="~/js/jquery_min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
 <script>
 
     $(".btnGenesis").on('click', function () {
-       
+
         var location = $('#drpLocation').val();
-       // alert(location)
+        // alert(location)
         var id = $(this).data('key');
-        if (location != null && id != null)
-        {
-            window.location = $('#otherMovies').data('request-url') + '?filmCode=' + id + '&CinemaId=' + location;
+        if (location != null && id != null) {
+           // var key = CryptoJS.enc.Utf8.parse(id);
+            var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var iv = CryptoJS.enc.Utf8.parse('8080808080808080'); 
+
+            var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,  
+            {  
+            keySize: 128 / 8,  
+            iv: iv,  
+            mode: CryptoJS.mode.CBC,  
+            padding: CryptoJS.pad.Pkcs7  
+            });  
+           
+
+            window.location = $('#otherMovies').data('request-url') + '?code=' + encryptedlogin + '&CinemaId=' + location;
         }
 
     });
 
-     $(".btnFilmHouse").on('click', function () {
-         var location = $('#drpLocation').val();
+    $(".btnFilmHouse").on('click', function () {
+        var location = $('#drpLocation').val();
         //  alert(location)
         var id = $(this).data('key');
-        if (location != null && id != null)
-        {
-            window.location = $('#filmHouseMovies').data('request-url') + '?filmId=' + id + '&SiteId=' + location;
+        if (location != null && id != null) {
+            // var key = CryptoJS.enc.Utf8.parse(id);
+            var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var iv = CryptoJS.enc.Utf8.parse('8080808080808080'); 
+
+            var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,  
+            {  
+            keySize: 128 / 8,  
+            iv: iv,  
+            mode: CryptoJS.mode.CBC,  
+            padding: CryptoJS.pad.Pkcs7  
+                });  
+
+
+            window.location = $('#filmHouseMovies').data('request-url') + '?code=' + id + '&SiteId=' + location;
         }
 
-     });
+    });
 
-     $(".btnMaturion").on('click', function () {
+    $(".btnMaturion").on('click', function () {
         var location = $('#drpLocation').val();
         var id = $(this).data('key');
-        if (location != null && id != null)
-        {
-             window.location = $('#MaturionMovies').data('request-url') + '?filmCode=' + id + '&CinemaId=' + location;
-           
+        if (location != null && id != null) {
+            // var key = CryptoJS.enc.Utf8.parse(id);
+            var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var iv = CryptoJS.enc.Utf8.parse('8080808080808080'); 
+
+            var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,  
+            {  
+            keySize: 128 / 8,  
+            iv: iv,  
+            mode: CryptoJS.mode.CBC,  
+            padding: CryptoJS.pad.Pkcs7  
+                });  
+
+            window.location = $('#MaturionMovies').data('request-url') + '?code=' + id + '&CinemaId=' + location;
+
         }
 
-     });
+    });
 
-    
-    function SearchMovie()
-    {
-       //alert("test")
-  var input = document.getElementById("textSearchMovie");
-  var filter = input.value.toLowerCase();
-  var nodes = document.getElementsByClassName('col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first');
 
-  for (i = 0; i < nodes.length; i++) {
-      if (nodes[i].innerText.toLowerCase().includes(filter))
-      {
-      nodes[i].style.display = "block";
-    } else {
-      nodes[i].style.display = "none";
+    function SearchMovie() {
+        //alert("test")
+        var input = document.getElementById("textSearchMovie");
+        var filter = input.value.toLowerCase();
+        var nodes = document.getElementsByClassName('col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first');
+
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].innerText.toLowerCase().includes(filter)) {
+                nodes[i].style.display = "block";
+            } else {
+                nodes[i].style.display = "none";
+            }
+        }
     }
-  }
-}
 </script>
 <div id="otherMovies" style="display:none" data-request-url="@Url.Action("MovieTicket", "Movies")"></div>
 <div id="filmHouseMovies" style="display:none" data-request-url="@Url.Action("FilmHouseTickets", "Movies")"></div>

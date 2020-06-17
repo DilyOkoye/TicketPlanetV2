@@ -28,11 +28,11 @@ Author: Webstrot
     <link rel="stylesheet" type="text/css" href="~/css/owl.carousel.css" />
     <link rel="stylesheet" type="text/css" href="~/css/owl.theme.default.css" />
     <link rel="stylesheet" type="text/css" href="~/css/dl-menu.css" />
-    @*<link rel="stylesheet" type="text/css" href="~/css/nice-select.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/css/nice-select.css" />
     <link rel="stylesheet" type="text/css" href="~/css/magnific-popup.css" />
     <link rel="stylesheet" type="text/css" href="~/css/venobox.css" />
     <link rel="stylesheet" type="text/css" href="~/css/slick.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/slick-theme.css" />
+    @*<link rel="stylesheet" type="text/css" href="~/css/slick-theme.css" />*@
     <link rel="stylesheet" type="text/css" href="~/css/style2.css" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive2.css" />
 
@@ -56,6 +56,8 @@ Author: Webstrot
     <div id="preloader">
         <div id="status">
             <img src="~/images/header/horoscope.gif" id="preloader_image" alt="loader">
+            <br /><br />
+            <p class="text-center" style="font-weight:bold; font-size:x-large; color:black;">..Loading Please..</p>
         </div>
     </div>
     <!-- color picker start -->
@@ -96,6 +98,11 @@ Author: Webstrot
                 </button>
             </div>
             <div class="prs_navi_left_main_wrapper">
+                @*<div class="prs_logo_main_wrapper">
+                    <a href="#">
+                        <img src="images/header/home.png" alt="logo" />
+                    </a>
+                </div>*@
                 <div class="prs_menu_main_wrapper">
                     <nav class="navbar navbar-default">
                         <div id="dl-menu" class="xv-menuwrapper responsive-menu">
@@ -124,9 +131,9 @@ Author: Webstrot
 
                                 </li>
                                 @*<li class="parent">
-                                        <a href="#">pages</a>
+                            <a href="#">pages</a>
 
-                                    </li>*@
+                        </li>*@
                                 <li class="parent">
                                     <a href="@Url.Action("Index", "Contact")">contact</a>
                                 </li>
@@ -135,15 +142,20 @@ Author: Webstrot
                         <!-- /dl-menuwrapper -->
                     </nav>
                 </div>
-                <div class="prs_logo_main_wrapper">
-                    <img src="~/images/header/home2 (1).png" width="182" height="40" alt="bar_png">
-                </div>
+                @*<div class="prs_logo_main_wrapper">
+            <img src="~/images/header/home.png" width="182" height="40" alt="bar_png">
+        </div>*@
             </div>
             <div class="prs_navi_right_main_wrapper">
                 <div class="prs_slidebar_wrapper">
                     <button class="second-nav-toggler" type="button" style="background-color:#337ab7">
                         <img src="~/images/header/bars.png" alt="bar_png">
                     </button>
+                </div>
+                <div class="prs_top_login_btn_wrapper">
+                    <div class="prs_animate_btn1">
+
+                    </div>
                 </div>
                 @*<div class="prs_top_login_btn_wrapper">
                         <div class="prs_animate_btn1">
@@ -154,7 +166,7 @@ Author: Webstrot
                             </ul>
                         </div>
                     </div>*@
-                <div class="product-heading">
+                @*<div class="product-heading">
                     <div class="con">
 
                         <input type="text" placeholder="Search Movie , Event ">
@@ -162,7 +174,7 @@ Author: Webstrot
                             <i class="flaticon-tool"></i>
                         </button>
                     </div>
-                </div>
+                </div>*@
             </div>
             <div id="mobile-nav" data-prevent-default="true" data-mouse-events="true">
                 <div class="mobail_nav_overlay"></div>
@@ -193,22 +205,16 @@ Author: Webstrot
                             <a href="contact.html">CONTACT</a>
                         </li>
                     </ul>
-                    <div class="product-heading prs_slidebar_searchbar_wrapper">
+                    @*<div class="product-heading prs_slidebar_searchbar_wrapper">
                         <div class="con">
-                            @*<select>
-                                    <option>All Categories</option>
-                                    <option>Movie</option>
-                                    <option>Video</option>
-                                    <option>Music</option>
-                                    <option>TV-Show</option>
-                                </select>*@
+                           
                             <input type="text" placeholder="Search Movie , Event">
                             <button type="submit">
                                 <i class="flaticon-tool"></i>
                             </button>
                         </div>
-                    </div>
-                    <div class="achivement-blog">
+                    </div>*@
+                    @*<div class="achivement-blog">
                         <ul class="flat-list">
                             <li>
                                 <a href="#">
@@ -237,7 +243,7 @@ Author: Webstrot
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div>*@
                     @*<div class="prs_top_login_btn_wrapper prs_slidebar_searchbar_btn_wrapper">
                             <div class="prs_animate_btn1">
                                 <ul>
@@ -466,7 +472,7 @@ Author: Webstrot
     <script src="~/js/owl.carousel.js"></script>
     <script src="~/js/jquery.dlmenu.js"></script>
     <script src="~/js/jquery.sticky.js"></script>
-    @*<script src="~/js/jquery.nice-select.min.js"></script>*@
+    <script src="~/js/jquery.nice-select.min.js"></script>
     <script src="~/js/jquery.magnific-popup.js"></script>
     <script src="~/js/jquery.bxslider.min.js"></script>
     <script src="~/js/venobox.min.js"></script>
@@ -477,11 +483,11 @@ Author: Webstrot
     <!--main js file end-->
     <script src="~/js/ticketplanetjs/movies.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="~/js/ticketplanetjs/aes.js"></script>
     <script>
         $(document).ready(function ()
         {
            
-
             $('#drpLocation').select2({
   
             });

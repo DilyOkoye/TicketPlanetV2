@@ -30,13 +30,13 @@ namespace TicketPlanetV2.Web.Controllers
             oEventClassModel = new EventClassModel();
         }
         // GET: Events
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
 
             oGenericViewModel.tk_Event = new tk_Event();
             oGenericViewModel.tk_EventCategory = new tk_EventCategory();
             oGenericViewModel.tk_EventCustomers = new tk_EventCustomers();
-            oGenericViewModel.EventList = oEventClassModel.ListofEvents();
+            oGenericViewModel.EventList =await oEventClassModel.ListofEvents();
             oGenericViewModel.FreeEventList = oEventClassModel.ListOfFreeEvents();
             oGenericViewModel.rv = new ReturnValues();
             return View(oGenericViewModel);

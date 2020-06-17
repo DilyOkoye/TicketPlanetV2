@@ -282,7 +282,8 @@ ul.colors li:hover p {
 .prs_navigation_main_wrapper {
     float: left;
     width: 100%;
-    background: #DF3E3D;
+    /*background: #DF3E3D;*/
+    background: rgba(38, 38, 174, 0.80);
     z-index: 10000;
 }
 .menu_fixed {
@@ -2303,13 +2304,13 @@ body.active #mobile-nav {
 /*-- prs video section End --*/
 /*-- prs teater Slider Start --*/
 .prs_theater_main_slider_wrapper{
-	background:url('../images/content/theater_bg.jpg') 50% 0 repeat-y;
+	background:url('../images/content/2.png') 50% 0 repeat-y;
 	float:left;
 	width:100%;
 	height:100%;
 	background-size:cover;
 	background-position:center 0;
-	background-repeat:no-repeat;
+	
 	position:relative;
 	padding-top:94px;
 	padding-bottom:90px;
@@ -7410,22 +7411,22 @@ body.active #mobile-nav {
 .prs_slider_upcom_heading_wrapper{
 	float:left;
 	width:450px;
-	/*background:url('../images/index_II/upcoming_heading.jpg') 50% 0 repeat-y;*/
-	/*background-position:center 0;
-	background-size:cover;*/
+	background:url('../images/index_II/upcoming_heading.jpg') 50% 0 repeat-y;
+	background-position:center 0;
+	background-size:cover;
 	min-height:365px;
 	position:relative;
 	    padding-left: 100px;
     padding-top: 103px;
 }
-/*.prs_slider_upcom_heading_img_overlay{
+.prs_slider_upcom_heading_img_overlay{
 	position:absolute;
 	left:0;
 	right:0;
 	top:0;
 	bottom:0;
 	background:rgba(0,0,0,0.7);
-}*/
+}
 .prs_slider_upcom_heading_slider_wrapper{
 	float:left;
 	width:calc(100% - 450px);

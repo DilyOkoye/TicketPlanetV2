@@ -127,10 +127,10 @@ namespace TicketPlanetV2.BAL.EventModel
         }
 
 
-        public List<tk_Event> ListofEvents()
+        public async Task<List<tk_Event>> ListofEvents()
         {
 
-            var d = (from i in repoEvent.GetManyNonAsync(o => o.Status == "Active")
+            var d = (from i in await repoEvent.GetMany(o => o.Status == "Active")
                      orderby i.Itbid descending
 
                      select new tk_Event

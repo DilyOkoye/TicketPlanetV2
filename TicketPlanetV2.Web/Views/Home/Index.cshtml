@@ -1,62 +1,119 @@
 ﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
+
+<!-- prs Slider Start -->
 <div class="prs_main_slider_wrapper">
     <div class="prs_top_main_slider_wrapper">
-        <div class="img_main">
-            <img src="@Model.sliderImages.Slider2" width="640" height="535">
-        </div>
-        <div class="img_main">
-            <img src="@Model.sliderImages.Slider3" width="640" height="535">
-        </div>
-        <div class="img_main">
-            <img src="@Model.sliderImages.Slider4" width="640" height="535">
-        </div>
-        <div class="img_main">
-            <img src="@Model.sliderImages.Slider5" width="640" height="535">
-        </div>
-        <div class="img_main">
-            <img src="@Model.sliderImages.Slider6" width="640" height="535">
-        </div>
-        <div class="img_main">
-            <img src="@Model.sliderImages.Slider7" width="640" height="535">
-        </div>
+        <a href="@Url.Action("Index", "Movies")">
+            <div class="img_main">
+                <img src="@Model.sliderImages.Slider1">
+            </div>
+        </a>
+        <a href="@Url.Action("Index", "Movies")">
+            <div class="img_main">
+                <img src="@Model.sliderImages.Slider2">
+            </div>
+        </a>
+        <a href="@Url.Action("Index", "Movies")">
+            <div class="img_main">
+                <img src="@Model.sliderImages.Slider3">
+            </div>
+        </a>
+        <a href="@Url.Action("Index", "Movies")">
+            <div class="img_main">
+                <img src="@Model.sliderImages.Slider4">
+            </div>
+        </a>
     </div>
 </div>
 <div class="prs_slider_upcoming_main_wrapper">
-    <div class="prs_slider_upcom_heading_wrapper" style="background:url('@Model.sliderImages.Slider2') 50% 0 repeat-y;">
-       
-        @*<h3>
+    <div class="prs_slider_upcom_heading_wrapper">
+        <div class="prs_slider_upcom_heading_img_overlay"></div>
+        <h3>
             latest and <br>
             upcoming <br>
             movies
-        </h3>*@
+        </h3>
     </div>
     <div class="prs_slider_upcom_heading_slider_wrapper">
         <div class="prs_top_main_upcom_slider_wrapper">
             <div class="img_main_up">
-                <img src="@Model.sliderImages.Slider2" >
-                @*<h4><a href="#">Aquaman</a> &nbsp;&nbsp;<span>release on 30 nov</span></h4>*@
+                <img src="@Model.sliderImages.Slider5">
+                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.SliderCategory5</span></h4>
             </div>
             <div class="img_main_up">
-                <img src="@Model.sliderImages.Slider3" >
-                @*<h4><a href="#">Aquaman</a> &nbsp;&nbsp;<span>release on 30 nov</span></h4>*@
+                <img src="@Model.sliderImages.Slider6">
+                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.SliderCategory6</span></h4>
             </div>
             <div class="img_main_up">
-                <img src="@Model.sliderImages.Slider4">
-                @*<h4><a href="#">Aquaman</a> &nbsp;&nbsp;<span>release on 30 nov</span></h4>*@
+                <img src="@Model.sliderImages.Slider7">
+                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.SliderCategory7</span></h4>
             </div>
             <div class="img_main_up">
-                <img src="@Model.sliderImages.Slider5" >
-                @*<h4><a href="#">Aquaman</a> &nbsp;&nbsp;<span>release on 30 nov</span></h4>*@
+                <img src="@Model.sliderImages.HomePageBox1">
+                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.HomePageBox1Category</span></h4>
             </div>
             <div class="img_main_up">
-                <img src="@Model.sliderImages.Slider6" >
-                @*<h4><a href="#">Aquaman</a> &nbsp;&nbsp;<span>release on 30 nov</span></h4>*@
+                <img src="@Model.sliderImages.HomePageBox2">
+                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.HomePageBox1Category2</span></h4>
             </div>
-            <div class="img_main_up">
-                <img src="@Model.sliderImages.Slider7" >
-                @*<h4><a href="#">Aquaman</a> &nbsp;&nbsp;<span>release on 30 nov</span></h4>*@
-            </div>
+
+
         </div>
+    </div>
+</div>
+
+<!-- prs theater Slider Start -->
+<div class="prs_theater_main_slider_wrapper">
+    <div class="prs_theater_img_overlay"></div>
+    <div class="prs_theater_sec_heading_wrapper">
+        <h2>Event pro special</h2>
+    </div>
+    <div class="wrap-album-slider wrap-album-slider-top-slider">
+        <ul class="album-slider">
+
+            @foreach (var i in Model.EventList)
+            {
+                <li class="album-slider__item">
+                    <figure class="album">
+                        <div class="prs_upcom_movie_box_wrapper">
+                            <div class="prs_upcom_movie_img_box">
+                                <img src="@i.EventImageName" alt="movie_imgwidth=" 270" height="360" />
+                                <div class="prs_upcom_movie_img_overlay"></div>
+                                <div class="prs_upcom_movie_img_btn_wrapper">
+                                    <ul>
+                                        <li>
+                                            <a class="btnEventIndexGrid" data-key='@i.Itbid' href="#">Buy Ticket</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">View Details</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="prs_upcom_movie_content_box">
+                                <div class="prs_upcom_movie_content_box_inner">
+                                    <h2><a href="#">@i.EventTitle</a></h2>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End album body -->
+                    </figure>
+                    <!-- End album -->
+                </li>
+
+
+
+            }
+
+        </ul>
+
+        <!-- End slider -->
     </div>
 </div>
 
@@ -111,7 +168,7 @@
                         </div>
                         <div class="item">
                             <div class="prs_pn_img_wrapper">
-                               
+
                                 <img src="~/images/Partners/UBA.png" height="150" width="100" />
                             </div>
                         </div>
@@ -121,22 +178,4 @@
         </div>
     </div>
 </div>
-<!-- prs patner slider End -->
-<!-- prs Newsletter Wrapper Start -->
-<div class="prs_newsletter_wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                <div class="prs_newsletter_text">
-                    <h3>Get update sign up now !</h3>
-                </div>
-            </div>
-            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <div class="prs_newsletter_field">
-                    <input type="text" placeholder="Enter Your Email">
-                    <button type="submit">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="gotoEventTicket" style="display:none" data-request-url="@Url.Action("EventTicket", "Events")"></div>
