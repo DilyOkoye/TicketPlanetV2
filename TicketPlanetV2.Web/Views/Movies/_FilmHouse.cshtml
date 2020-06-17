@@ -83,7 +83,7 @@ else if (Model.cinemaCompany == "1")
                                             <a href="#">View Trailer</a>
                                         </li>
                                         <li>
-                                            <a class="btnGenesis" data-id="@i._FilmTitle"  href="#">Buy Ticket</a>
+                                          
                                             @*<a style="display:none" class="btnGenesisFilm" data-value='@i._FilmTitle' href="#">Buy Ticket</a>*@
                                             <a class="btnGenesis" data-key='@i.filmCode*@i._FilmTitle' href="#">Buy Ticket</a>
                                         </li>
@@ -162,29 +162,12 @@ else if (Model.cinemaCompany == "2")
    $(".btnGenesis").on('click', function () {
 
     var location = $('#drpLocation').val();
-    // alert(location)
-       var id = $(this).data('key');
-      // var id2 = $(this).data('value');
-      var id2 = $(this).attr("data-id");
-       alert(id2);
-         alert($(this).data('key'));
-       return
-    if (location != null && id != null) {
-        // var key = CryptoJS.enc.Utf8.parse(id);
-        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
-        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
-
-        var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
-            {
-                keySize: 128 / 8,
-                iv: iv,
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Pkcs7
-            });
-
-
-        window.location = $('#otherMovies').data('request-url') + '?code=' + encryptedKey + '&CinemaId=' + location;
-    }
+     var id = $(this).data('key');
+       if (location != null && id != null)
+       {
+           window.location = $('#otherMovies').data('request-url') + '?filmCode=' + id + '&CinemaId=' + location;
+       }
+    
 
 });
 
@@ -193,20 +176,20 @@ $(".btnFilmHouse").on('click', function () {
     //  alert(location)
     var id = $(this).data('key');
     if (location != null && id != null) {
-        // var key = CryptoJS.enc.Utf8.parse(id);
-        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
-        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+        //// var key = CryptoJS.enc.Utf8.parse(id);
+        //var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+        //var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
 
-        var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
-            {
-                keySize: 128 / 8,
-                iv: iv,
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Pkcs7
-            });
+        //var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
+        //    {
+        //        keySize: 128 / 8,
+        //        iv: iv,
+        //        mode: CryptoJS.mode.CBC,
+        //        padding: CryptoJS.pad.Pkcs7
+        //    });
 
 
-        window.location = $('#filmHouseMovies').data('request-url') + '?code=' + encryptedKey + '&SiteId=' + location;
+        window.location = $('#filmHouseMovies').data('request-url') + '?filmId=' + id + '&SiteId=' + location;
     }
 
 });
@@ -215,20 +198,21 @@ $(".btnMaturion").on('click', function () {
    // alert("tets")
     var location = $('#drpLocation').val();
     var id = $(this).data('key');
-    if (location != null && id != null) {
-        // var key = CryptoJS.enc.Utf8.parse(id);
-        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
-        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+    if (location != null && id != null)
+    {
+        //// var key = CryptoJS.enc.Utf8.parse(id);
+        //var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+        //var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
 
-        var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
-            {
-                keySize: 128 / 8,
-                iv: iv,
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Pkcs7
-            });
+        //var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
+        //    {
+        //        keySize: 128 / 8,
+        //        iv: iv,
+        //        mode: CryptoJS.mode.CBC,
+        //        padding: CryptoJS.pad.Pkcs7
+        //    });
 
-        window.location = $('#MaturionMovies').data('request-url') + '?code=' + encryptedKey + '&CinemaId=' + location;
+        window.location = $('#MaturionMovies').data('request-url') + '?filmCode=' + id + '&CinemaId=' + location;
 
     }
 

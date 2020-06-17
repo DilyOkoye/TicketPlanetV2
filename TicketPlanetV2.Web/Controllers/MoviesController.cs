@@ -184,14 +184,14 @@ namespace TicketPlanetV2.Web.Controllers
             return View(oGenericViewModel);
         }
 
-        public async Task<ActionResult> FilmHouseTickets(string code, string SiteId)
+        public async Task<ActionResult> FilmHouseTickets(string filmId, string SiteId)
         {
-            string filmId = Cryptors.DecryptStringAES(code);
-            if (string.IsNullOrEmpty(filmId) || filmId == "keyError")
-            {
-                return RedirectToAction("Index", "Movies");
+            //string filmId = Cryptors.DecryptStringAES(code);
+            //if (string.IsNullOrEmpty(filmId) || filmId == "keyError")
+            //{
+            //    return RedirectToAction("Index", "Movies");
 
-            }
+            //}
 
             if (string.IsNullOrEmpty(filmId))
             {
@@ -218,14 +218,14 @@ namespace TicketPlanetV2.Web.Controllers
         }
 
 
-        public async Task<ActionResult> MovieTicket(string code, string CinemaId)
+        public async Task<ActionResult> MovieTicket(string filmCode, string CinemaId)
         {
-            string filmCode = Cryptors.DecryptStringAES(code);
-            if (string.IsNullOrEmpty(filmCode) || filmCode == "keyError") 
-            {
-                return RedirectToAction("Index", "Movies");
+            //string filmCode = Cryptors.DecryptStringAES(code);
+            //if (string.IsNullOrEmpty(filmCode) || filmCode == "keyError") 
+            //{
+            //    return RedirectToAction("Index", "Movies");
 
-            }
+            //}
             if (filmCode == null || filmCode == null)
             {
                 return RedirectToAction("Index", "Movies");
@@ -253,15 +253,9 @@ namespace TicketPlanetV2.Web.Controllers
         }
 
        
-        public async Task<ActionResult> MarturionTicket( string code, string CinemaId)
+        public async Task<ActionResult> MarturionTicket(string filmCode, string CinemaId)
         {
-            string filmCode = Cryptors.DecryptStringAES(code);
-            if (string.IsNullOrEmpty(filmCode) || filmCode == "keyError")
-            {
-                return RedirectToAction("Index", "Movies");
-
-            }
-
+           
             if (filmCode == null || filmCode == null)
             {
                 return RedirectToAction("Index", "Movies");

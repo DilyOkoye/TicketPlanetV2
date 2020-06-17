@@ -80,13 +80,13 @@ namespace TicketPlanetV2.BAL.Utilities
             switch (email_type)
             {
                 case 0:
-                    path = Path.Combine(HttpRuntime.AppDomainAppPath, "pdftemplate/GenesisMaturionMovieEmail.html");
+                    path = Path.Combine(HttpRuntime.AppDomainAppPath, "EmailTemplates/GenesisMaturionMovieEmail.html");
                     break;
                 case 1:
-                    path = Path.Combine(HttpRuntime.AppDomainAppPath, "pdftemplate/FilmHouseEmail.html");
+                    path = Path.Combine(HttpRuntime.AppDomainAppPath, "EmailTemplates/FilmHouseEmail.html");
                     break;
                 case 2:
-                    path = Path.Combine(HttpRuntime.AppDomainAppPath, "pdftemplate/EventTemplate.html");
+                    path = Path.Combine(HttpRuntime.AppDomainAppPath, "EmailTemplates/EventTemplate.html");
                     break;
                
             }

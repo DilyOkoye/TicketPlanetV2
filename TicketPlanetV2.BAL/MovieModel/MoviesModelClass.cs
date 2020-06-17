@@ -353,7 +353,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                 return message;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return null;
