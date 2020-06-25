@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Hangfire;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TicketPlanetV2.BAL.EventModel;
 using TicketPlanetV2.BAL.GenericModel.ViewModel;
 using TicketPlanetV2.BAL.MovieModel;
+using TicketPlanetV2.BAL.Utilities;
 
 namespace TicketPlanetV2.Web.Controllers
 {
@@ -32,6 +36,24 @@ namespace TicketPlanetV2.Web.Controllers
         {
            
             return View(oGenericViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Contact(string name, string email, string comment)
+        {
+            try
+            {
+
+                BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain("contact@ticketplanet.ng", "Contact Us from " + name, comment, "enwakire@ticketplanet.ng;info@ticketplanet.ng", "peze@ticketplanet.ng"));
+                //pascal.ezeh@ticketplanet.ng
+                return Json(new { error = false,  message = "Message sent"}, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(new { error = true});
         }
 
     }

@@ -176,6 +176,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\fltImage.jpg" />
+    <Content Include="assets\flutter.jpg" />
+    <Content Include="assets\paystack.jpg" />
+    <Content Include="assets\pt.png" />
+    <Content Include="assets\rv.jpg" />
+    <Content Include="assets\stackPay.jpg" />
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap-select.css" />
     <Content Include="css\bootstrap.css" />
@@ -205,6 +211,8 @@
     <Content Include="css\style3.css" />
     <Content Include="css\style4.css" />
     <Content Include="css\venobox.css" />
+    <Content Include="css\w3.css" />
+    <Content Include="css\w333.css" />
     <Content Include="EmailTemplates\EventTemplate.html" />
     <Content Include="EmailTemplates\FilmHouseEmail.html" />
     <Content Include="EmailTemplates\GenesisMaturionMovieEmail.html" />
@@ -443,12 +451,20 @@
     <Content Include="js\smothscroll_part1.js" />
     <Content Include="js\smothscroll_part2.js" />
     <Content Include="js\ticketplanetjs\aes.js" />
+    <Content Include="js\ticketplanetjs\alertify.core.css" />
+    <Content Include="js\ticketplanetjs\alertify.default.css" />
+    <Content Include="js\ticketplanetjs\alertify.min.js" />
+    <Content Include="js\ticketplanetjs\contactCall.js" />
     <Content Include="js\ticketplanetjs\crypto.js" />
     <Content Include="js\ticketplanetjs\filmHouse.js" />
     <Content Include="js\ticketplanetjs\flutterEventInitialize.js" />
+    <Content Include="js\ticketplanetjs\movieFlutterInitialize.js" />
     <Content Include="js\ticketplanetjs\movies.js" />
     <Content Include="js\ticketplanetjs\moviesPaystackInitialize.js" />
+    <Content Include="js\ticketplanetjs\paystackEventInit.js" />
     <Content Include="js\ticketplanetjs\promoScript.js" />
+    <Content Include="js\ticketplanetjs\scriptFiles.js" />
+    <Content Include="js\ticketplanetjs\ScriptingEvent.js" />
     <Content Include="js\ticketplanetjs\ScriptingMovies.js" />
     <Content Include="js\ticketplanetjs\SelectJs.js" />
     <Content Include="js\venobox.min.js" />
@@ -505,6 +521,9 @@
     <Content Include="Views\Movies\FilmHouseTickets.cshtml" />
     <Content Include="Views\Movies\PaymentConfirmationFm.cshtml" />
     <Content Include="Views\Movies\PaymentConfirmation.cshtml" />
+    <Content Include="Views\Events\paymentConfirmationFlw.cshtml" />
+    <Content Include="Views\Movies\paymentConfirmationFlw.cshtml" />
+    <Content Include="Views\Movies\PaymentConfirmationFmflw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

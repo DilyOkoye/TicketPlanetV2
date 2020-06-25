@@ -26,7 +26,9 @@
                    return;
                }
 
-               $("#loaderbody").show();
+               //$("#preloader").show();
+               $("#status").fadeIn();
+               $("#preloader").delay(350).fadeIn("slow");
                e.preventDefault();
 
                var data = JSON.stringify({
@@ -60,16 +62,19 @@
 
 
                    if (response.error == false) {
-                       $('#loaderbody').hide();
+                       $("#status").fadeOut();
+                       $("#preloader").delay(350).fadeOut("slow");
                        //console.log(response.result);
                        window.location.href = response.result.data.authorization_url;
                         
                    } else {
-                       $("#loaderbody").hide();
+                       $("#status").fadeOut();
+                       $("#preloader").delay(350).fadeOut("slow");
                    }
 
                }).fail(function () {
-                   $("#loaderbody").hide();
+                   $("#status").fadeOut();
+                   $("#preloader").delay(350).fadeOut("slow");
                });
 
            });

@@ -4,18 +4,133 @@
 }
 @Html.HiddenFor(model => model.TicketType, new { id = "TicketType" })
 
+<style>
+    .loaderbody {
+        width: 100%;
+        height: 200%;
+        left: 0px;
+        top: 30%;
+        position: absolute;
+        background-color: rgba(128, 128, 128, 0.2);
+        z-index: 2147453647;
+    }
+
+    .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-right: 8px solid #3498db;
+        border-bottom: 8px thin #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loaderbody p {
+        position: fixed;
+        top: 55%;
+        left: 45%;
+        text-align: center;
+        color: #f3f3f3;
+    }
+
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        display: none;
+        opacity: .9;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #loading-image {
+        position: absolute;
+        top: 250px;
+        left: 550px;
+        z-index: 600;
+    }
+</style>
+
+<style>
+    @@media only screen and (max-width:420px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (max-width:800px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (min-width:800px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (max-width:375px) {
+        #paymentModalContent {
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+
+    /*@@media only screen and (min-width:320px) {
+        #paymentModalContent {
+            margin-top: 10px;
+            text-align: center
+        }
+    }*/
+
+    @@media only screen and (max-width:1100px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (min-width:1100px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+</style>
 
 <div class="prs_contact_form_main_wrapper">
-
+    
     <div class="container">
+        <a href="@Url.Action("Index", "Events")" class="text-blue" style="color:black;margin-top:24px;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
+        <br />
+        <br />
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="prs_contact_left_wrapper">
                     <h2>EVENT BOOKING </h2>
                 </div>
-
-
-
 
                 <form>
                     <div class="form-row">
@@ -67,18 +182,50 @@
                             </div>
                         </div>
 
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input id="IntializePayment" type="image" src="~/images/Partners/stackPay.jpg" />
-
-
-                            </div>
-                            <div class="form-group col-md-6">
+                        <div class="body-title">
+                            <div class="row">
+                                <div class="col-lg-10 col-xs-10">
+                                    <h6><b>Select payment method</b></h6>
+                                </div>
+                                <div class="row">
+                                    <div class="container payment-option left-padd">
+                                        <div class="col-xs-10 col-sm-10 col-lg-10 col-md-10">
+                                            <div class="prompt-section">
+                                                &nbsp;
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid timeout.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
+                        <p></p>
+                        <br />
 
+                        <div class="row">
+
+                            <div>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn btn-primary btn-lg" id="proceedEventBtn" style="border-radius:5px;">Proceed</a>
+                            </div>
+                            @*<div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="flutterDIV">
+                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink " style="border:2px solid black;border-radius:5px;" id="IntializeEventFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
+                            </div>
+
+                            <div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="paystackDIV">
+                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink " style="border:2px solid black;border-radius:5px;" id="IntializeEventPayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
+                            </div>*@
+
+                           
+                            <input type="hidden" id="referalId" name="referalId" value="@Model.referalId" />
+                        </div>
+
+                    }
+                    else
+                    {
+                        <p></p>
+
+                        <button type="button" id="IntializeFreePayPayment" style="cursor:pointer" class="btn btn-default">Register For Free</button>
                     }
 
 
@@ -92,5 +239,68 @@
 
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="paymentEventModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+
+        <div class="modal-content" id="paymentEventModalContent" style="margin-top:200px;background-color:lightblue">
+            <button type="button" class="close" data-dismiss="modal" style="color:black;">close</button>
+            <br />
+            <div class="row">
+                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12 text-center">
+                    <h3><b>Select payment method</b></h3>
+                    <p><i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid timeout.</span></p>
+                </div>
+            </div>
+            <div class="row text-center" style="margin-top:20px;">
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="flutterDIV">
+                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeEventFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
+                </div>
+                @*<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
+                        <h2>OR</h2>
+                    </div>*@
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
+                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializeEventPayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/js/jquery_min.js"></script>
+<script src="~/js/ticketplanetjs/ScriptingEvent.js"></script>
+<script src="~/js/ticketplanetjs/paystackEventInit.js"></script>
+<script src="~/js/ticketplanetjs/flutterEventInitialize.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#proceedEventBtn").click(function () {
+
+            if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                    $('#email').val() === "" ||
+                    $('#NoOfPersons').val() === "" ||
+                    $('#TicketCategory').val() === "" ||
+                    $('#Amount').val() === "" ||
+                    $('#comments').val() === "") {
+
+                $(this).attr("data-target", "");
+                alertify.error("One or Two Compulsory Fields is Empty");
+                return;
+            }
+             else {
+                //console.log("kenny");
+                $(this).attr("data-target", "#paymentEventModal");
+            }
+
+            
+        });
+    });
+</script>
+
+<div class="loaderbody" id="loaderbody" style="display:none;">
+    <div class="loader"></div>
+    <p style="text-align:center; color:blue;"><b>loading please.......</b></p>
 </div>
 

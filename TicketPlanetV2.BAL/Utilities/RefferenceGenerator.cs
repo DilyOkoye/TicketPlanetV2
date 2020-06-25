@@ -53,7 +53,7 @@ namespace TicketPlanetV2.BAL.Utilities
            try
            {
 
-
+            
                var rand = new Random();
                string randomNo = rand.Next(1234, 3241).ToString();
                string prefix = System.Configuration.ConfigurationManager.AppSettings["TicketPlanetPrefix"];

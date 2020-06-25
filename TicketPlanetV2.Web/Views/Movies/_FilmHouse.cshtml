@@ -1,5 +1,10 @@
 ﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
 
+<style>
+    .movieFrame{
+        
+    }
+</style>
 @if (Model.cinemaCompany == "3")
 {
 
@@ -22,7 +27,7 @@
                                 <div class="prs_upcom_movie_img_btn_wrapper">
                                     <ul>
                                         <li>
-                                            <a href="#">View Trailer</a>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#movieModals-@movie.id" data-src="@movie.youtube" data-filmcode="@movie.id" data-title="@movie.title">View Trailer</a>
                                         </li>
                                         <li>
                                             <a class="btnFilmHouse" data-key='@movie.id*@movie.siteId' href="#">Buy Ticket</a>
@@ -80,12 +85,12 @@ else if (Model.cinemaCompany == "1")
                                 <div class="prs_upcom_movie_img_btn_wrapper">
                                     <ul>
                                         <li>
-                                            <a href="#">View Trailer</a>
+                                            <a href="javascript:void(0)" class="btnViewTrailer" data-filmcode="@i.filmCode" data-title="@i._FilmTitle" data-src="@i.Youtube">View Trailer</a>
                                         </li>
                                         <li>
                                           
                                             @*<a style="display:none" class="btnGenesisFilm" data-value='@i._FilmTitle' href="#">Buy Ticket</a>*@
-                                            <a class="btnGenesis" data-key='@i.filmCode*@i._FilmTitle' href="#">Buy Ticket</a>
+                                            <a class="btnGenesis" data-key='@i.filmCode*@i._FilmTitle' href="javascript:void(0)">Buy Ticket</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -113,7 +118,7 @@ else if (Model.cinemaCompany == "2")
     @Html.HiddenFor(o => o.CinemaID, new { name = "CinemaId", id = "CinemaId" })
     if (Model.MovieList != null)
     {
-        using (Html.BeginForm("MovieTicket", "Movies", FormMethod.Post))
+        using (Html.BeginForm("MarturionTicket", "Movies", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             // {string demacate = " ";}
@@ -130,7 +135,7 @@ else if (Model.cinemaCompany == "2")
                                 <div class="prs_upcom_movie_img_btn_wrapper">
                                     <ul>
                                         <li>
-                                            <a href="#">View Trailer</a>
+                                            <a href="javascript:void(0)" class="btnViewTrailer" data-filmcode="@i.filmCode" data-title="@i._FilmTitle" data-src="@i.Youtube">View Trailer</a>
                                         </li>
                                         <li>
 
@@ -157,7 +162,10 @@ else if (Model.cinemaCompany == "2")
 }
 <script src="~/js/jquery_min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+<script src="~/js/ticketplanetjs/scriptFiles.js"></script>
 <script>
+
+    
 
    $(".btnGenesis").on('click', function () {
 
@@ -233,6 +241,10 @@ $(".btnMaturion").on('click', function () {
         }
     }
 </script>
+
+
+
+
 <div id="otherMovies" style="display:none" data-request-url="@Url.Action("MovieTicket", "Movies")"></div>
 <div id="filmHouseMovies" style="display:none" data-request-url="@Url.Action("FilmHouseTickets", "Movies")"></div>
 <div id="MaturionMovies" style="display:none" data-request-url="@Url.Action("MarturionTicket", "Movies")"></div>

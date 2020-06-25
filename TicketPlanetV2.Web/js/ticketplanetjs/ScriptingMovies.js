@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     //$('#loaderbody').show();
     var filmName = $("#MovieName").val();
     var cinemaLocation = $("#CinemaCompanyID").val();
@@ -13,7 +14,7 @@
         // alert("hhh")
         $("#MovieDay").html("");
         $("#MovieDay").append($('<option></option>').val(null).html("--Select Movie Day--"));
-        $('#loaderbody').hide();
+        $('#preloader').hide();
 
         //console.log(data);
 
@@ -39,7 +40,7 @@
         }
     }
 
-});
+    });
 
 });
 
@@ -87,7 +88,10 @@ $("#CinemaCompanyID").on('change', function () {
 
 
 $("#MovieDay").on('change', function () {
+    //$("#preloader").delay(350).fadeIn();
+    //$("#status").fadeIn();
     $('#loaderbody').show();
+    
     $('#MovieTime').prop('disabled', false);
     $('#MovieTime option:eq(0)').attr('selected', 'selected')
 
@@ -125,8 +129,10 @@ $("#MovieDay").on('change', function () {
         })
 
 
-
         $('#loaderbody').hide();
+        //
+        //$("#preloader").delay(350).fadeOut();
+        //$("#status").fadeOut();
 
         $("#Amount").html("");
 
@@ -165,7 +171,9 @@ $("#MovieTime").on('change', function ()
     var CouponValue = $("#CouponValue").val();
     var MovieTime = $("#MovieTime").val();
 
-    $("#loaderbody").show();
+    $('#loaderbody').show();
+    //$("#status").fadeIn();
+    //$("#preloader").delay(350).fadeIn("slow");
     //var MovieTime = $("#MovieTime").val();
     //console.log(MovieTime);
     $.ajax({
@@ -178,7 +186,9 @@ $("#MovieTime").on('change', function ()
         if (data.nErrorCode == '0') {
                     
             alert("The current Movie time has expired, Please select another time");
-            $("#loaderbody").hide();
+            //$("#status").fadeOut();
+            //$("#preloader").delay(350).fadeOut("slow");
+            $('#loaderbody').hide();
             alertify.error("The current Movie time has expired, Please select another time");
             $("#Amount").val("");
             $("#Amount").html("");
@@ -186,7 +196,9 @@ $("#MovieTime").on('change', function ()
         else {
             if (MovieCategory == null || MovieCategory === "")
             {
-                $("#loaderbody").hide();
+                //$("#status").fadeOut();
+                //$("#preloader").delay(350).fadeOut("slow");
+                $('#loaderbody').hide();
                 $(".amountText").show();
                 return;
             }
@@ -200,7 +212,7 @@ $("#MovieTime").on('change', function ()
 
             success: function (data)
             {
-                //$("#loaderbody").show();
+                $("#loaderbody").show();
 
                 if (data.OrigAmount == null)
                 {
@@ -208,14 +220,18 @@ $("#MovieTime").on('change', function ()
 
                     if (data.Amount == "0.00") {
                         alert("No Amount Available");
-                        $("#loaderbody").hide();
+                        $('#loaderbody').hide();
+                        //$("#status").fadeOut();
+                        //$("#preloader").delay(350).fadeOut("slow");
                         $("#Amount").val(data.Amount);
                         $("#amtCharge").val(data.amtCharge);
                         $(".amountText").show();
                     
                     }
                     else {
-                        $("#loaderbody").hide();
+                        //$("#status").fadeOut();
+                        //$("#preloader").delay(350).fadeOut("slow");
+                        $('#loaderbody').hide();
                         $("#Amount").val(data.Amount);
                         $(".amountText").show();
                         $("#amtCharge").val(data.amtCharge);
@@ -224,7 +240,9 @@ $("#MovieTime").on('change', function ()
                 }
                 else if(data.OrigAmount != null)
                 {
-                    $("#loaderbody").hide();
+                    $('#loaderbody').hide();
+                    //$("#status").fadeOut();
+                    //$("#preloader").delay(350).fadeOut("slow");
                     $("#Amount").val(data.Amount);
                     $("#OrigAmount").text(data.OrigAmount);
                     $("#OrigAmount").show();
@@ -234,15 +252,17 @@ $("#MovieTime").on('change', function ()
                     $(".amountText").hide();
                     $("#amtCharge").val(data.amtCharge);
                 }
-                //$('#loaderbody').hide();
+                $('#loaderbody').hide();
             },
             error: function () {
                 $('#loaderbody').hide();
+                //$("#status").fadeOut();
+                //$("#preloader").delay(350).fadeOut("slow");
                 $(".amountText").hide();
             }
         });
     }
-    //$("#loaderbody").hide();
+    $("#loaderbody").hide();
 }
 });
         
@@ -252,7 +272,9 @@ $("#MovieTime").on('change', function ()
 
 $("#NoOfPersons").on('change', function () {
 
-    $("#loaderbody").show();
+    $('#loaderbody').show();
+    //$("#status").fadeIn();
+    //$("#preloader").delay(350).fadeIn("slow");
     var MovieCategory = $("#MovieCategory").val();
     var NoOfPersons = $("#NoOfPersons").val();
     var CinemaCompanyID = $("#CinemaCompanyID").val();
@@ -262,14 +284,17 @@ $("#NoOfPersons").on('change', function () {
     var MovieTime = $("#MovieTime").val();
 
     if (MovieCategory == null) {
-        $("#loaderbody").hide();
+        //$("#status").fadeOut();
+        //$("#preloader").delay(350).fadeOut("slow");
     }
     if (MovieDay == "") {
-        $("#loaderbody").hide();
+        //$("#status").fadeOut();
+        //$("#preloader").delay(350).fadeOut("slow");
     }
 
     if (MovieTime == "") {
-        $("#loaderbody").hide();
+        //$("#status").fadeOut();
+        //$("#preloader").delay(350).fadeOut("slow");
     }
 
     $.ajax({
@@ -287,6 +312,8 @@ $("#NoOfPersons").on('change', function () {
             $("#Amount").val(data.Amount);
             $('#amtCharge').val(data.amtCharge);
             $('#loaderbody').hide();
+            //$("#status").fadeOut();
+            //$("#preloader").delay(350).fadeOut("slow");
             $(".amountText").show();
             var x = $("#Amount").val(data.Amount);
             var y = $("#amtCharge").val(data.amtCharge);
@@ -301,8 +328,10 @@ $("#NoOfPersons").on('change', function () {
             $("#OrigAmount").show();
             $("#NewAmount").text(data.OrigAmount);
             $("#OrigAmount").show();
-            $("#CouponValue").val(data.CouponValue);
-            $("#loaderbody").hide();
+            //$("#CouponValue").val(data.CouponValue);
+            //$("#status").fadeOut();
+            $('#loaderbody').hide();
+            $("#preloader").delay(350).fadeOut("slow");
             $(".amountText").hide();
             var x = $("#Amount").val(data.Amount);
             var y = $("#amtCharge").val(data.amtCharge);
@@ -321,7 +350,9 @@ $("#NoOfPersons").on('change', function () {
 
 $("#MovieCategory").on('change', function () {
 
-    $("#loaderbody").show();
+    $('#loaderbody').show();
+    //$("#status").fadeIn();
+    //$("#preloader").delay(350).fadeIn("slow");
     var MovieCategory = $("#MovieCategory").val();
     var NoOfPersons = $("#NoOfPersons").val();
     var CinemaCompanyID = $("#CinemaCompanyID").val();
@@ -333,12 +364,16 @@ $("#MovieCategory").on('change', function () {
     //console.log(MovieTime);
     //console.log(MovieDay);
     if (MovieTime == null || MovieTime == "") {
-        $("#loaderbody").hide();
+        //$("#status").fadeOut();
+        //$("#preloader").delay(350).fadeOut("slow");
+        $('#loaderbody').hide();
         $('.amountText').hide();
     }
 
     if (MovieDay == "" || MovieDay == "") {
-        $("#loaderbody").hide();
+        //$("#status").fadeOut();
+        //$("#preloader").delay(350).fadeOut("slow");
+        $('#loaderbody').hide();
         $('.amountText').show();
     }
 
@@ -352,7 +387,9 @@ $("#MovieCategory").on('change', function () {
                 
         if (data.nErrorCode == '0') {
             alert("The current Movie time has expire, Please select another time");
-            $("#loaderbody").hide();
+            //$("#status").fadeOut();
+            //$("#preloader").delay(350).fadeOut("slow");
+            $('#loaderbody').hide();
             alertify.error("The current Movie time has expire, Please select another time");
             $("#Amount").val("");
             $("#Amount").html("");
@@ -373,7 +410,9 @@ $("#MovieCategory").on('change', function () {
 
                     if (data.Amount == "0.00") {
                         alert("No Amount Available");
-                        $("#loaderbody").hide();
+                        $('#loaderbody').hide();
+                        //$("#status").fadeOut();
+                        //$("#preloader").delay(350).fadeOut("slow");
                         $("#Amount").val(data.Amount);
                         $('#amtCharge').val(data.amtCharge);
                         $(".amountText").show();
@@ -386,7 +425,9 @@ $("#MovieCategory").on('change', function () {
                     else if (data.Amount == null)
                     {
                         alert("No Amount Available");
-                        $("#loaderbody").hide();
+                        $('#loaderbody').hide();
+                        //$("#status").fadeOut();
+                        //$("#preloader").delay(350).fadeOut("slow");
                         $("#Amount").val(data.Amount);
                         $("#amtCharge").val(data.amtCharge);
                         $(".amountText").show();
@@ -396,7 +437,9 @@ $("#MovieCategory").on('change', function () {
                         //alert(totalAmounts);
                     }
                     else {
-                        $("#loaderbody").hide();
+                        $('#loaderbody').hide();
+                        //$("#status").fadeOut();
+                        //$("#preloader").delay(350).fadeOut("slow");
                         $("#Amount").val(data.Amount);
                         $("#amtCharge").val(data.amtCharge);
                         $(".amountText").show();
@@ -417,6 +460,8 @@ $("#MovieCategory").on('change', function () {
                     $("#OrigAmount").show();
                     $("#CouponValue").val(data.CouponValue);
                     $('#loaderbody').hide();
+                    //$("#status").fadeOut();
+                    //$("#preloader").delay(350).fadeOut("slow");
                     $(".amountText").hide();
                     var x = $("#Amount").val(data.Amount);
                     var y = $("#amtCharge").val(data.amtCharge);
@@ -426,7 +471,7 @@ $("#MovieCategory").on('change', function () {
             }
         });
     }
-    //$("#loaderbody").hide();
+    $("#loaderbody").hide();
 }
 });
 

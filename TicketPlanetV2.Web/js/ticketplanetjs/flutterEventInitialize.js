@@ -12,7 +12,7 @@
     });
 }
 
-        $("#IntializeFlwPayment").click(function (e) {
+    $("#IntializeEventFlwPayment").click(function (e) {
 
 
             if ($("#IsFreeEvent").val() == "N") {
@@ -39,11 +39,15 @@
                 }
             }
 
-            $("#loaderbody").show();
+            $("#preloader").delay(350).fadeIn();
+            $("#status").fadeIn();
+
+            //$("#status").fadeOut();
+            //$("#preloader").delay(350).fadeOut("slow");
             e.preventDefault();
 
             var currency = $("#currency").val();
-            console.log(currency);
+            //console.log(currency);
             var data = JSON.stringify({
                 Fullname: $("#Fullname").val(),
                 phoneNo: $("#phoneNo").val(),
@@ -64,7 +68,8 @@
 
             $.when(InitFlwTransaction(data)).then(function (response) {
                 if (response.error == false) {
-                    $('#loaderbody').hide();
+                    $("#status").fadeOut();
+                    $("#preloader").delay(350).fadeOut("slow");
                     //console.log(response.result);
                     //console.log(('#amtCharge').val());
                     //console.log(totalAmounts);
@@ -73,11 +78,13 @@
                     //window.location.href = response.result.data.authorization_url;
 
                 } else {
-                    $("#loaderbody").hide();
+                    $("#status").fadeOut();
+                    $("#preloader").delay(350).fadeOut("slow");
                 }
 
             }).fail(function () {
-                $("#loaderbody").hide();
+                $("#status").fadeOut();
+                $("#preloader").delay(350).fadeOut("slow");
             });
 
         });
@@ -87,53 +94,10 @@
 //const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";
 
 function payWithRave(pbKeys, data, currency) {
-    //var phone = $('#njj').val();
-    var country = "";
-    var curr;
-    switch (currency) {
-        case "1":
-            country = 'NG';
-            curr = "NGN"
-            break;
-        case "2":
-            country = 'NG';
-            curr = "GBP"
-            break;
-        case "3":
-            country = 'NG';
-            curr = "EUR"
-            break;
-        case "4":
-            country = 'NG';
-            curr = "USD"
-            break;
-        case "5":
-            country = 'GH';
-            curr = "GHS"
-            break;
-        case "6":
-            country = 'KE';
-            curr = "KES"
-            break;
-        case "7":
-            country = 'NG';
-            curr = "UGX"
-            break;
-        case "8":
-            country = 'NG';
-            curr = "TZX"
-            break;
-
-        default:
-            country = 'NG';
-            curr = "NGN"
-            break;
-    }
-
+    
        
     var txtRef = data.Reference;
-    console.log(country);
-    console.log(curr);
+    
 
     var x = getpaidSetup({
         PBFPubKey: pbKeys,
@@ -141,8 +105,8 @@ function payWithRave(pbKeys, data, currency) {
         amount: data.amount,
         customer_phone: data.phoneNo,
         customer_fullName: data.firstname,
-        currency: curr,
-        country: country,
+        currency: "NGN",
+        country: "NG",
         txref: data.Reference,
         meta: [{
             metaname: "TICKETPLANET LIMITED",
@@ -172,15 +136,13 @@ function payWithRave(pbKeys, data, currency) {
                                 
                                 
                         //console.log(response.tx.redirectUrl);
-                        window.location.href = "https://ticketplanet.ng/Events/paymentConfirmationFlw?reference=" + response.tx.txRef + "&flwRef=" + response.tx.flwRef;
+                        window.location.href = "http://localhost:2070/Events/paymentConfirmationFlw?reference=" + response.tx.txRef + "&flwRef=" + response.tx.flwRef;
                                 
                     } else {
                         //alert("Error to update table for SUCCESSFUL");
                     }
                 }
             });
-
-            //window.location.href = "https://ticketplanet.ng/Events/paymentConfirmationFlw?reference=" + tkReference + "&fltRef=" + flutterRef;
 
         } else {
                 // redirect to a failure page.

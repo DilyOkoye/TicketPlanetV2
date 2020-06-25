@@ -1,6 +1,7 @@
 ﻿function GetCinemaLoactions()
 {
     var cinema = $("#drpCinemaCompany").val();
+    //console.log("Another Cinema Val = " + cinema);
     $.ajax
         ({
             url: $('#GetCinemaCompnies').data('request-url'),
@@ -10,9 +11,9 @@
             data: JSON.stringify({
                 cinema: +cinema
             }),
-
+            
             success: function (data) {
-                console.log("Result", data);
+                //console.log("Result", data);
                 $("#drpLocation").html("");
                 $.each(data, function (item, lct) {
                     // alert(lct.LocationName)
@@ -29,14 +30,22 @@
 } 
 
 
+
+
 $("#drpLocation").on('change', function () {
     //alert("test")
     $('#OthersFilmHouse').html('');
     var company = $('#drpCinemaCompany').val();
     var location = $('#drpLocation').val();
+    var Urls = $('#GetMovies').data('request-url');
+    //console.log("Urls =" + Urls);
+
+    //console.log("Locations out = " + location);
+
   //  alert(location)
     $.ajax({
-        url: $('#GetMovies').data('request-url'),
+        //url: $('#GetMovies').data('request-url'),
+        url: "/Movies/GetMoviesViaLocation",
         type: 'POST',
         cache: false,
         dataType: 'html',
@@ -48,6 +57,7 @@ $("#drpLocation").on('change', function () {
                 $('#FilmHouse').show();
                 $('#OthersFilmHouse').html('');
                 $('#OthersFilmHouse').html(data);
+                //console.log("Movies1 " + data);
                    
             }
 
@@ -109,6 +119,45 @@ $(".btnEventIndexGrid").on('click', function () {
 
     }
 
+});
+
+$(document).ready(function () {
+
+    $(".btnSubmitComment").on('click', function (e) {
+        e.preventDefault();
+
+        
+
+        if ($("#name").val() === "" || $('#comment').val() === "" ||
+                    $('#email').val() === "") {
+
+            alertify.error("One or Two Fields is Empty");
+            return;
+        }
+        var name = $("#name").val();
+        var comment = $("#comment").val();
+        var email = $("#email").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/Contact",
+            data: {name: name, email: email, comment: comment},
+            dataType: 'json',
+            success: function (data, textStatus, XMLHttpRequest) {
+                if (data.error == false) {
+
+                    alert(data.message);
+                    //console.log(data.message);
+                    $("#name").val('');
+                    $("#comment").val('');
+                    $("#email").val('');
+                    //console.log(data);
+                }
+
+
+            },
+        });
+    });
 });
 
 

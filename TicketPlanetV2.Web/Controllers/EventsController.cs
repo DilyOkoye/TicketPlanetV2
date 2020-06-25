@@ -325,8 +325,16 @@ namespace TicketPlanetV2.Web.Controllers
                 oGenericViewModel.TransactionRef = flwRef;
                 oGenericViewModel.tk_Event = oEventClassModel.GetEventInfo(Convert.ToInt32(oGenericViewModel.tk_EventCustomers.EventId));
                 //var BatchCounter = oEventClassModel.GetCurrentCounter();
+                oGenericViewModel.eventCategoryName = oEventClassModel.GetTicketCategory((int)oGenericViewModel.tk_EventCustomers.TicketCategory);
+                oGenericViewModel.EventImagePath = oEventClassModel.GetEventImagePath((int)oGenericViewModel.tk_EventCustomers.EventId);
 
 
+                var res = oEventClassModel.SendEvent((oGenericViewModel.tk_EventCustomers));
+                if (res != null)
+                {
+                    BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain(oGenericViewModel.tk_EventCustomers.Email, "Payment Receipt - " + oGenericViewModel.tk_EventCustomers.ReferenceNo, res, null, "enwakire@ticketplanet.ng"));
+
+                }
 
                 return View(oGenericViewModel);
                 //return Json(new { error = false, location_url = tk.TicketPlanetEventCallBackUrl }, JsonRequestBehavior.AllowGet);

@@ -37,11 +37,11 @@ body, html {
 }
 body::-webkit-scrollbar-track{
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #ffffff;
+	/*background-color: #ffffff;*/
 }
 body::-webkit-scrollbar{
-	width: 4px;
-	background-color: #ffffff;
+	/*width: 4px;
+	background-color: #ffffff;*/
 }
 
 body::-webkit-scrollbar-thumb{
@@ -1977,7 +1977,7 @@ body.active #mobile-nav {
     transition: all 0.5s;
 }
 .prs_upcom_movie_content_box h2 a{
-	font-size:18px;
+	/*font-size:12px;*/
 	color:#000000;
 	font-weight:bold;
 	-webkit-transition: all 0.5s;
@@ -9844,12 +9844,12 @@ text-decoration:underline;
     z-index: 1;
     font-size: 35px;
 }
-.st_pop_form_wrapper .modal-dialog{
+/*.st_pop_form_wrapper .modal-dialog{
 	max-width:350px;
 }
 .modal{
 	top:20%;
-}
+}*/
 .st_pop_form_heading_wrapper h3{
 	font-size: 18px;
 color: rgba(0,0,0,0.87);
@@ -9858,10 +9858,10 @@ text-align: center;
 font-weight:700;
 text-transform:uppercase;
 }
-.st_pop_form_wrapper .modal-content{
+/*.st_pop_form_wrapper .modal-content{
 	padding:30px;
 	float: left;
-}
+}*/
 .st_pop_form_heading_wrapper{
 	padding-bottom:20px;
 }

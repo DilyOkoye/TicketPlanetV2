@@ -62,6 +62,7 @@
     </div>
 </div>
 
+
 <!-- prs theater Slider Start -->
 <div class="prs_theater_main_slider_wrapper">
     <div class="prs_theater_img_overlay"></div>
@@ -77,27 +78,23 @@
                     <figure class="album">
                         <div class="prs_upcom_movie_box_wrapper">
                             <div class="prs_upcom_movie_img_box">
-                                <img src="@i.EventImageName" alt="movie_imgwidth=" 270" height="360" />
+                                <img src="@i.EventImageName" alt="movie_img" width="500" height="360" />
                                 <div class="prs_upcom_movie_img_overlay"></div>
                                 <div class="prs_upcom_movie_img_btn_wrapper">
                                     <ul>
                                         <li>
-                                            <a class="btnEventIndexGrid" data-key='@i.Itbid' href="#">Buy Ticket</a>
+                                            <a class="btnEventIndexGrid" data-key='@i.Itbid' href="javascript:void(0)">Buy Ticket</a>
                                         </li>
                                         <li>
-                                            <a href="#">View Details</a>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#eventModal-@i.Itbid">View Details</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="prs_upcom_movie_content_box">
                                 <div class="prs_upcom_movie_content_box_inner">
-                                    <h2><a href="#">@i.EventTitle</a></h2>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    @*<h2><a href="#">@i.EventTitle</a></h2>*@
+                                    
                                 </div>
 
                             </div>
@@ -105,10 +102,24 @@
                         <!-- End album body -->
                     </figure>
                     <!-- End album -->
+                    <div class="modal fade" id="eventModal-@i.Itbid" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+                                        <h5 class="modal-title" style="color:black;">@i.EventTitle</h5>
+                                        <img src="@i.EventImageName" alt="" class="images" height="600" width="600" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
                 </li>
 
-
-
+                
             }
 
         </ul>

@@ -1,4 +1,5 @@
-﻿<div class="prs_title_main_sec_wrapper">
+﻿<script src="~/js/jquery_min.js"></script>
+<div class="prs_title_main_sec_wrapper">
     <div class="prs_title_img_overlay"></div>
     <div class="container">
         <div class="row">
@@ -27,24 +28,24 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="prs_contact_input_wrapper">
-                            <input type="text" placeholder="Name">
+                            <input type="text" placeholder="Name" id="name">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="prs_contact_input_wrapper">
-                            <input type="email" placeholder="Email">
+                            <input type="email" placeholder="Email" id="email">
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="prs_contact_input_wrapper">
-                            <textarea rows="7" placeholder="Comment"></textarea>
+                            <textarea rows="7" placeholder="Comment" id="comment"></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="prs_contact_input_wrapper prs_contact_input_wrapper2">
                             <ul>
                                 <li>
-                                    <a href="#">Submit</a>
+                                    <a href="javascript:void(0)" class="btnSubmitComment">Submit</a>
                                 </li>
                             </ul>
                         </div>
@@ -76,3 +77,17 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    //$(document).ready(function () {
+
+    //    $('.bntSubmitComment').click(function () {
+    //        console.log("comment submit");
+    //    });
+    //});
+
+    
+</script>
+
+@*<script src="~/js/ticketplanetjs/contactCall.js"></script>*@

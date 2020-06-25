@@ -51,7 +51,7 @@
                             <div class="item">
                                 <div class="row">
                                     <div id="OthersFilmHouse">
-
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -72,6 +72,7 @@
     jQuery(document).ready(function () {
         //alert("Test")
         var cinema = $("#drpCinemaCompany").val();
+        
         $.ajax({
         url: "@Url.Action("GetCinemaLocation", "Movies")",
         data: { cinema: cinema },
@@ -80,12 +81,12 @@
 
             success: function (data)
             {
-                console.log("Result",data)
-            $("#drpLocation").html("");
-            $.each(data, function (item, lct) {
-                // alert(lct.LocationName)
-                $("#drpLocation").append($('<option></option>').val(lct.Itbid).html(lct.CinemaName))
-            })
+                //console.log("Result",data)
+                $("#drpLocation").html("");
+                $.each(data, function (item, lct) {
+                    // alert(lct.LocationName)
+                    $("#drpLocation").append($('<option></option>').val(lct.Itbid).html(lct.CinemaName))
+                })
             //$("#drpLocation").niceSelect('update'); //Tell the plugin to recreate the DIV.
             }
         });
@@ -111,6 +112,7 @@
                     $('#FilmHouse').show();
                     $('#OthersFilmHouse').html('');
                     $('#OthersFilmHouse').html(data);
+                    
 
                 }
 
@@ -127,7 +129,52 @@
     }
     });
 
+
+
+    //$(document).ready(function () {
+    //    $("#drpLocation").on('change', function () {
+    //        //alert("test")
+    //        $('#OthersFilmHouse').html('');
+    //        var company = $('#drpCinemaCompany').val();
+    //        var location = $('#drpLocation').val();
+    //        var Urls = $('#GetMovies').data('request-url');
+    //        //console.log("Urls =" + Urls);
+
+    //        //console.log("Locations = " + location);
+
+    //        //  alert(location)
+    //        $.ajax({
+    //            //url: $('#GetMovies').data('request-url'),
+    //            url: "/Movies/GetMoviesViaLocation",
+    //            type: 'POST',
+    //            cache: false,
+    //            dataType: 'html',
+    //            data: { company: company, location: location },
+    //            success: function (data, textStatus, XMLHttpRequest) {
+    //                if (data !== null) {
+
+    //                    $('#FilmHouse').show();
+    //                    $('#OthersFilmHouse').html('');
+    //                    $('#OthersFilmHouse').html(data);
+    //                    //console.log("Movies " + data);
+
+    //                }
+
+
+    //            },
+
+    //            error: function (xhr, ajaxOptions, thrownError) {
+    //                $('#screenDiv').hide();
+    //            },
+
+
+    //        });
+
+    //    });
+    //});
+
 </script>
+<script src="~/js/ticketplanetjs/scriptFiles.js"></script>
 <div id="GetMovies" style="display:none" data-request-url="@Url.Action("GetMoviesViaLocation", "Movies")"></div>
 <div id="GetCinemaCompnies" style="display:none" data-request-url="@Url.Action("GetCinemaLocation", "Movies")"></div>
 

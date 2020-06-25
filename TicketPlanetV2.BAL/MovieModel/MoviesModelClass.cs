@@ -331,6 +331,7 @@ namespace TicketPlanetV2.BAL.MovieModel
 
         }
 
+
         public string SendGenesisMaturionEmail(tk_CinemaTransactionLog item) 
         {
             try
@@ -345,7 +346,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                                  .Replace("{{location}}", oGenericViewModel.GetGenesisorManturioLocation((int)item.CinemaCompanyLocation))
                                  .Replace("{{movieDate}}", item.MovieDate)
                                  .Replace("{{movieTime}}", item.MovieTime)
-                                 .Replace("{{category}}", item.ViewType == "1" ? "Regular 2D" : (item.ViewType == "2" ? "VIP" : (item.ViewType == "3" ? "3D" : "Combo")))
+                                 .Replace("{{category}}", item.ViewType == "1" ? "Regular 2D" : (item.ViewType == "4" ? "VIP" : (item.ViewType == "3" ? "3D" : "Combo")))
                                  .Replace("{{emailAddress}}", item.ContactEmail)
                                  .Replace("{{phone}}", item.ContactPhoneNo)
                                   .Replace("{{noOfTickets}}", item.Units.ToString())
@@ -4771,7 +4772,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                 {
 
 
-
+                
                     items = getPalmsDates(filmCode)
                   .Select(p => new System.Web.Mvc.SelectListItem
                   {

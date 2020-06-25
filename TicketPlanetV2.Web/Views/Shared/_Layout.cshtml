@@ -32,20 +32,28 @@ Author: Webstrot
     <link rel="stylesheet" type="text/css" href="~/css/magnific-popup.css" />
     <link rel="stylesheet" type="text/css" href="~/css/venobox.css" />
     <link rel="stylesheet" type="text/css" href="~/css/slick.css" />
-    @*<link rel="stylesheet" type="text/css" href="~/css/slick-theme.css" />*@
     <link rel="stylesheet" type="text/css" href="~/css/style2.css" />
+    @*<link rel="stylesheet" type="text/css" href="~/css/slick-theme.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive2.css" />
-
+    @*<script src="~/js/ticketplanetjs/scriptFiles.js"></script>*@
     <link rel="stylesheet" type="text/css" href="~/css/magnific-popup.css" />
     <link rel="stylesheet" type="text/css" href="~/css/venobox.css" />
     <link rel="stylesheet" type="text/css" href="~/js/plugin/rs_slider/layers.css" />
     <link rel="stylesheet" type="text/css" href="~/js/plugin/rs_slider/navigation.css" />
     <link rel="stylesheet" type="text/css" href="~/js/plugin/rs_slider/settings.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+    
     <link rel="stylesheet" id="theme-color" type="text/css" href="#" />
+    <link href="~/js/ticketplanetjs/alertify.core.css" rel="stylesheet" />
+    <link href="~/js/ticketplanetjs/alertify.default.css" rel="stylesheet" />
     <link rel="stylesheet" id="r" type="text/css" href="#" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- FLUTTER WAVE PLUGINS-->
+    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+    <link href="~/css/w3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- favicon links -->
+    
    
     <link rel="icon" href="@Url.Content("~/images/header/tplogo.png")" type="image/png" sizes="32x32" />
  
@@ -92,26 +100,26 @@ Author: Webstrot
     <div class="prs_navigation_main_wrapper">
         <div class="container-fluid">
             <div id="search_open" class="gc_search_box">
-                <input type="text" placeholder="Search here">
-                <button>
+                @*<input type="text" placeholder="Search here">*@
+                @*<button>
                     <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
+                </button>*@
             </div>
             <div class="prs_navi_left_main_wrapper">
                 <div class="prs_logo_main_wrapper">
                         <a href="#">
                             <img src="~/images/header/newlogo.jpeg" width="182"  alt="logo" />
                         </a>
-                    </div>
+                </div>
                 <div class="prs_menu_main_wrapper">
                     <nav class="navbar navbar-default">
                         <div id="dl-menu" class="xv-menuwrapper responsive-menu">
                             <button class="dl-trigger">
                                 <img src="~/images/header/bars.png" alt="bar_png">
                             </button>
-                            <div class="prs_mobail_searchbar_wrapper" id="search_button">
+                            @*<div class="prs_mobail_searchbar_wrapper" id="search_button">
                                 <i class="fa fa-search"></i>
-                            </div>
+                            </div>*@
                             <div class="clearfix"></div>
                             <ul class="dl-menu">
                                 <li class="parent">
@@ -157,31 +165,14 @@ Author: Webstrot
 
                     </div>
                 </div>
-                @*<div class="prs_top_login_btn_wrapper">
-                        <div class="prs_animate_btn1">
-                            <ul>
-                                <li>
-                                    <a href="#" class="button button--tamaya" data-text="sign up" data-toggle="modal" data-target="#myModal"><span>sign up</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>*@
-                @*<div class="product-heading">
-                        <div class="con">
-
-                            <input type="text" placeholder="Search Movie , Event ">
-                            <button type="submit">
-                                <i class="flaticon-tool"></i>
-                            </button>
-                        </div>
-                    </div>*@
+                
             </div>
             <div id="mobile-nav" data-prevent-default="true" data-mouse-events="true">
                 <div class="mobail_nav_overlay"></div>
                 <div class="mobile-nav-box">
                     <div class="mobile-logo">
                         <a href="#" class="mobile-main-logo">
-                            <img src="/images/header/home2 (1).png" width="182" height="40" alt="bar_png"><span>Ticket Planet</span>
+                            <img src="/images/header/home2 (1).png" width="182" height="40" alt="bar_png"><span>TicketPlanet</span>
                         </a>
                         <a href="#" class="manu-close"><i class="fa fa-times"></i></a>
                     </div>
@@ -201,54 +192,7 @@ Author: Webstrot
                             <a href="@Url.Action("Contact", "Home")">CONTACT</a>
                         </li>
                     </ul>
-                    @*<div class="product-heading prs_slidebar_searchbar_wrapper">
-                            <div class="con">
-
-                                <input type="text" placeholder="Search Movie , Event">
-                                <button type="submit">
-                                    <i class="flaticon-tool"></i>
-                                </button>
-                            </div>
-                        </div>*@
-                    @*<div class="achivement-blog">
-                            <ul class="flat-list">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-facebook"></i>
-                                        <h6>Facebook</h6>
-
-                                        <a href="https://www.facebook.com/Ticketplanetng-186216985505832/?ref=br_rs"><span class="counter">6</span></a>
-
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-twitter"></i>
-                                        <h6>Twiter</h6>
-
-                                        <a href="https://twitter.com/ticketplanet_ng">  <span class="counter">2</span></a>
-
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-instagram"></i>
-                                        <h6>Instagram</h6>
-                                        <a href="https://www.instagram.com/ticketplanet.ng">  <span class="counter">5</span></a>
-
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>*@
-                    @*<div class="prs_top_login_btn_wrapper prs_slidebar_searchbar_btn_wrapper">
-                            <div class="prs_animate_btn1">
-                                <ul>
-                                    <li>
-                                        <a href="#" class="button button--tamaya" data-text="sign up" data-toggle="modal" data-target="#myModal"><span>sign up</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>*@
+                    
                 </div>
             </div>
         </div>
@@ -369,95 +313,8 @@ Author: Webstrot
     </div>
     <!-- prs footer Wrapper End -->
     <!-- st login wrapper Start -->
-    <div class="modal fade st_pop_form_wrapper" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="st_pop_form_heading_wrapper float_left">
-                    <h3>Log in</h3>
-                </div>
-                <div class="st_profile_input float_left">
-                    <label>Email / Mobile Number</label>
-                    <input type="text">
-                </div>
-                <div class="st_profile__pass_input st_profile__pass_input_pop float_left">
-                    <input type="password" placeholder="Password">
-                </div>
-                <div class="st_form_pop_fp float_left">
-                    <h3><a href="#" data-toggle="modal" data-target="#myModa2" target="_blank">Forgot Password?</a></h3>
-                </div>
-                <div class="st_form_pop_login_btn float_left">
-                    <a href="page-1-7_profile_settings.html">LOGIN</a>
-                </div>
-                <div class="st_form_pop_or_btn float_left">
-                    <h4>or</h4>
-                </div>
-                <div class="st_form_pop_facebook_btn float_left">
-                    <a href="#"> Connect with Facebook</a>
-                </div>
-                <div class="st_form_pop_gmail_btn float_left">
-                    <a href="#"> Connect with Google</a>
-                </div>
-                <div class="st_form_pop_signin_btn float_left">
-                    <h4>Don’t have an account? <a href="#" data-toggle="modal" data-target="#myModa3" target="_blank">Sign Up</a></h4>
-                    <h5>I agree to the <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy</a></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade st_pop_form_wrapper" id="myModa2" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="st_pop_form_heading_wrapper st_pop_form_heading_wrapper_fpass float_left">
-                    <h3>Forgot Password</h3>
-                    <p>We can help! All you need to do is enter your email ID and follow the instructions!</p>
-                </div>
-                <div class="st_profile_input float_left">
-                    <label>Email Address</label>
-                    <input type="text">
-                </div>
-                <div class="st_form_pop_fpass_btn float_left">
-                    <a href="#">Verify</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade st_pop_form_wrapper" id="myModa3" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="st_pop_form_heading_wrapper float_left">
-                    <h3>Sign Up</h3>
-                </div>
-                <div class="st_profile_input float_left">
-                    <label>Email / Mobile Number</label>
-                    <input type="text">
-                </div>
-                <div class="st_profile__pass_input st_profile__pass_input_pop float_left">
-                    <input type="password" placeholder="Password">
-                </div>
-                <div class="st_form_pop_fp float_left">
-                    <h3><a href="#" data-toggle="modal" data-target="#myModa2" target="_blank">Forgot Password?</a></h3>
-                </div>
-                <div class="st_form_pop_login_btn float_left">
-                    <a href="page-1-7_profile_settings.html">LOGIN</a>
-                </div>
-                <div class="st_form_pop_or_btn float_left">
-                    <h4>or</h4>
-                </div>
-                <div class="st_form_pop_facebook_btn float_left">
-                    <a href="https://www.facebook.com/Ticketplanetng-186216985505832/?ref=br_rs"><i class="fab fa-facebook-f"></i> Connect with Facebook</a>
-                </div>
-                <div class="st_form_pop_gmail_btn float_left">
-                    <a href="#"><i class="fab fa-google-plus-g"></i> Connect with Google</a>
-                </div>
-                <div class="st_form_pop_signin_btn st_form_pop_signin_btn_signup float_left">
-                    <h5>I agree to the <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy</a></h5>
-                </div>
-            </div>
-        </div>
-    </div>
+    
+    
     <!-- st login wrapper End -->
     <!--main js file start-->
     <script src="~/js/jquery_min.js"></script>
@@ -479,15 +336,18 @@ Author: Webstrot
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="~/js/ticketplanetjs/aes.js"></script>
 
-    <script src="~/js/ticketplanetjs/movies.js"></script>
+    
     <script src="~/js/ticketplanetjs/SelectJs.js"></script>
     <script src="~/js/ticketplanetjs/aes.js"></script>
     <script src="~/js/ticketplanetjs/crypto.js"></script>
-    <script src="~/js/ticketplanetjs/ScriptingMovies.js"></script>
-    <script src="~/js/ticketplanetjs/promoScript.js"></script>
-    <script src="~/js/ticketplanetjs/moviesPaystackInitialize.js"></script>
-    <script src="~/js/ticketplanetjs/flutterEventInitialize.js"></script>
+    
     <script src="~/js/ticketplanetjs/aes.js"></script>
+    <script src="~/js/ticketplanetjs/alertify.min.js"></script>
+    <!---Movies and events Scripting and payment-->
+    
+    <script src="~/js/ticketplanetjs/promoScript.js"></script>
+    
+    
 
     <script>
         $(document).ready(function () {
@@ -516,6 +376,8 @@ Author: Webstrot
             });
         });
     </script>
+
+    
 
 </body>
 

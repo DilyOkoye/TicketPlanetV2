@@ -3,27 +3,59 @@
 <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
 
 <style>
-    @@media only screen and (max-width:360px) {
+    /*@@media only screen and (max-width:360px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 60px;
+            text-align: center
         }
-    }
+    }*/
 
     @@media only screen and (max-width:420px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
         }
     }
 
     @@media only screen and (max-width:800px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 60px;
+            text-align: center;
         }
     }
 
+    @@media only screen and (min-width:800px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (max-width:375px) {
+        #paymentModalContent {
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+
+    /*@@media only screen and (min-width:320px) {
+        #paymentModalContent {
+            margin-top: 10px;
+            text-align: center
+        }
+    }*/
+
     @@media only screen and (max-width:1100px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (min-width:1100px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
         }
     }
 </style>
@@ -162,7 +194,10 @@
 <div id="MovieTicket" class="padding-tb-40px" style="background-color: transparent; background-repeat:no-repeat">
 
     <div class="container">
-        <a href="@Url.Action("MoviesHome", "Movies")" class="text-blue" style="color:white;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
+        
+        <a href="@Url.Action("Index", "Movies")" class="text-blue" style="color:black;margin-top:24px;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
+        <br/>
+        <br/>
         <div class="row justify-content-center">
 
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -192,8 +227,6 @@
                         </div>
 
                         <div class="form-row">
-
-
                             <div class="form-group col-md-6">
                                 <label for="inputName">Full Name <span style="color:red">*</span></label>
                                 <input type="text" id="Fullname" class="form-control">
@@ -270,36 +303,46 @@
                         </div>
 
 
-                        <div class="body-title">
+                        @*<div class="body-title text-center">
                             <div class="row">
                                 <div class="col-lg-10 col-xs-10">
                                     <h6><b>Select payment method</b></h6>
                                 </div>
                                 <div class="row">
-                                    <div class="payment-option left-padd">
-                                        <div class="col-xs-12 col-lg-12 col-md-12">
+                                    <div class="container payment-option left-padd">
+                                        <div class="col-xs-10 col-sm-10 col-lg-10 col-md-10">
                                             <div class="prompt-section">
                                                 &nbsp;
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid a timeout.</span>
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid timeout.</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div>
+                        </div>*@
                         <p></p>
                         <br />
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input id="IntializePayment" type="image" src="~/images/Partners/stackPay.jpg" />
-
-
+                        
+                        <div class="row">
+                            
+                            @*<div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="flutterDIV">
+                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
                             </div>
-                            <div class="form-group col-md-6">
 
-                            </div>
+                            <div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="paystackDIV">
+                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
+                            </div>*@
+
+                            
                         </div>
+
+                        <div>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn btn-primary btn-lg" id="proceedBtn" style="border-radius:5px;">Proceed</a>
+                        </div>
+                        
+                        <br />
+                        <br/>
 
                         <button type="button" style="display:none" id="btnSaveTrans" class="btn btn-primary"> Process</button>
 
@@ -318,52 +361,84 @@
 
                     </div>
                     <!-- form -->
-
+                    
 
                 </div>
+                
                 <!-- // col-lg-8 -->
 
             </div>
 
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
-               
-                <div class="widget">
+                <div class="container">
+                    
 
-                    @if (!string.IsNullOrEmpty(Model.MovieYouTube))
-                    {
-                        <center><p><b>Watch the Thriller</b></p></center>
-                        <iframe width="400" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                    }
-                    else
-                    {
-                        <center>
+                        @if (!string.IsNullOrEmpty(Model.MovieYouTube))
+                        {
+                            <p><b>Watch the Thriller</b></p>
+                            <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                        }
+                        else
+                        {
                             <p>
                                 <span class="badge badge-danger">No Trailer Available for this Movie</span>
                             </p>
-                        </center>
-                    }
-                    <center><p><b>Synopsis</b></p></center>
-                    @if (!string.IsNullOrEmpty(Model.MovieSynopsis))
-                    {
+                        }
+                        <p><b>Synopsis</b></p>
+                        @if (!string.IsNullOrEmpty(Model.MovieSynopsis))
+                        {
 
-                        <p><i>@Model.MovieSynopsis</i></p>
-                    }
-                    else
-                    {
-                        <center>
+                            <p style="width:300px">
+                                <i>@Model.MovieSynopsis</i>
+                            </p>
+                        }
+                        else
+                        {
                             <p>
                                 <span class="badge badge-danger">No Synopsis Available for this Movie</span>
                             </p>
-                        </center>
-                    }
+                        }
 
+                    
                 </div>
 
             </div>
             <!-- // row -->
         </div>
+
+        
         <!-- // container -->
+    </div>
+</div>
+
+<br/><br/>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+
+        <div class="modal-content" id="paymentModalContent" style="margin-top:200px;background-color:lightblue">
+            <button type="button" class="close" data-dismiss="modal" style="color:black;">close</button>
+            <br/>
+            <div class="row">
+                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12 text-center">
+                    <h3><b>Select payment method</b></h3>
+                    <p><i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid timeout.</span></p>
+                </div>
+            </div>
+            <div class="row text-center" style="margin-top:20px;">
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="flutterDIV">
+                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
+                </div>
+                @*<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
+                    <h2>OR</h2>
+                </div>*@
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
+                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -371,13 +446,33 @@
     <div class="loader"></div>
     <p style="text-align:center; color:blue;"><b>loading please.......</b></p>
 </div>
-
-
-
+<script src="~/js/jquery_min.js"></script>
 <script src="~/js/ticketplanetjs/ScriptingMovies.js"></script>
-<script src="~/js/ticketplanetjs/promoScript.js"></script>
 <script src="~/js/ticketplanetjs/moviesPaystackInitialize.js"></script>
-<script src="~/js/ticketplanetjs/flutterEventInitialize.js"></script>
+<script src="~/js/ticketplanetjs/movieFlutterInitialize.js"></script>
+<script>
+    $(document).ready(function () {
+        
+        $("#proceedBtn").click(function () {
+            if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                 $('#email').val() === "" ||
+                 $('#NoOfPersons').val() === "" ||
+                 $('#MovieCategory').val() === "" ||
+                 $('#Amount').val() === "" || $('#MovieDay').val() === "" || $('#MovieTime').val() === "") {
+
+                $(this).attr("data-target", "");
+                alertify.error("One or Two Compulsory Fields is Empty");
+                return;
+            } else {
+                //console.log("kenny");
+                $(this).attr("data-target", "#paymentModal");
+            }
+        });
+    });
+</script>
+
+
+
 
 
 

@@ -226,7 +226,7 @@ namespace TicketPlanetV2.Web.Controllers
             //    return RedirectToAction("Index", "Movies");
 
             //}
-            if (filmCode == null || filmCode == null)
+            if (filmCode == null || CinemaId == null)
             {
                 return RedirectToAction("Index", "Movies");
             }
@@ -671,6 +671,13 @@ namespace TicketPlanetV2.Web.Controllers
                 oGenericViewModel.TransactionRef = fltRef;
                 var BatchCounter = oMoviesModelClass.GetCurrentCounter();
 
+                var res = oMoviesModelClass.SendGenesisMaturionEmail((oGenericViewModel.tk_CinemaTransactionLog));
+                if (res != null)
+                {
+                    BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain(oGenericViewModel.tk_CinemaTransactionLog.ContactEmail, "Payment Receipt - " + oGenericViewModel.tk_CinemaTransactionLog.ReferenceNo, res, null, "enwakire@ticketplanet.ng"));
+
+                }
+
                 return View(oGenericViewModel);
                 //return Json(new { error = false, location_url = tk.TicketPlanetEventCallBackUrl }, JsonRequestBehavior.AllowGet);
             }
@@ -766,21 +773,20 @@ namespace TicketPlanetV2.Web.Controllers
             return View(oGenericViewModel);
         }
 
-
-
-        public async Task<ActionResult> paymentConfirmationFlws()
+        
+        public async Task<ActionResult> PaymentConfirmationFmflw(string reference, string fltRef)
         {
-            var tk =await oMoviesModelClass.GetClientProfileDetails("002");
+            //var paystackTransactionAPI = new PaystackTransaction(secretKey);
+            var tk = await oMoviesModelClass.GetClientProfileDetails("002");
+
             if (tk == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            string secretKey = tk.ClientPayStackSecretKey;
-            //var paystackTransactionAPI = new PaystackTransaction(secretKey);
-            var tranxRef = HttpContext.Request.QueryString["reference"];
 
-            if (tranxRef != null)
+            if (fltRef != "" && reference != "")
             {
+
                 //var response = await paystackTransactionAPI.VerifyTransaction(tranxRef);
                 //if (response.status)
                 //{
@@ -791,10 +797,37 @@ namespace TicketPlanetV2.Web.Controllers
                 //    var BatchCounter = oTicketPlanetModel.GetCurrentCounter();
                 //    return View(oBusViewModel);
                 //}
-                return View();
+
+                oGenericViewModel.tk_CinemaTransactionLog = oMoviesModelClass.GetTicketDetails(reference);
+                oGenericViewModel.TransactionRef = reference;
+                var BatchCounter = oMoviesModelClass.GetCurrentCounter();
+
+                // FilmHouse Call for Setting Customer Details and Getting Booking Reference
+                if (oGenericViewModel.tk_CinemaTransactionLog != null)
+                {
+
+                    oGenericViewModel.BookingId = await oMoviesModelClass.CompleteTransaction(oGenericViewModel.tk_CinemaTransactionLog.OrderId,
+                    oGenericViewModel.tk_CinemaTransactionLog.ContactFullname, oGenericViewModel.tk_CinemaTransactionLog.ContactEmail,
+                    oGenericViewModel.tk_CinemaTransactionLog.ContactPhoneNo, oGenericViewModel.tk_CinemaTransactionLog.TotalAmount.ToString());
+
+
+                    if (oGenericViewModel.BookingId != null)
+                    {
+                        await oMoviesModelClass.UpdateBookingRef(oGenericViewModel.BookingId, reference);
+                        var res = oMoviesModelClass.SendFilmHouseEmail((oGenericViewModel.tk_CinemaTransactionLog));
+                        if (res != null)
+                        {
+                            BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain(oGenericViewModel.tk_CinemaTransactionLog.ContactEmail, "Payment Receipt - " + oGenericViewModel.BookingId, res, null, "enwakire@ticketplanet.ng"));
+
+                        }
+
+                    }
+                }
+
+                return View(oGenericViewModel);
             }
 
-            return View();
+            return View(oGenericViewModel);
         }
 
         [Route("PaymentConfirmation/Movies")]

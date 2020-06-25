@@ -4,30 +4,56 @@
 
 
 <style>
-    @@media only screen and (max-width:360px) {
-        #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
-        }
-    }
-
     @@media only screen and (max-width:420px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
         }
     }
 
     @@media only screen and (max-width:800px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 60px;
+            text-align: center;
         }
     }
 
+    @@media only screen and (min-width:800px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (max-width:375px) {
+        #paymentModalContent {
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+
+    /*@@media only screen and (min-width:320px) {
+        #paymentModalContent {
+            margin-top: 10px;
+            text-align: center
+        }
+    }*/
+
     @@media only screen and (max-width:1100px) {
         #paystackDIV, #flutterDIV {
-            margin-bottom: 10px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+    }
+
+    @@media only screen and (min-width:1100px) {
+        #paystackDIV, #flutterDIV {
+            margin-bottom: 60px;
+            text-align: center;
         }
     }
 </style>
+
 
 <style>
 
@@ -105,7 +131,7 @@
 <div id="MovieTicket" class="padding-tb-40px" style="background-color: transparent; background-repeat:no-repeat">
 
     <div class="container">
-        <a href="@Url.Action("MarturionHome", "Movies")" class="text-blue" style="color:white;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
+        <a href="@Url.Action("Index", "Movies")" class="text-blue" style="color:black;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
         <div class="row justify-content-center">
 
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -215,46 +241,21 @@
                         </div>
                         <p></p>
                         <br />
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input id="IntializePayment" type="image" src="~/images/Partners/stackPay.jpg" />
-
-
+                        <div class="row">
+                            @*<div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="flutterDIV">
+                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
                             </div>
-                            <div class="form-group col-md-6">
 
-                            </div>
-                        </div>
-                        @*<div class="row">
-
-                                <div class="col-md-6" id="flutterDIV">
-                                    <div id="initPayment" class="w3-hover" style="border:1px solid black">
-                                        <div class="container">
-                                            <img src="~/assets/rv.jpg" style="width:100%" height="100" />
-                                        </div>
-                                        <div class="container">
-                                            <img src="~/assets/flutter.jpg" style="width:100%" height="100">
-                                        </div>
-                                        <div class="container" style="text-align:center; margin-bottom:5px;">
-                                            <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-pink" id="IntializeFlwPayment" style="width:100%">Pay Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6" id="paystackDIV">
-                                    <div id="initPayment" class="w3-hover" style="border:1px solid black">
-                                        <div class="container">
-                                            <img src="~/assets/pt.png" style="width:100%" height="100" />
-                                        </div>
-                                        <div class="container">
-                                            <img src="~/assets/paystack.jpg" style="width:100%" height="100">
-                                        </div>
-                                        <div class="container" style="text-align:center; margin-bottom:5px;">
-                                            <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-pink" id="IntializePayment" style="width:100%">Pay Now</a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="paystackDIV">
+                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
                             </div>*@
+                        </div>
+
+                        <div>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn btn-primary btn-lg" id="proceedMatBtn" style="border-radius:5px;">Proceed</a>
+                        </div>
+                        
+                        <br/><br />
 
                         <button type="button" style="display:none" id="btnSaveTrans" class="btn btn-primary"> Process</button>
 
@@ -280,34 +281,30 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
 
-                <div class="widget">
+                <div class="container">
 
                     @if (!string.IsNullOrEmpty(Model.MovieYouTube))
                     {
-                        <center><p><b>Watch the Thriller</b></p></center>
-                        <iframe width="400" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                        <p><b>Watch the Thriller</b></p>
+                        <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                     }
                     else
                     {
-                        <center>
-                            <p>
-                                <span class="badge badge-danger">No Trailer Available for this Movie</span>
-                            </p>
-                        </center>
+                        <p>
+                            <span class="badge badge-danger">No Trailer Available for this Movie</span>
+                        </p>
                     }
-                    <center><p><b>Synopsis</b></p></center>
+                    <p><b>Synopsis</b></p>
                     @if (!string.IsNullOrEmpty(Model.MovieSynopsis))
                     {
 
-                        <p><i>@Model.MovieSynopsis</i></p>
+                        <p style="width:300px"><i>@Model.MovieSynopsis</i></p>
                     }
                     else
                     {
-                        <center>
-                            <p>
-                                <span class="badge badge-danger">No Synopsis Available for this Movie</span>
-                            </p>
-                        </center>
+                        <p>
+                            <span class="badge badge-danger">No Synopsis Available for this Movie</span>
+                        </p>
                     }
 
                 </div>
@@ -319,4 +316,64 @@
     </div>
 </div>
 
+<br/>
+<br />
 
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+
+        <div class="modal-content" id="paymentModalContent" style="margin-top:200px;background-color:lightblue">
+            <button type="button" class="close" data-dismiss="modal" style="color:black;">close</button>
+            <br />
+            <div class="row">
+                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12 text-center">
+                    <h3><b>Select payment method</b></h3>
+                    <p><i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid timeout.</span></p>
+                </div>
+            </div>
+            <div class="row text-center" style="margin-top:20px;">
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="flutterDIV">
+                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
+                </div>
+                @*<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
+                        <h2>OR</h2>
+                    </div>*@
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
+                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="loaderbody" id="loaderbody" style="display:none;">
+    <div class="loader"></div>
+    <p style="text-align:center; color:blue;"><b>loading please.......</b></p>
+</div>
+
+
+<script src="~/js/jquery_min.js"></script>
+<script src="~/js/ticketplanetjs/ScriptingMovies.js"></script>
+<script src="~/js/ticketplanetjs/moviesPaystackInitialize.js"></script>
+<script src="~/js/ticketplanetjs/movieFlutterInitialize.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#proceedMatBtn").click(function () {
+            if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+                 $('#email').val() === "" ||
+                 $('#NoOfPersons').val() === "" ||
+                 $('#MovieCategory').val() === "" ||
+                 $('#Amount').val() === "" || $('#MovieDay').val() === "" || $('#MovieTime').val() === "") {
+
+                $(this).attr("data-target", "");
+                alertify.error("One or Two Compulsory Fields is Empty");
+                return;
+            } else {
+                //console.log("kenny");
+                $(this).attr("data-target", "#paymentModal");
+            }
+        });
+    });
+</script>
