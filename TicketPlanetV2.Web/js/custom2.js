@@ -63,7 +63,7 @@
         /*--------------------------
     nice Select active
     ---------------------------- */
-       // $('select').niceSelect();
+        // $('select').niceSelect();
 
 
 
@@ -536,9 +536,10 @@
         $(".prs_vp_left_slider").bxSlider({
             minSlides: 1,
             autoDirection: 'next',
-            mode: 'horizontal',
+            mode: 'vertical',
             maxSlides: 10,
             slideWidth: 257,
+            slideHeight:17,
             slideMargin: 17,
             ticker: true,
             tickerHover: true,
@@ -550,10 +551,11 @@
 
         $(".prs_vp_right_slider").bxSlider({
             minSlides: 1,
-            mode: 'horizontal',
+            mode: 'vertical',
             autoDirection: 'prev',
             maxSlides: 10,
             slideWidth: 257,
+            slideHeight: 17,
             slideMargin: 17,
             ticker: true,
             tickerHover: true,

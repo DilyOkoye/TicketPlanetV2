@@ -107,6 +107,8 @@ ul{
 }
 #status img {
 }
+
+
 #return-to-top {
     position: fixed;
     bottom: 37px;
@@ -7550,7 +7552,7 @@ font-weight:600;
 .prs_vp_main_section_wrapper{
 	float:left;
 	width:100%;
-	background:#fff;
+	background:#f6f6f6;
 	padding-top:94px;
 	padding-bottom:100px;
 }

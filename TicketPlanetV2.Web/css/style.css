@@ -285,6 +285,15 @@ ul.colors li:hover p {
 	position:relative;
 	z-index:10000;
 }
+
+/*from style2*/
+/*.prs_navigation_main_wrapper {
+    float: left;
+    width: 100%;
+    background: rgba(38, 38, 174, 0.80);
+    z-index: 10000;
+}*/
+
 .menu_fixed{
 	position:fixed;
 	background:#ff4444;
@@ -2758,13 +2767,13 @@ body.active #mobile-nav {
 }
 /*-- prs feature slider End --*/
 /*-- prs videos&photos slider Start --*/
-.prs_vp_main_section_wrapper{
+/*.prs_vp_main_section_wrapper{
 	float:left;
 	width:100%;
 	background:#f6f6f6;
 	padding-top:94px;
 	padding-bottom:100px;
-}
+}*/
 .prs_vp_main_slider_wrapper{
 	float:left;
 	width:100%;
@@ -5366,7 +5375,7 @@ body.active #mobile-nav {
 .prs_ec_ue_inner_feat_wrapper{
 	margin-top:30px;
 }
-.prs_ec_pe_slider_main_wrapper{
+/*.prs_ec_pe_slider_main_wrapper{
 	background:url('../images/content/event/event_bg.jpg') 50% 0 repeat-y;
 	background-position:center 0;
 	background-size:cover;
@@ -5377,7 +5386,7 @@ body.active #mobile-nav {
 	position:relative;
 	padding-top:94px;
 	padding-bottom:94px;
-}
+}*/
 .prs_ec_pe_slider_img_overlay{
 	position:absolute;
 	left:0%;

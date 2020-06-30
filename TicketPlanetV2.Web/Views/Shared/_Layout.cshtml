@@ -35,6 +35,7 @@ Author: Webstrot
     <link rel="stylesheet" type="text/css" href="~/css/style2.css" />
     @*<link rel="stylesheet" type="text/css" href="~/css/slick-theme.css" />*@
     <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+    <link href="~/css/chatStyle.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive2.css" />
     @*<script src="~/js/ticketplanetjs/scriptFiles.js"></script>*@
     <link rel="stylesheet" type="text/css" href="~/css/magnific-popup.css" />
@@ -53,9 +54,7 @@ Author: Webstrot
     <link href="~/css/w3.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- favicon links -->
-    
-   
-    <link rel="icon" href="@Url.Content("~/images/header/tplogo.png")" type="image/png" sizes="32x32" />
+    <link rel="icon" href="images/header/tplogo.png" type="image/png" sizes="32x32" />
  
 </head>
 
@@ -68,42 +67,13 @@ Author: Webstrot
             <p class="text-center" style="font-weight:bold; font-size:x-large; color:black;">..Loading Please..</p>
         </div>
     </div>
-    <!-- color picker start -->
-    <!--<div id="style-switcher">
-        <div>
-            <h3>Choose Color</h3>
-            <ul class="colors">
-                <li>
-                    <p class='colorchange' id='color'></p>
-                </li>
-                <li>
-                    <p class='colorchange' id='color2'></p>
-                </li>
-                <li>
-                    <p class='colorchange' id='color3'></p>
-                </li>
-                <li>
-                    <p class='colorchange' id='color4'></p>
-                </li>
-                <li>
-                    <p class='colorchange' id='color5'></p>
-                </li>
-                <li>
-                    <p class='colorchange' id='style'></p>
-                </li>
-            </ul>
-        </div>
-        <div class="bottom"> <a href="" class="settings"><i class="fa fa-gear"></i></a> </div>
-    </div>-->
-    <!-- color picker end -->
+    <!-- preloader End -->
+   
     <!-- prs Slider Start -->
     <div class="prs_navigation_main_wrapper">
         <div class="container-fluid">
             <div id="search_open" class="gc_search_box">
-                @*<input type="text" placeholder="Search here">*@
-                @*<button>
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </button>*@
+               
             </div>
             <div class="prs_navi_left_main_wrapper">
                 <div class="prs_logo_main_wrapper">
@@ -115,13 +85,12 @@ Author: Webstrot
                     <nav class="navbar navbar-default">
                         <div id="dl-menu" class="xv-menuwrapper responsive-menu">
                             <button class="dl-trigger">
+                                <!----here is the mobile bar logo click -->
                                 <img src="~/images/header/bars.png" alt="bar_png">
                             </button>
-                            @*<div class="prs_mobail_searchbar_wrapper" id="search_button">
-                                <i class="fa fa-search"></i>
-                            </div>*@
                             <div class="clearfix"></div>
                             <ul class="dl-menu">
+                                <!-----Here is the Main Menu-->
                                 <li class="parent">
                                     <a href="@Url.Action("Index", "Home")">Home</a>
 
@@ -138,21 +107,17 @@ Author: Webstrot
                                     <a href="http://uploadevent.ticketplanet.ng">Create Event(s)</a>
 
                                 </li>
-                                @*<li class="parent">
-                                        <a href="#">pages</a>
-
-                                    </li>*@
                                 <li class="parent">
                                     <a href="@Url.Action("Contact", "Home")">contact</a>
                                 </li>
+                                @*<li class="parent">
+                                    <a href="">Blogs</a>
+                                </li>*@
                             </ul>
                         </div>
                         <!-- /dl-menuwrapper -->
                     </nav>
                 </div>
-                @*<div class="prs_logo_main_wrapper">
-                        <img src="~/images/header/home.png" width="182" height="40" alt="bar_png">
-                    </div>*@
             </div>
             <div class="prs_navi_right_main_wrapper">
                 <div class="prs_slidebar_wrapper">
@@ -160,12 +125,6 @@ Author: Webstrot
                         <img src="~/images/header/bars.png" alt="bar_png">
                     </button>
                 </div>
-                <div class="prs_top_login_btn_wrapper">
-                    <div class="prs_animate_btn1">
-
-                    </div>
-                </div>
-                
             </div>
             <div id="mobile-nav" data-prevent-default="true" data-mouse-events="true">
                 <div class="mobail_nav_overlay"></div>
@@ -178,7 +137,7 @@ Author: Webstrot
                     </div>
                     <ul class="mobile-list-nav">
                         <li>
-                            <a href="about.html">HOME</a>
+                            <a href="@Url.Action("Index", "Home")">HOME</a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "Movie")">MOVIES</a>
@@ -186,8 +145,6 @@ Author: Webstrot
                         <li>
                             <a href="@Url.Action("Index", "Event")">EVENTS</a>
                         </li>
-                      
-                       
                         <li>
                             <a href="@Url.Action("Contact", "Home")">CONTACT</a>
                         </li>
@@ -282,7 +239,7 @@ Author: Webstrot
         </div>
     </div>
     <div class="prs_bottom_footer_wrapper">
-        <a href="javascript:" id="return-to-top"><i class="flaticon-play-button"></i></a>
+        <a href="javascript:" id="return-to-top" style="text-align:center"><i class="flaticon-play-button" style="bottom:20px;"></i></a>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
@@ -311,6 +268,22 @@ Author: Webstrot
             </div>
         </div>
     </div>
+
+    @*<div class="chatWeb">
+        
+    </div>*@
+    <a target="_blank" href="https://web.whatsapp.com/send?phone=2349070111115&text=" class="btn btn-default nofocus bounce1 chatWeb">
+        <div style="background-color: lightgreen; color: rgba(0, 0, 0, 0.6); font-size:12px;padding-right:5px;font-weight:bold">
+            <img src="~/images/content/imageswhatapp.png" class="" style="background-color: limegreen;" width="50" height="40" alt="WhatsApp-chat">
+        </div>
+    </a>
+    <div class="chatMobile">
+        <a id="mobileWhatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=2349070111115&text=" class="btn btn-default nofocus bounce1">
+            <div style="background-color: lightgreen; color: rgba(0, 0, 0, 0.6); font-size:12px;padding-right:5px;font-weight:bold">
+                <img src="~/images/content/imageswhatapp.png" class="" style="background-color: limegreen;" width="50" height="40" alt="WhatsApp-chat">
+            </div>
+        </a>
+    </div>
     <!-- prs footer Wrapper End -->
     <!-- st login wrapper Start -->
     
@@ -331,16 +304,17 @@ Author: Webstrot
     <script src="~/js/smothscroll_part2.js"></script>
     <script src="~/js/slick.js"></script>
     <script src="~/js/custom2.js"></script>
+    @*<script src="~/js/custom2.js"></script>*@
     <!--main js file end-->
     <script src="~/js/ticketplanetjs/movies.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="~/js/ticketplanetjs/aes.js"></script>
 
-    
+
     <script src="~/js/ticketplanetjs/SelectJs.js"></script>
     <script src="~/js/ticketplanetjs/aes.js"></script>
     <script src="~/js/ticketplanetjs/crypto.js"></script>
-    
+
     <script src="~/js/ticketplanetjs/aes.js"></script>
     <script src="~/js/ticketplanetjs/alertify.min.js"></script>
     <!---Movies and events Scripting and payment-->

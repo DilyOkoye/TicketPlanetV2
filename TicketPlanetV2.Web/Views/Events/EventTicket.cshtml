@@ -68,6 +68,19 @@
         z-index: 600;
     }
 </style>
+<style>
+    .prs_title_main_sec_wrapper1{
+    background-repeat:no-repeat;
+	background-position:center 0;
+	background-size:cover;
+	width:100%;
+	height:100%;
+	float:left;
+	position:relative;
+	padding-top:75px;
+	text-align:center;
+    }
+</style>
 
 <style>
     @@media only screen and (max-width:420px) {
@@ -119,6 +132,20 @@
         }
     }
 </style>
+
+<div class="prs_title_main_sec_wrapper1" style="background:url('../images/content/about/banner.jpg') 50% 0 repeat-y;">
+    <div class="prs_title_img_overlay1"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="prs_title_heading_wrapper1">
+                    <h2>Image (event booking)</h2>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="prs_contact_form_main_wrapper">
     
@@ -206,15 +233,9 @@
                         <div class="row">
 
                             <div>
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn btn-primary btn-lg" id="proceedEventBtn" style="border-radius:5px;">Proceed</a>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn btn-primary btn-lg" id="proceedEventBtn" style="border-radius:5px;margin:10px;">Proceed</a>
                             </div>
-                            @*<div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="flutterDIV">
-                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink " style="border:2px solid black;border-radius:5px;" id="IntializeEventFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
-                            </div>
-
-                            <div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="paystackDIV">
-                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink " style="border:2px solid black;border-radius:5px;" id="IntializeEventPayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
-                            </div>*@
+                            <br/><br/>
 
                            
                             <input type="hidden" id="referalId" name="referalId" value="@Model.referalId" />
@@ -233,7 +254,7 @@
 
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <img src="@Model.EventImagePath" width="400" height="400" style="border-radius:5px" />
+                <img src="@Model.EventImagePath" class="img-responsive" width="400" height="400" style="border-radius:5px" />
 
             </div>
 
