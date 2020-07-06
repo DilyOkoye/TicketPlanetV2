@@ -1,5 +1,6 @@
 ﻿function GetCinemaLoactions()
 {
+    $("#loaderbody").show();
     var cinema = $("#drpCinemaCompany").val();
     //console.log("Another Cinema Val = " + cinema);
     $.ajax
@@ -22,9 +23,11 @@
                
 
                 GetMovies();
+                $("#loaderbody").hide();
             },
             error: function () {
                 alert("Whooaaa! Something went wrong..");
+                $("#loaderbody").hide();
             }
         });
 } 
@@ -34,6 +37,7 @@
 
 $("#drpLocation").on('change', function () {
     //alert("test")
+    $("#loaderbody").show();
     $('#OthersFilmHouse').html('');
     var company = $('#drpCinemaCompany').val();
     var location = $('#drpLocation').val();
@@ -58,7 +62,7 @@ $("#drpLocation").on('change', function () {
                 $('#OthersFilmHouse').html('');
                 $('#OthersFilmHouse').html(data);
                 //console.log("Movies1 " + data);
-                   
+                $("#loaderbody").hide();
             }
 
            
@@ -66,6 +70,7 @@ $("#drpLocation").on('change', function () {
 
         error: function (xhr, ajaxOptions, thrownError) {
             $('#screenDiv').hide();
+            $("#loaderbody").hide();
         },
 
 

@@ -5,6 +5,74 @@
         
     }
 </style>
+<style>
+    .loaderbody {
+        width: 100%;
+        height: 200%;
+        left: 0px;
+        top: 30%;
+        position: absolute;
+        background-color: rgba(128, 128, 128, 0.2);
+        z-index: 2147453647;
+    }
+
+    .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-right: 8px solid #3498db;
+        border-bottom: 8px thin #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loaderbody p {
+        position: fixed;
+        top: 55%;
+        left: 45%;
+        text-align: center;
+        color: #f3f3f3;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        display: none;
+        opacity: .9;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #loading-image {
+        position: absolute;
+        top: 250px;
+        left: 550px;
+        z-index: 600;
+    }
+
+    button:hover {
+        border-color: #2196F3;
+    }
+</style>
+
 
 @if (Model.cinemaCompany == "3")
 {
@@ -175,19 +243,6 @@ $(".btnFilmHouse").on('click', function () {
     //  alert(location)
     var id = $(this).data('key');
     if (location != null && id != null) {
-        //// var key = CryptoJS.enc.Utf8.parse(id);
-        //var key = CryptoJS.enc.Utf8.parse('8080808080808080');
-        //var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
-
-        //var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
-        //    {
-        //        keySize: 128 / 8,
-        //        iv: iv,
-        //        mode: CryptoJS.mode.CBC,
-        //        padding: CryptoJS.pad.Pkcs7
-        //    });
-
-
         window.location = $('#filmHouseMovies').data('request-url') + '?filmId=' + id + '&SiteId=' + location;
     }
 
@@ -199,18 +254,6 @@ $(".btnMaturion").on('click', function () {
     var id = $(this).data('key');
     if (location != null && id != null)
     {
-        //// var key = CryptoJS.enc.Utf8.parse(id);
-        //var key = CryptoJS.enc.Utf8.parse('8080808080808080');
-        //var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
-
-        //var encryptedKey = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(id), key,
-        //    {
-        //        keySize: 128 / 8,
-        //        iv: iv,
-        //        mode: CryptoJS.mode.CBC,
-        //        padding: CryptoJS.pad.Pkcs7
-        //    });
-
         window.location = $('#MaturionMovies').data('request-url') + '?filmCode=' + id + '&CinemaId=' + location;
 
     }
@@ -219,16 +262,20 @@ $(".btnMaturion").on('click', function () {
 
     function SearchMovie() {
         //alert("test")
+        //$("#loaderbody").show();
         var input = document.getElementById("textSearchMovie");
         var filter = input.value.toLowerCase();
         var nodes = document.getElementsByClassName('col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first');
+        //console.log(nodes);
 
         for (i = 0; i < nodes.length; i++) {
             
             if (nodes[i].innerText.toLowerCase().includes(filter)) {
+                //$("#loaderbody").hide();
                 nodes[i].style.display = "block";
             } else {
                 nodes[i].style.display = "none";
+                //$("#loaderbody").hide();
             }
         }
     }

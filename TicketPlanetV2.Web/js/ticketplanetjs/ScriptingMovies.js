@@ -282,19 +282,22 @@ $("#NoOfPersons").on('change', function () {
     var FilmCode = $("#FilmCode").val();
     var CouponValue = $("#CouponValue").val();
     var MovieTime = $("#MovieTime").val();
-
+    console.log('change');
     if (MovieCategory == null) {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
+        $('#loaderbody').hide();
     }
     if (MovieDay == "") {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
+        $('#loaderbody').hide();
     }
-
-    if (MovieTime == "") {
+    console.log(MovieDay);
+    if (MovieTime == null) {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
+        $('#loaderbody').hide();
     }
 
     $.ajax({
@@ -331,7 +334,7 @@ $("#NoOfPersons").on('change', function () {
             //$("#CouponValue").val(data.CouponValue);
             //$("#status").fadeOut();
             $('#loaderbody').hide();
-            $("#preloader").delay(350).fadeOut("slow");
+            //$("#preloader").delay(350).fadeOut("slow");
             $(".amountText").hide();
             var x = $("#Amount").val(data.Amount);
             var y = $("#amtCharge").val(data.amtCharge);

@@ -1912,7 +1912,7 @@ body.active #mobile-nav {
 	text-align:center;
 	line-height:50px;
 	background:#DF3E3D;
-	border:1px solid #DF3E3D;
+	border:4px solid #DF3E3D;
 	color:#ffffff;
 	margin-left:-900px;
 	    -webkit-border-radius: 10px;
@@ -2341,7 +2341,7 @@ body.active #mobile-nav {
 /*-- prs video section End --*/
 /*-- prs teater Slider Start --*/
 .prs_theater_main_slider_wrapper{
-	background:url('../images/content/2.png') 50% 0 repeat-y;
+	background:url('../images/content/theater_bg.jpg') 50% 0 repeat-y;
 	float:left;
 	width:100%;
 	height:100%;

@@ -89,7 +89,19 @@
             margin-top:0px;
       } 
     }
+
+    @@media only screen and (min-width: 800px) {
+        .prs_upcom_movie_content_box_inner h6{
+            font-size: 8px;
+        }
+    }
+    @@media only screen and (max-width: 800px) {
+        .prs_upcom_movie_content_box_inner h6{
+            font-size: 13px;
+        }
+    }
 </style>
+
 <!-- prs web series Slider End -->
 <!-- prs videos&photos slider Start --> 
 
@@ -199,8 +211,8 @@
                                         </div>
                                         <div class="prs_upcom_movie_content_box">
                                             <div class="prs_upcom_movie_content_box_inner">
-                                                <h6 style="font-size:8px;font-weight:bold"><a href="javascript:void(0)"><strong>@i.EventTitle</strong></a></h6>
-                                                <button class="btnSubmit1" type="submit" value="@i.Itbid" name="TicketType" id="TicketType"> Buy Ticket</button>
+                                                <h6 style="font-weight:bold" ><strong class="h6Text">@i.EventTitle</strong></h6>
+                                                <button class="btnSubmit1" type="submit" value="@i.Itbid" name="TicketType" id="TicketType" style="font-weight:bold"> Buy Ticket</button>
                                             </div>
 
                                         </div>
@@ -251,4 +263,16 @@
         }
       }
     }
+</script>
+
+<script>
+    $(document).ready(function () {
+        var text = document.getElementsByClassName('h6Text');
+        for (var i = 0; i < text.length; i++) {
+            var words = text[i].innerText.substring(0, 25);
+            //console.log(text[i].innerText);
+            document.getElementsByClassName('h6Text').innerText = words;
+            
+        }
+    });
 </script>

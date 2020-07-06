@@ -437,14 +437,12 @@ namespace TicketPlanetV2.Web.Controllers
                 oGenericViewModel.cinemaCompany = company;
                 int cmpy = Convert.ToInt32(company);
                 if (cmpy == 3)
-                {
-                   
+                {  
                     oGenericViewModel.ShowtimeList =  oMoviesModelClass.ListOfShowtimes(location);
                     return PartialView("_FilmHouse", oGenericViewModel);
                 }
                 else 
-                {
-                   
+                {  
                     int lctn = Convert.ToInt32(location);
                     oGenericViewModel.MovieList =  oMoviesModelClass.ListofMovies(Convert.ToInt32(location));
                     return PartialView("_FilmHouse", oGenericViewModel);
