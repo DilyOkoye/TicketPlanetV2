@@ -39,12 +39,12 @@ namespace TicketPlanetV2.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Contact(string name, string email, string comment)
+        public ActionResult Contact(string name, string emailfrom, string comment)
         {
             try
             {
 
-                BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailPlain("contact@ticketplanet.ng", "Contact Us from " + name, comment, "enwakire@ticketplanet.ng;info@ticketplanet.ng", "peze@ticketplanet.ng"));
+                BackgroundJob.Enqueue(() => EmailNotificationMail.SendEmailContact(emailfrom, "contact@ticketplanet.ng", "Contact Us from " + name, comment, "enwakire@ticketplanet.ng;info@ticketplanet.ng", "peze@ticketplanet.ng"));
                 //pascal.ezeh@ticketplanet.ng
                 return Json(new { error = false,  message = "Message sent"}, JsonRequestBehavior.AllowGet);
             }

@@ -98,6 +98,65 @@ namespace TicketPlanetV2.BAL.Utilities
 
         }
 
+        public static void SendEmailContact(string email_address_from, string to_email_address, string email_subject, string email_message, string to_email_cc, string to_email_bc)
+        {
+            try
+            {
+
+                if (!string.IsNullOrEmpty(to_email_address))
+                {
+                    if (emailIsValid(to_email_address) && emailIsValid(email_address_from))
+                    {
+                        try
+                        {
+                            //create the mail message 
+                            MailMessage mail = new MailMessage();
+
+                            //set the addresses 
+                            mail.From = new MailAddress(email_address_from); //IMPORTANT: This must be same as your smtp authentication address.
+                            mail.To.Add(to_email_address);
+
+                            //set the content 
+                            // mail.Attachments.Add(new Attachment(new MemoryStream(bytes), Subject));
+                            mail.IsBodyHtml = false;
+                            mail.Subject = email_subject;
+                            mail.Body = email_message;
+
+                            SmtpClient smtp = new SmtpClient("mail.ticketplanet.ng");
+                            smtp.Port = 587;
+                            if (!string.IsNullOrEmpty(to_email_cc))
+                            {
+                                mail.CC.Add(new MailAddress(to_email_cc));
+                            }
+                            if (!string.IsNullOrEmpty(to_email_bc))
+                            {
+                                mail.Bcc.Add(new MailAddress(to_email_bc));
+                            }
+                            NetworkCredential Credentials = new NetworkCredential("info@ticketplanet.ng", "12Ticketplanet$");
+                            smtp.Credentials = Credentials;
+                            smtp.Send(mail);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }
+
 
         public static void SendEmail(string to_email_address, string email_subject, AlternateView email_message, string to_email_cc, string to_email_bc)
         {

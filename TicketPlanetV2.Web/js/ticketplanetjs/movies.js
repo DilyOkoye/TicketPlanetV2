@@ -146,12 +146,13 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/Home/Contact",
-            data: {name: name, email: email, comment: comment},
+            data: { name: name, emailfrom: email, comment: comment },
             dataType: 'json',
             success: function (data, textStatus, XMLHttpRequest) {
                 if (data.error == false) {
 
                     alert(data.message);
+                    alertify.success(data.message);
                     //console.log(data.message);
                     $("#name").val('');
                     $("#comment").val('');
