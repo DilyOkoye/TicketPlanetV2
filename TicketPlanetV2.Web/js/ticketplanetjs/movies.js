@@ -126,7 +126,15 @@ $(".btnEventIndexGrid").on('click', function () {
 
 });
 
+function validateEmail(email) {
+
+    //const re = "\\w+([-+.']\\w+)*@@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 $(document).ready(function () {
+
 
     $(".btnSubmitComment").on('click', function (e) {
         e.preventDefault();
@@ -143,26 +151,31 @@ $(document).ready(function () {
         var comment = $("#comment").val();
         var email = $("#email").val();
 
-        $.ajax({
-            type: "POST",
-            url: "/Home/Contact",
-            data: { name: name, emailfrom: email, comment: comment },
-            dataType: 'json',
-            success: function (data, textStatus, XMLHttpRequest) {
-                if (data.error == false) {
+        if (validateEmail(email)) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/Contact",
+                data: { name: name, emailfrom: email, comment: comment },
+                dataType: 'json',
+                success: function (data, textStatus, XMLHttpRequest) {
+                    if (data.error == false) {
 
-                    alert(data.message);
-                    alertify.success(data.message);
-                    //console.log(data.message);
-                    $("#name").val('');
-                    $("#comment").val('');
-                    $("#email").val('');
-                    //console.log(data);
-                }
-
-
-            },
-        });
+                        alert(data.message);
+                        alertify.success(data.message);
+                        //console.log(data.message);
+                        $("#name").val('');
+                        $("#comment").val('');
+                        $("#email").val('');
+                        //console.log(data);
+                    }
+                },
+            });
+        }
+        else {
+            alert(email + " is not valid");
+            alertify.error("Please enter a valid email address");
+        }
+        
     });
 });
 
