@@ -1,7 +1,87 @@
 ﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
 
 <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+<style>
+    .loaderbody {
+        width: 100%;
+        height: 200%;
+        left: 0px;
+        top: 30%;
+        position: absolute;
+        background-color: rgba(128, 128, 128, 0.2);
+        z-index: 2147453647;
+    }
 
+    .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-right: 8px solid #3498db;
+        border-bottom: 8px thin #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loaderbody p {
+        position: fixed;
+        top: 55%;
+        left: 45%;
+        text-align: center;
+        color: #f3f3f3;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        display: none;
+        opacity: .9;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #loading-image {
+        position: absolute;
+        top: 250px;
+        left: 550px;
+        z-index: 600;
+    }
+
+    button:hover {
+        border-color: #2196F3;
+    }
+</style>
+
+<style>
+    .prs_title_main_sec_wrapper1 {
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        float: left;
+        position: relative;
+        padding-top: 75px;
+        text-align: center;
+    }
+</style>
 <style>
     /*@@media only screen and (max-width:360px) {
         #paystackDIV, #flutterDIV {
@@ -118,88 +198,7 @@
 
 
 
-<style>
 
-    .loaderbody {
-        width: 100%;
-        height: 200%;
-        left: 0px;
-        top: 30%;
-        position: absolute;
-        background-color: rgba(128, 128, 128, 0.2);
-        z-index: 2147453647;
-    }
-
-    .loader {
-        border: 8px solid #f3f3f3;
-        border-top: 8px solid #3498db;
-        border-right: 8px solid #3498db;
-        border-bottom: 8px thin #3498db;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1s linear infinite;
-        position: fixed;
-        top: 45%;
-        left: 50%;
-    }
-
-    @@keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .loaderbody p {
-        position: fixed;
-        top: 55%;
-        left: 45%;
-        text-align: center;
-        color: #f3f3f3;
-    }
-
-    #loading {
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-        position: fixed;
-        display: none;
-        opacity: .9;
-        background-color: #fff;
-        z-index: 99;
-        text-align: center;
-    }
-
-    #loading-image {
-        position: absolute;
-        top: 250px;
-        left: 550px;
-        z-index: 600;
-    }
-
-    button:hover {
-        border-color: #2196F3;
-    }
-</style>
-
-<style>
-    .prs_title_main_sec_wrapper1 {
-        background-repeat: no-repeat;
-        background-position: center 0;
-        background-size: cover;
-        width: 100%;
-        height: 100%;
-        float: left;
-        position: relative;
-        padding-top: 75px;
-        text-align: center;
-    }
-</style>
 
 <div class="prs_title_main_sec_wrapper1" style="background:url('../images/content/about/banner.jpg') 50% 0 repeat-y;">
     <div class="prs_title_img_overlay1"></div>
@@ -327,37 +326,12 @@
                         </div>
 
 
-                        @*<div class="body-title text-center">
-                            <div class="row">
-                                <div class="col-lg-10 col-xs-10">
-                                    <h6><b>Select payment method</b></h6>
-                                </div>
-                                <div class="row">
-                                    <div class="container payment-option left-padd">
-                                        <div class="col-xs-10 col-sm-10 col-lg-10 col-md-10">
-                                            <div class="prompt-section">
-                                                &nbsp;
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i><span class=""> In using this option, please complete transaction within 10 minutes to avoid timeout.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>*@
+                        
                         <p></p>
                         <br />
                         
                         <div class="row">
                             
-                            @*<div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="flutterDIV">
-                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
-                            </div>
-
-                            <div class="col-md-5 col-lg-5 col-xs-10 col-sm-10" id="paystackDIV">
-                                <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
-                            </div>*@
-
                             
                         </div>
 
@@ -396,36 +370,38 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                 <div class="container">
-                    
 
-                        @if (!string.IsNullOrEmpty(Model.MovieYouTube))
-                        {
-                            <p><b>Watch the Thriller</b></p>
-                            <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                        }
-                        else
-                        {
-                            <p>
-                                <span class="badge badge-danger">No Trailer Available for this Movie</span>
-                            </p>
-                        }
-                        <p><b>Synopsis</b></p>
-                        @if (!string.IsNullOrEmpty(Model.MovieSynopsis))
-                        {
 
-                            <p style="width:300px">
-                                <i>@Model.MovieSynopsis</i>
-                            </p>
-                        }
-                        else
-                        {
-                            <p>
-                                <span class="badge badge-danger">No Synopsis Available for this Movie</span>
-                            </p>
-                        }
+                    @if (!string.IsNullOrEmpty(Model.MovieYouTube))
+                    {
+                        <p><b>Watch the Thriller</b></p>
+                        <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                    }
+                    else
+                    {
+                        <p>
+                            <span class="badge badge-danger">No Trailer Available for this Movie</span>
+                        </p>
+                    }
+                    <p><b>Synopsis</b></p>
+                    @if (!string.IsNullOrEmpty(Model.MovieSynopsis))
+                    {
 
-                    
+                        <p style="width:300px">
+                            <i>@Model.MovieSynopsis</i>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            <span class="badge badge-danger">No Synopsis Available for this Movie</span>
+                        </p>
+                    }
+
+
                 </div>
+
+
 
             </div>
             <!-- // row -->
@@ -436,7 +412,9 @@
     </div>
 </div>
 
-<br/><br/>
+<br/>
+<br/>
+
 
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
@@ -454,9 +432,7 @@
                 <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="flutterDIV">
                     <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
                 </div>
-                @*<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
-                    <h2>OR</h2>
-                </div>*@
+               
                 <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
                     <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
                 </div>
@@ -468,7 +444,7 @@
 
 <div class="loaderbody" id="loaderbody" style="display:none;">
     <div class="loader"></div>
-    <p style="text-align:center; color:blue;"><b>loading please.......</b></p>
+    <p style="text-align:center; color:blue;"><b>.......loading please.......</b></p>
 </div>
 <script src="~/js/jquery_min.js"></script>
 <script src="~/js/ticketplanetjs/ScriptingMovies.js"></script>

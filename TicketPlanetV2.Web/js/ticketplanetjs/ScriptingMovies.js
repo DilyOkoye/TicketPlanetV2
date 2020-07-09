@@ -85,8 +85,6 @@ $("#CinemaCompanyID").on('change', function () {
 
 });
 
-
-
 $("#MovieDay").on('change', function () {
     //$("#preloader").delay(350).fadeIn();
     //$("#status").fadeIn();
@@ -142,24 +140,6 @@ $("#MovieDay").on('change', function () {
 
 
 });
-
-
-//    $("#MovieTime").click(function () {
-//        $("#loaderbody").show();
-//        var MovieTime = $("#MovieTime").val();
-
-//        $.ajax({
-//            url: "@Url.Action("CheckMovieTime", "Movies")",
-//            data: { movieTime: MovieTime },
-//        dataType: "json",
-//        type: "POST",
-//        success: function (data) {
-//            if (data.false) {
-//                alert("No Movie for this time");
-//            }
-//        }
-//    });
-//});
 
 $("#MovieTime").on('change', function ()
 {
@@ -269,7 +249,6 @@ $("#MovieTime").on('change', function ()
        
 });
 
-
 $("#NoOfPersons").on('change', function () {
 
     $('#loaderbody').show();
@@ -282,22 +261,22 @@ $("#NoOfPersons").on('change', function () {
     var FilmCode = $("#FilmCode").val();
     var CouponValue = $("#CouponValue").val();
     var MovieTime = $("#MovieTime").val();
-    console.log('change');
+    //console.log('change');
     if (MovieCategory == null) {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
-        $('#loaderbody').hide();
+        //$("#loaderbody").hide();
     }
     if (MovieDay == "") {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
-        $('#loaderbody').hide();
+        //$("#loaderbody").hide();
     }
-    console.log(MovieDay);
+    //console.log(MovieDay);
     if (MovieTime == null) {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
-        $('#loaderbody').hide();
+        //$('#loaderbody').hide();
     }
 
     $.ajax({
@@ -314,7 +293,7 @@ $("#NoOfPersons").on('change', function () {
 
             $("#Amount").val(data.Amount);
             $('#amtCharge').val(data.amtCharge);
-            $('#loaderbody').hide();
+            $("#loaderbody").hide();
             //$("#status").fadeOut();
             //$("#preloader").delay(350).fadeOut("slow");
             $(".amountText").show();
@@ -333,7 +312,7 @@ $("#NoOfPersons").on('change', function () {
             $("#OrigAmount").show();
             //$("#CouponValue").val(data.CouponValue);
             //$("#status").fadeOut();
-            $('#loaderbody').hide();
+            $("#loaderbody").hide();
             //$("#preloader").delay(350).fadeOut("slow");
             $(".amountText").hide();
             var x = $("#Amount").val(data.Amount);
@@ -342,14 +321,12 @@ $("#NoOfPersons").on('change', function () {
             //alert(totalAmounts);
         }
 
-
+        $("#loaderbody").hide();
     }
 });
 
 
 });
-
-
 
 $("#MovieCategory").on('change', function () {
 

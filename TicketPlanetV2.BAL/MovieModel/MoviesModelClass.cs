@@ -4092,6 +4092,7 @@ namespace TicketPlanetV2.BAL.MovieModel
 
             return result.ToList();
 
+
         }
 
         public List<UrlConcat> RaiseGetMaryLandFilmsPerformance()
@@ -5629,7 +5630,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                 if (CinemaId == 1)
                 {
 
-
+                
                     var tt = RaiseGetPalmsFilmsPerformance().OrderByDescending(o => o.StartDate);
 
                     list = tt.GroupBy(x => x._FilmTitle)
