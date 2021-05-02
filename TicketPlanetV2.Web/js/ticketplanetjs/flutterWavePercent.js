@@ -2,17 +2,17 @@
 
 
 
-    function InitFlwTransaction(data) {
+    function InitFlwTransactionP(data) {
         return $.ajax({
             type: "POST",
-            url: '/Movies/FlutterwaveMoviePayment',
+            url: '/Movies/FlutterwaveMoviePaymentPercent',
             data: data,
             dataType: 'json',
             contentType: 'application/json;charset=utf-8'
         });
     }
 
-    $("#IntializeFlwPayment").click(function (e) {
+    $("#IntializeFlwPaymentPercent").click(function (e) {
 
 
         //if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
@@ -55,7 +55,7 @@
             CouponValue: $("#CouponValue").val()
         });
 
-        $.when(InitFlwTransaction(data)).then(function (response) {
+        $.when(InitFlwTransactionP(data)).then(function (response) {
 
 
             if (response.error == false) {
@@ -123,7 +123,7 @@ function payWithRave(pbKeys, data) {
                     success: function (data) {
                         if (data.error == false) {
                             //redirect to confirmation payment page
-                            
+
                             alert("Payment Successful, please check your email for payment confirmation.");
                             window.location.href = "https://ticketplanet.ng/Movies/paymentConfirmationFlw?reference=" + tkReference + "&fltRef=" + flutterRef;
                             //window.location.href = "https://ticketplanet.ng/Movies/paymentConfirmationFlw?reference=" + tkReference + "&fltRef=" + flutterRef;
@@ -144,5 +144,3 @@ function payWithRave(pbKeys, data) {
         }
     });
 }
-
-

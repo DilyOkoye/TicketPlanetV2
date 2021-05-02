@@ -453,6 +453,7 @@
     <Compile Include="RepositoryCalls\MiniLuxury25SeaterRepository.cs" />
     <Compile Include="RepositoryCalls\MiniLuxury33SeaterRepository.cs" />
     <Compile Include="RepositoryCalls\MoviesRepository.cs" />
+    <Compile Include="RepositoryCalls\OtherFilmRepository.cs" />
     <Compile Include="RepositoryCalls\OwerriFilmRepository.cs" />
     <Compile Include="RepositoryCalls\OwerriPerformanceRepository.cs" />
     <Compile Include="RepositoryCalls\PassengerRepository.cs" />

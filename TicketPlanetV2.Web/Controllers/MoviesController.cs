@@ -42,27 +42,11 @@ namespace TicketPlanetV2.Web.Controllers
         }
         public ActionResult Index()
         {
-            //#region Film House
-            ////this return cinema list
-            //oGenericViewModel.drpCinema = oMoviesModelClass.ListOfCinemas();
-            //// this return cinemaChains like id, chainId, name, timezone, and address etc
-            //oGenericViewModel.CinemaChainSiteList = oFilmHouseModel.GetCinemaChainSites();
-            ////list of movies and chain id, 
-            //oGenericViewModel.CinemaChainFilms = oFilmHouseModel.GetCinemaChainFilms();
-            //oGenericViewModel.ShowtimeList =  oMoviesModelClass.ListOfShowtimes("3f2f862b-2702-4ea3-4385-08d5c686e473");
-            //#endregion
-
-            #region Genesis
+            #region Genesis 
             oGenericViewModel.drpGenesisCinema = oMoviesModelClass.ListOfCinemas(1);
             oGenericViewModel.MovieList = oMoviesModelClass.ListofMovies(1);
             oGenericViewModel.CinemaID = oGenericViewModel.MovieList.Count > 0 ? oGenericViewModel.MovieList.FirstOrDefault().CinemaId : 0;
             #endregion
-
-            //#region Maturion
-            //oGenericViewModel.drpMaturionCinema = oMoviesModelClass.ListOfMatCinemas(11);
-            //oGenericViewModel.MaturionMovieList =  oMoviesModelClass.ListofMovies(11);
-            //oGenericViewModel.MaturionCinemaID = oGenericViewModel.MovieList.Count > 0 ? oGenericViewModel.MovieList.FirstOrDefault().CinemaId : 0;
-            //#endregion
             return View(oGenericViewModel);
         }
 
@@ -80,6 +64,31 @@ namespace TicketPlanetV2.Web.Controllers
             return null;
         }
 
+        public ActionResult GetMoviesViaLocation(string company, string location)
+        {
+
+            if (!string.IsNullOrEmpty(company) && !string.IsNullOrEmpty(location))
+            {
+                oGenericViewModel.cinemaCompany = company;
+                int cmpy = Convert.ToInt32(company);
+                if (cmpy == 3)
+                {
+                    oGenericViewModel.ShowtimeList = oMoviesModelClass.ListOfShowtimes(location);
+                    return PartialView("_FilmHouse", oGenericViewModel);
+                }
+                else
+                {
+                    int lctn = Convert.ToInt32(location);
+                    oGenericViewModel.MovieList = oMoviesModelClass.ListofMovies(Convert.ToInt32(location));
+                    return PartialView("_FilmHouse", oGenericViewModel);
+                }
+
+
+            }
+            return null;
+        }
+
+
         [HttpPost]
         public JsonResult GetFilmHousePrice(string price, int NoOfPersons)
         {
@@ -91,7 +100,7 @@ namespace TicketPlanetV2.Web.Controllers
         }
         [HttpPost]
         public async Task<JsonResult> GetFilmHouseMovieTime(string MovieDay, string siteId, string filmId)
-        {
+        { 
 
             string[] res = MovieDay.Split('_');
             var locationList = await oMoviesModelClass.ListOfTime(siteId, res[0], filmId);
@@ -186,12 +195,7 @@ namespace TicketPlanetV2.Web.Controllers
 
         public async Task<ActionResult> FilmHouseTickets(string filmId, string SiteId)
         {
-            //string filmId = Cryptors.DecryptStringAES(code);
-            //if (string.IsNullOrEmpty(filmId) || filmId == "keyError")
-            //{
-            //    return RedirectToAction("Index", "Movies");
-
-            //}
+            
 
             if (string.IsNullOrEmpty(filmId))
             {
@@ -205,13 +209,17 @@ namespace TicketPlanetV2.Web.Controllers
             {
                 oGenericViewModel.MovieName = val.title;
                 oGenericViewModel.MovieSynopsis = val.plot;
-
+                oGenericViewModel.MovieYouTube = val.youtube;
             }
-            oGenericViewModel.SiteId = oGenericViewModel.SiteId;
-            oGenericViewModel.filmId = filmId;
+            oGenericViewModel.SiteId = SiteId;
+            var splitId = filmId.Split('*');
+            string ids = splitId[0].ToString();
+            oGenericViewModel.filmId = ids;
             oGenericViewModel.CinemaName = oMoviesModelClass.GetFilmHouseLocation(SiteId);
-            oGenericViewModel.drpMovieCategory = oMoviesModelClass.ListOfCategories(filmId, SiteId);
+            oGenericViewModel.drpMovieCategory = oMoviesModelClass.ListOfCategories(ids, SiteId);
             oGenericViewModel.drpMovieDay = await oMoviesModelClass.ListOfMovieDays(SiteId);
+            //oGenericViewModel.MovieYouTube = "";
+            //oGenericViewModel.MovieYouTube = oMoviesModelClass.GetYouTubeLink(movieName[0], int.Parse(CinemaId));
             //oBusViewModel.drpMovieTime = await oMoviesModelClass.ListOfTime(busViewModel.SiteId);
 
             return View(oGenericViewModel);
@@ -220,12 +228,7 @@ namespace TicketPlanetV2.Web.Controllers
 
         public async Task<ActionResult> MovieTicket(string filmCode, string CinemaId)
         {
-            //string filmCode = Cryptors.DecryptStringAES(code);
-            //if (string.IsNullOrEmpty(filmCode) || filmCode == "keyError") 
-            //{
-            //    return RedirectToAction("Index", "Movies");
-
-            //}
+            
             if (filmCode == null || CinemaId == null)
             {
                 return RedirectToAction("Index", "Movies");
@@ -240,6 +243,7 @@ namespace TicketPlanetV2.Web.Controllers
 
             oGenericViewModel.drpMovieCategory = oMoviesModelClass.ListofCinemaCategory(int.Parse(CinemaId), movieName[0]);
             oGenericViewModel.MovieName = oMoviesModelClass.getMovieName(movieName[0], int.Parse(CinemaId));
+            oGenericViewModel.Img_Banner = oMoviesModelClass.getMovieBanner(movieName[0], int.Parse(CinemaId));
             oGenericViewModel.drpMovieLocatn = oMoviesModelClass.ListOfCinemas(movieName[1]);
             oGenericViewModel.MovieSynopsis = oMoviesModelClass.GetMovieSynopsis(movieName[0], int.Parse(CinemaId));
             oGenericViewModel.MovieYouTube = oMoviesModelClass.GetYouTubeLink(movieName[0], int.Parse(CinemaId));
@@ -269,6 +273,7 @@ namespace TicketPlanetV2.Web.Controllers
 
             oGenericViewModel.drpMovieCategory = oMoviesModelClass.ListofCinemaCategory(int.Parse(CinemaId), movieName[0]);
             oGenericViewModel.MovieName = oMoviesModelClass.getMovieName(movieName[0], int.Parse(CinemaId));
+            oGenericViewModel.Img_Banner = oMoviesModelClass.getMovieBanner(movieName[0], int.Parse(CinemaId));
             oGenericViewModel.drpMovieLocatn = oMoviesModelClass.ListOfCinemas(movieName[1]);
             oGenericViewModel.MovieSynopsis = oMoviesModelClass.GetMovieSynopsis(movieName[0], int.Parse(CinemaId));
             oGenericViewModel.MovieYouTube = oMoviesModelClass.GetYouTubeLink(movieName[0], int.Parse(CinemaId));
@@ -303,7 +308,6 @@ namespace TicketPlanetV2.Web.Controllers
             return Json(rtvValues);
 
         }
-
 
         [HttpPost]
         public JsonResult VerifyPromoCode(string PromoCode)
@@ -427,33 +431,6 @@ namespace TicketPlanetV2.Web.Controllers
             var time = DateTime.UtcNow.ToString("hh:mm:ss");
             return Json(new { error = true }, JsonRequestBehavior.AllowGet);
         }
-
-
-        public ActionResult GetMoviesViaLocation(string company,string location)
-        {
-
-            if (!string.IsNullOrEmpty(company) && !string.IsNullOrEmpty(location))
-            {
-                oGenericViewModel.cinemaCompany = company;
-                int cmpy = Convert.ToInt32(company);
-                if (cmpy == 3)
-                {  
-                    oGenericViewModel.ShowtimeList =  oMoviesModelClass.ListOfShowtimes(location);
-                    return PartialView("_FilmHouse", oGenericViewModel);
-                }
-                else 
-                {  
-                    int lctn = Convert.ToInt32(location);
-                    oGenericViewModel.MovieList =  oMoviesModelClass.ListofMovies(Convert.ToInt32(location));
-                    return PartialView("_FilmHouse", oGenericViewModel);
-                }
-                
-
-            }
-            return null;
-        }
-
-
      
         public async Task<JsonResult> InitializeMoviePaymentFM(string Fullname, string phoneNo, string email, string NoOfPersons
     , string MovieCategory, string Amount, string MovieDay, string MovieTime, string MovieName,
@@ -618,7 +595,87 @@ namespace TicketPlanetV2.Web.Controllers
                 int flutterwaveAmount = oMoviesModelClass.CalculateFlutterAmount(Amount, Convert.ToInt32(NoOfPersons), CouponValue);
 
                 FlutterWaveRequestModel rt = new FlutterWaveRequestModel();
+                //var percent = 0.1 * flutterwaveAmount;
+                //var decrease = Convert.ToInt32((flutterwaveAmount - percent));
+                //rt.amount = decrease;
                 rt.amount = flutterwaveAmount;
+                //rt.amount = 5;
+                rt.email = email;
+                rt.firstName = Fullname;
+                rt.lastName = Fullname;
+                rt.publicKey = tk.MobileClientPayStackSecretKey;
+                rt.secretKey = tk.ClientPayStackSecretKey;
+                //rt.publicKey = testSecretKey;
+                //rt.secretKey = testPublicKeys;
+                rt.redirectUrl = tk.TicketPlanetEventCallBackUrl;
+                rt.Reference = Reference;
+                rt.phoneNo = phoneNo;
+
+                return Json(new { result = rt, error = false }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> FlutterwaveMoviePaymentPercent(string Fullname, string phoneNo, string email, string NoOfPersons
+        , string MovieCategory, string Amount, string comments, int CinemaLocation, int CinemaCompanyID, string MovieDay, string MovieTime, string MovieName,
+            string IsCoupon, string Coupon, string CouponAgentId, string CouponAssignId, string CouponID, string nErrorCode, string CouponValue)
+        {
+            oGenericViewModel.rv = new ReturnValues();
+
+            TicketRequestModel ct = new TicketRequestModel();
+            ct.Fullname = Fullname;
+            ct.phoneNo = phoneNo;
+            ct.email = email;
+            ct.NoOfPersons = Convert.ToInt32(NoOfPersons);
+
+            ct.Amount = Amount;
+            var per = 0.1 * Convert.ToInt32(Amount);
+            var dec = Convert.ToInt32((Convert.ToInt32(Amount) - per));
+            ct.Amount = dec.ToString();
+            //ct.Amount = "5.00";
+            ct.MovieDate = MovieDay;
+            ct.MovieTime = MovieTime;
+            ct.CinemaCompanyID = CinemaCompanyID;
+            ct.CinemaLocation = CinemaLocation;
+            ct.MovieName = MovieName;
+            ct.TicketCategory = MovieCategory;
+
+            if (!string.IsNullOrEmpty(nErrorCode))
+            {
+                if (nErrorCode == "1")
+                {
+                    ct.Coupon = Coupon;
+                    ct.CouponAgentId = !string.IsNullOrEmpty(CouponAgentId) ? Convert.ToInt32(CouponAgentId) : 0;
+                    ct.CouponAssignId = !string.IsNullOrEmpty(CouponAssignId) ? Convert.ToInt32(CouponAssignId) : 0;
+                    ct.CouponID = !string.IsNullOrEmpty(CouponID) ? Convert.ToInt32(CouponID) : 0;
+                    ct.IsCoupon = IsCoupon;
+
+                }
+            }
+            else
+            {
+                ct.IsCoupon = "N";
+            }
+
+            var BatchCounter = oMoviesModelClass.GetCurrentCounter();
+            var Reference = RefferenceGenerator.GenerateReferenceFLW(BatchCounter);
+            var rtn = oMoviesModelClass.SaveTicketDetails(ct, Reference);
+
+            if (rtn.sErrorText == "Success")
+            {
+                //string testSecretKey = "FLWSECK_TEST-b252b05cd42022b753045159413ad2ad-X";
+                //string testPublicKeys = "FLWPUBK_TEST-1f5f2f2bdd4e5928fdc59fc29296ea91-X";
+                var tk = await oMoviesModelClass.GetClientProfileDetails("002");
+
+                int flutterwaveAmount = oMoviesModelClass.CalculateFlutterAmount(Amount, Convert.ToInt32(NoOfPersons), CouponValue);
+
+                FlutterWaveRequestModel rt = new FlutterWaveRequestModel();
+                var percent = 0.1 * flutterwaveAmount;
+                var decrease = Convert.ToInt32((flutterwaveAmount - percent));
+                rt.amount = decrease;
+                //rt.amount = flutterwaveAmount;
                 //rt.amount = 5;
                 rt.email = email;
                 rt.firstName = Fullname;
@@ -732,21 +789,24 @@ namespace TicketPlanetV2.Web.Controllers
             if (rtn.sErrorText == "Success")
             {
 
-                var tk =await oMoviesModelClass.GetClientProfileDetails("001");
+                var tk = await oMoviesModelClass.GetClientProfileDetails("001");
                 int PayStackAmount = oMoviesModelClass.CalculatePayStackAmount(Amount, Convert.ToInt32(NoOfPersons), CouponValue);
 
                 PayStackRequestModel rt = new PayStackRequestModel();
-                rt.amount = PayStackAmount;
+                var percent = 0.1 * PayStackAmount;
+                var decrease = Convert.ToInt32((PayStackAmount - percent));
+
+                rt.amount = decrease;
                 //rt.amount = 50;
                 rt.email = email;
 
-                rt.firstName = Fullname;
+                rt.firstName = Fullname;   
                 rt.lastName = Fullname;
 
 
                 //
                 var paystackTransactionAPI = new PaystackTransaction(tk.ClientPayStackSecretKey);
-                var response = await paystackTransactionAPI.InitializeTransaction(rt.email, rt.amount, rt.firstName, rt.lastName, "http://localhost:2070/Movies/PaymentConfirmation", Reference);
+                var response = await paystackTransactionAPI.InitializeTransaction(rt.email, rt.amount, rt.firstName, rt.lastName, "https://ticketplanet.ng/Movies/PaymentConfirmation", Reference);
                 //Note that callback url is optional
                 if (response.status == true)
                 {

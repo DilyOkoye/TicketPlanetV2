@@ -4,10 +4,10 @@
     var tpj = jQuery;
     var revapi24;
     // Preloader 
-    jQuery(window).on('load', function () {
-        jQuery("#status").fadeOut();
-        jQuery("#preloader").delay(350).fadeOut("slow");
-    });
+    //jQuery(window).on('load', function () {
+    //    jQuery("#status").fadeOut();
+    //    jQuery("#preloader").delay(350).fadeOut("slow");
+    //});
 
 
     // on ready function

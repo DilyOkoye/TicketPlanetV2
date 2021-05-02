@@ -19,10 +19,11 @@ namespace TicketPlanetV2.DAL.Implementation
 
         protected IDbFactory DbFactory
         {
-
             get;
             private set;
         }
+
+        //IDbFactory db = new DbFactory();
 
         protected TicketPlanetContext DbContext
         {

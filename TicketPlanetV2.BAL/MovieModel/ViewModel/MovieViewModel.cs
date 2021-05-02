@@ -57,7 +57,13 @@ namespace TicketPlanetV2.BAL.MovieModel.ViewModel
             public string FilmTitle { get; set; }
             public string Synopsis { get; set; }
             public string Youtube { get; set; }
+            public string imgBanner { get; set; }
 
+        }
+
+        public class MovieBanner
+        {
+            public string imgBanner { get; set; }
         }
 
         public class MovieTimeObj

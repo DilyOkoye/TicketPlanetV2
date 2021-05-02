@@ -42,6 +42,7 @@ namespace TicketPlanetV2.BAL.MovieModel
         private readonly IFilmHouseFilmsRepository repoFilmHouseFilms;
         private readonly IAbujaFilmRepository repoAbujafilm;
         private readonly IThePalmsPerformanceFilm repoPalmsPerformance;
+        private readonly IOtherFilmRepository repoOtherFilms;
         private readonly IAbujaPerformanceRepository repoAbujaPerformance;
         private readonly IAjahFilmRepository repoAjahFilm;
         private readonly IAjahPerformanceRepository repoAjahPerformance;
@@ -72,6 +73,7 @@ namespace TicketPlanetV2.BAL.MovieModel
         private readonly ICinemaPricingRepository repoCinemaPricing;
         private readonly IClientProfileRepository repoClientProfileRepository;
         private readonly IFlightRoutesRepository repoRoutes;
+        
         private readonly IUnitOfWork unitOfWork;
         private readonly IDbFactory idbfactory;
 
@@ -89,6 +91,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             repoGenesisFilm = new ThePalmsFirm(idbfactory);
             repoFilmHouseFilms = new FilmHouseFilmsRepository(idbfactory);
             repoGenesisPerform = new ThePalmsPerformanceFilm(idbfactory);
+            repoOtherFilms = new OtherFilmRepository(idbfactory);
             repoCinemaTranLog = new CinemaTransactionLogRepository(idbfactory);
             repoAbujafilm = new AbujaFilmRepository(idbfactory);
             repoSliders = new SliderRepository(idbfactory);
@@ -154,8 +157,8 @@ namespace TicketPlanetV2.BAL.MovieModel
             {
 
 
-                var details =await repoSliders.Get(null);
-               // var details = repoSliders.GetNonAsync(x => x.UserId == 2);
+                var details =await repoSliders.Get(x => x.UserId == 1);
+               // var details = repoSliders.Get(x => x.UserId == 1);
 
                 return details;
 
@@ -189,7 +192,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             string input = result1.Replace("\\", string.Empty);
             input = input.Trim('"');
             var obj = JsonConvert.DeserializeObject<List<RootObject>>(input);
-
+            
             if (obj != null)
             {
 
@@ -284,12 +287,15 @@ namespace TicketPlanetV2.BAL.MovieModel
         public ShowtimeList2 GetMovieDetails(string id)
         {
             var rtv = new ShowtimeList2();
-            var res = repoFilmHouseFilms.GetNonAsync(o => o.id == id);
+            var splitId = id.Split('*');
+            string ids = splitId[0].ToString();
+            var res = repoFilmHouseFilms.GetNonAsync(o => o.id == ids);
             if (res != null)
             {
                 rtv.title = res.title;
                 rtv.plot = res.plot;
                 //rtv.youtube = res.MovieUrl;
+                rtv.youtube = res.mxfReleaseId;
                 return rtv;
 
             }
@@ -786,7 +792,8 @@ namespace TicketPlanetV2.BAL.MovieModel
         {
 
             DynamicParameters param = new DynamicParameters();
-
+            param.Add("", payStackReference);
+            param.Add("", bookingRef);
             var result = await db.QueryAsync<int>(sql: "spContestantInsert",
 
                 param: param, commandType: CommandType.StoredProcedure);
@@ -931,7 +938,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                     {
 
                         return list.Where(o => o.startDate == movieDay).GroupBy(test => test.startTime)
-                  .Select(grp => grp.First()).ToList();
+                                   .Select(grp => grp.First()).ToList();
 
                     }
 
@@ -955,7 +962,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             {
                 string url = "http://filmhouse.ticketplanet.ng/api/ReferenceData/GetShowTimes?siteId=" + siteId;
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json;";
+                httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "GET";
                 httpWebRequest.Accept = "application/json";
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -2687,6 +2694,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             o.FilmTitle = result.FirstOrDefault().FilmTitle;
             o.Synopsis = result.FirstOrDefault().Synopsis;
             o.Youtube = result.FirstOrDefault().Youtube;
+            o.imgBanner = result.FirstOrDefault().imgBanner;
             return o;
 
 
@@ -4505,7 +4513,53 @@ namespace TicketPlanetV2.BAL.MovieModel
 
         }
 
+        public string getMovieBanner(string filmCode, int CinemaId)
+        {
+            MovieNameObj o = new MovieNameObj();
+            string movieBanner = "";
+            if (CinemaId == 1)
+            {
+                movieBanner = repoGenesisFilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 2)
+            {
+                movieBanner = repoPhFilms.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 3)
+            {
+                movieBanner = repoMaryLandFilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 4)
+            {
+                movieBanner = repoAbujafilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 5)
+            {
+                movieBanner = repoWarriFilms.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 6)
+            {
+                movieBanner = repoOwerriFilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 7)
+            {
+                movieBanner = repoAjahFilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 8)
+            {
+                movieBanner = repoAsabaFilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 9)
+            {
+                movieBanner = repoGatewayFilm.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
+            else if (CinemaId == 11)
+            {
+                movieBanner = repoOtherFilms.GetNonAsync(x => x.Code == filmCode).Img_title;
+            }
 
+            return movieBanner;
+        }
         public string GetMovieSynopsis(string filmCode, int CinemaId)
         {
             MovieNameObj o = new MovieNameObj();
@@ -5813,7 +5867,7 @@ namespace TicketPlanetV2.BAL.MovieModel
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand())
                     {
-
+                    
                         cmd.Connection = con;
                         cmd.CommandText = "IspFetchMoviePrice";
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -6204,6 +6258,7 @@ namespace TicketPlanetV2.BAL.MovieModel
         public int CalculatePayStackAmount(string Amount, int NoOfPerson, string CouponValue)
         {
             string amt = Amount.Replace(",", "");
+
             decimal amount = 0.0m;
             if (decimal.TryParse(amt, out amount))
             {
@@ -6315,7 +6370,7 @@ namespace TicketPlanetV2.BAL.MovieModel
         public async Task<tk_ClientProfile> GetClientProfileDetails(string code)
         {
 
-            var tk =await repoClientProfileRepository.Get(x => x.ClientCode == code);
+            var tk = await repoClientProfileRepository.Get(x => x.ClientCode == code);
             return tk;
 
         }
@@ -6411,6 +6466,7 @@ namespace TicketPlanetV2.BAL.MovieModel
             try
             {
 
+
                 var cinemaTranLog = new tk_CinemaTransactionLog();
                 cinemaTranLog.DateCreated = DateTime.UtcNow;
                 cinemaTranLog.ContactEmail = ctReqest.email;
@@ -6475,7 +6531,7 @@ namespace TicketPlanetV2.BAL.MovieModel
 
             DynamicParameters param = new DynamicParameters();
 
-            string moviePreffix = !string.IsNullOrEmpty(movieName) && movieName.Count() > 3 ? movieName.Substring(0, 3) : movieName;
+            string moviePreffix = !string.IsNullOrEmpty(movieName) && movieName.Count() > 2 ? movieName.Substring(0, 2) : movieName;
             moviePreffix = Regex.Replace(moviePreffix, "(?<=')(.*?)'(?=.*')", "$1");
             moviePreffix = moviePreffix.Replace("'", "");
             param.Add("@psMovieName", "%" + moviePreffix + "%");

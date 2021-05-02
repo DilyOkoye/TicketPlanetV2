@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace TicketPlanet.DAL.RepositoryCalls
     {
         public AbujaFilmRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
+        
     }
 
     public interface IAbujaFilmRepository : IRepository<tk_GenesisFilmsAbuja>

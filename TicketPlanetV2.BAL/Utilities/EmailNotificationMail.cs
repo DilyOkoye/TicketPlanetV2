@@ -44,6 +44,7 @@ namespace TicketPlanetV2.BAL.Utilities
             try
             {
 
+
                 if (!string.IsNullOrEmpty(to_email_address))
                 {
                     if (emailIsValid(to_email_address))
@@ -62,6 +63,7 @@ namespace TicketPlanetV2.BAL.Utilities
                             mail.IsBodyHtml = true;
                             mail.Subject = email_subject;
                             mail.Body = email_message;
+
 
                             SmtpClient smtp = new SmtpClient("mail.ticketplanet.ng");
                             smtp.Port = 587;

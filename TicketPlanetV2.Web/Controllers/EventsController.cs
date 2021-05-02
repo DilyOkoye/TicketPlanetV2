@@ -289,6 +289,57 @@ namespace TicketPlanetV2.Web.Controllers
 
         }
 
+        public async Task<JsonResult> FlutterwaveDubaiPayment(string Fullname, string phoneNo, string email, string NoOfPersons
+        , string TicketCategory, string Amount, string comments, int TicketType, string TicketCategoryName, string cardCategory, string Validated, string ReferalId)
+        {
+
+            oGenericViewModel.rv = new ReturnValues();
+
+            TicketRequestModel ct = new TicketRequestModel();
+            ct.Fullname = Fullname;
+            ct.phoneNo = phoneNo;
+
+            ct.email = email;
+            ct.NoOfPersons = Convert.ToInt32(NoOfPersons);
+            ct.TicketCategory = TicketCategory;
+            ct.Amount = Amount;
+            //ct.Amount = "5.00";
+            //ct.comments = comments;
+            ct.TicketType = TicketType;
+            ct.ReferalId = ReferalId == null ? "" : ReferalId;
+            //ct.Validated = Validated;
+
+            var BatchCounter = oEventClassModel.GetCurrentCounter();
+            var Reference = RefferenceGenerator.GenerateReferenceFLW(BatchCounter);
+            var rtn = oEventClassModel.SaveTicketDetails(ct, Reference);
+            if (rtn.sErrorText == "Success")
+            {
+
+                var tk = oEventClassModel.GetClientProfileDetails("002");
+                int flutterwaveAmount = oEventClassModel.CalculateFlutterTravelsAmount(Amount, Convert.ToInt32(TicketCategory), TicketCategoryName, Convert.ToInt32(NoOfPersons), cardCategory);
+
+                FlutterWaveRequestModel rt = new FlutterWaveRequestModel();
+                rt.amount = flutterwaveAmount;
+                //rt.amount = 5;
+                rt.email = email;
+                rt.firstName = Fullname;
+                rt.lastName = Fullname;
+                rt.publicKey = tk.MobileClientPayStackSecretKey;
+                rt.secretKey = tk.ClientPayStackSecretKey;
+                //rt.publicKey = testSecretKey;
+                //rt.secretKey = testPublicKeys;
+                rt.redirectUrl = tk.TicketPlanetEventCallBackUrl;
+                rt.Reference = Reference;
+                rt.phoneNo = phoneNo;
+
+                return Json(new { result = rt, error = false }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpPost]
         public async Task<JsonResult> updateFlutterPayment(string reference, string flwRef)
         {

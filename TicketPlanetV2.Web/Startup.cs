@@ -28,10 +28,6 @@ namespace TicketPlanetV2.Web
             }); app.UseHangfireDashboard();
 
             app.UseHangfireServer();
-          
-
         }
-
-
     }
 }

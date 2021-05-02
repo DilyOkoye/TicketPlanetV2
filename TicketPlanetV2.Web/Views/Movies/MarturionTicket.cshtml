@@ -139,20 +139,37 @@
     }
 </style>
 
-<div class="prs_title_main_sec_wrapper1" style="background:url('../images/content/about/banner.jpg') 50% 0 repeat-y;">
-    <div class="prs_title_img_overlay1"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="prs_title_heading_wrapper1">
-                    <h2>Image (movie booking)</h2>
+@if (Model.Img_Banner == null || Model.Img_Banner == "none")
+{
+    <div class="prs_title_main_sec_wrapper1" style="background:url('../images/content/about/banner.jpg') 50% 0 repeat-y;">
+        <div class="prs_title_img_overlay1" style="background:rgba(0,0,0,0.8)"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="prs_title_heading_wrapper1" style="height:70px;">
+                        @*<h2>Image (movie booking)</h2>*@
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="prs_title_main_sec_wrapper1" style="background:url('@Model.Img_Banner');">
+        <div class="prs_title_img_overlay1"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="prs_title_heading_wrapper1" style="height:100px;">
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <div id="MovieTicket" class="padding-tb-40px" style="background-color: transparent; background-repeat:no-repeat">
 
@@ -312,7 +329,7 @@
                     @if (!string.IsNullOrEmpty(Model.MovieYouTube))
                     {
                         <p><b>Watch the Thriller</b></p>
-                        <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                        <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     }
                     else
                     {
@@ -358,15 +375,15 @@
                 </div>
             </div>
             <div class="row text-center" style="margin-top:20px;">
-                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="flutterDIV">
+                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" id="flutterDIV">
                     <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
                 </div>
                 @*<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
                         <h2>OR</h2>
                     </div>*@
-                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
+                @*<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
                     <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
-                </div>
+                </div>*@
             </div>
         </div>
 

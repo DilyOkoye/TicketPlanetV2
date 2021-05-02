@@ -45,6 +45,7 @@ body::-webkit-scrollbar{
 	background-color: #ffffff;
 }
 
+
     body::-webkit-scrollbar-thumb {
         /*background-color: #4390CD;*/
          background-color: #000000;
@@ -84,7 +85,8 @@ ul{
 
 /*-- Preloader css start --*/
 #preloader {
-	    background-color: #ebf2f5;
+    background-color: #ebf2f5;
+    /*background-color:aquamarine;*/
 	bottom: 0;
 	left: 0;
 	position: fixed;
@@ -285,7 +287,8 @@ ul.colors li:hover p {
     float: left;
     width: 100%;
     /*background: #DF3E3D;*/
-    background: rgba(38, 38, 174, 0.80);
+    /*background: rgba(38, 38, 174, 0.80);*/
+    background:#ff4444;
     z-index: 10000;
 }
 .menu_fixed {
@@ -3399,7 +3402,7 @@ body.active #mobile-nav {
 	right:0%;
 	top:0%;
 	bottom:0%;
-	background:rgba(0,0,0,0.8);
+	/*background:rgba(0,0,0,0.8);*/
 }
 .prs_title_heading_wrapper{
 	float:left;
@@ -7520,7 +7523,7 @@ body.active #mobile-nav {
 .prs_slider_upcom_heading_wrapper{
 	float:left;
 	width:450px;
-	background:url('../images/index_II/upcoming_heading.jpg') 50% 0 repeat-y;
+	/*background:url('../images/index_II/upcoming_heading.jpg') 50% 0 repeat-y;*/
 	background-position:center 0;
 	background-size:cover;
 	min-height:365px;

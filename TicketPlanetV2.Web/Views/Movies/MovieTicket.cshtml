@@ -200,27 +200,46 @@
 
 
 
-<div class="prs_title_main_sec_wrapper1" style="background:url('../images/content/about/banner.jpg') 50% 0 repeat-y;">
-    <div class="prs_title_img_overlay1"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="prs_title_heading_wrapper1">
-                    <h2>Image (movie booking)</h2>
+@if (Model.Img_Banner == null || Model.Img_Banner == "none")
+{
+    <div class="prs_title_main_sec_wrapper1" style="background:url('../images/content/aboust/banner.jpg') 50% 0 repeat-y;">
+        <div class="prs_title_img_overlay1" style="background:rgba(0,0,0,0.8)"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="prs_title_heading_wrapper1" style="height:70px;">
+                        @*<h2>Image (movie booking)</h2>*@
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="prs_title_main_sec_wrapper1" style="background:url('@Model.Img_Banner');">
+        <div class="prs_title_img_overlay1"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="prs_title_heading_wrapper1" style="height:100px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 
 <div id="MovieTicket" class="padding-tb-40px" style="background-color: transparent; background-repeat:no-repeat">
 
     <div class="container">
-        
+
         <a href="@Url.Action("Index", "Movies")" class="text-blue" style="color:black;margin-top:24px;"><i class="fa fa-arrow-left"></i><b> Back</b></a>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <div class="row justify-content-center">
 
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -236,7 +255,6 @@
                             <div class="form-group col-md-6">
                                 <label for="inputName">Movie Name <span style="color:red">*</span></label>
                                 <input type="text" id="MovieName" readonly="readonly" value="@Model.MovieName" class="form-control">
-                                @*<input type="hidden" id="FilmCode1" name="FilmCode1" value="@Model.FilmCode" />*@
                                 <input type="hidden" id="FilmCode" name="FilmCode" />
                             </div>
                             <div class="form-group col-md-6">
@@ -260,6 +278,7 @@
                                 <input type="text" id="phoneNo" class="form-control">
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputName">Email <span style="color:red">*</span> </label>
@@ -290,8 +309,6 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Movie Time <span style="color:red">*</span> </label>
                                 <select id="MovieTime" required="required" name="MovieTime" class="form-control"></select>
-
-
                             </div>
                         </div>
 
@@ -326,21 +343,21 @@
                         </div>
 
 
-                        
+
                         <p></p>
                         <br />
-                        
+
                         <div class="row">
-                            
-                            
+
+
                         </div>
 
                         <div>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn btn-primary btn-lg" id="proceedBtn" style="border-radius:5px;">Proceed</a>
                         </div>
-                        
+
                         <br />
-                        <br/>
+                        <br />
 
                         <button type="button" style="display:none" id="btnSaveTrans" class="btn btn-primary"> Process</button>
 
@@ -359,10 +376,10 @@
 
                     </div>
                     <!-- form -->
-                    
+
 
                 </div>
-                
+
                 <!-- // col-lg-8 -->
 
             </div>
@@ -375,7 +392,7 @@
                     @if (!string.IsNullOrEmpty(Model.MovieYouTube))
                     {
                         <p><b>Watch the Thriller</b></p>
-                        <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                        <iframe width="300" height="450" src="@Model.MovieYouTube" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     }
                     else
                     {
@@ -407,13 +424,13 @@
             <!-- // row -->
         </div>
 
-        
+
         <!-- // container -->
     </div>
 </div>
 
-<br/>
-<br/>
+<br />
+<br />
 
 
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
@@ -421,7 +438,7 @@
 
         <div class="modal-content" id="paymentModalContent" style="margin-top:200px;background-color:lightblue">
             <button type="button" class="close" data-dismiss="modal" style="color:black;">close</button>
-            <br/>
+            <br />
             <div class="row">
                 <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12 text-center">
                     <h3><b>Select payment method</b></h3>
@@ -429,13 +446,13 @@
                 </div>
             </div>
             <div class="row text-center" style="margin-top:20px;">
-                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="flutterDIV">
+                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" id="flutterDIV">
                     <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializeFlwPayment" style="border:2px solid black;border-radius:5px;" id="IntializeFlwPayment"><img src="~/assets/fltImage.jpg" style="width:250px;border-radius:5px;" height="100" alt="Alternate Text" /></a>
                 </div>
-               
-                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
-                    <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
-                </div>
+
+                @*<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" id="paystackDIV">
+                        <a href="javascript:void(0)" class="w3-btn w3-round-xlarge w3-border-pink IntializePayment" style="border:2px solid black;border-radius:5px;" id="IntializePayment"><img src="~/assets/pt.png" style="width:250px;" height="100" alt="Alternate Text" /></a>
+                    </div>*@
             </div>
         </div>
 
@@ -446,13 +463,14 @@
     <div class="loader"></div>
     <p style="text-align:center; color:blue;"><b>.......loading please.......</b></p>
 </div>
-<script src="~/js/jquery_min.js"></script>
+<script src="~/js/jquery.js"></script>
 <script src="~/js/ticketplanetjs/ScriptingMovies.js"></script>
-<script src="~/js/ticketplanetjs/moviesPaystackInitialize.js"></script>
+@*<script src="~/js/ticketplanetjs/moviesPaystackInitialize.js"></script>*@
 <script src="~/js/ticketplanetjs/movieFlutterInitialize.js"></script>
+@*<script src="~/js/ticketplanetjs/flutterWavePercent.js"></script>*@
 <script>
     $(document).ready(function () {
-        
+
         $("#proceedBtn").click(function () {
             if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
                  $('#email').val() === "" ||
@@ -466,12 +484,96 @@
             } else {
                 //console.log("kenny");
                 $(this).attr("data-target", "#paymentModal");
+                //alert($(this).data('target'));
             }
         });
     });
 </script>
 
+<script>
+    $(function () {
 
+
+
+        function InitTransaction(data) {
+            return $.ajax({
+                type: "POST",
+                url: "/Movies/InitializeMoviePayment",
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8'
+            });
+        }
+
+        $("#IntializePayment").click(function (e) {
+
+
+            //if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
+            //         $('#email').val() === "" ||
+            //         $('#NoOfPersons').val() === "" ||
+            //         $('#MovieCategory').val() === "" ||
+            //         $('#Amount').val() === "" || $('#MovieDay').val() === "" || $('#MovieTime').val() === "") {
+
+            //    alertify.error("One or Two Compulsory Fields is Empty");
+            //    return;
+            //}
+
+            //$("#preloader").show();
+            $("#status").fadeIn();
+            $("#preloader").delay(350).fadeIn("slow");
+            e.preventDefault();
+
+            var data = JSON.stringify({
+                Fullname: $("#Fullname").val(),
+                phoneNo: $("#phoneNo").val(),
+                email: $("#email").val(),
+                NoOfPersons: $("#NoOfPersons").val(),
+                MovieCategory: $("#MovieCategory").val(),
+                Amount: $("#Amount").val(),
+                comments: $("#comments").val(),
+
+                CinemaLocation: $("#CinemaCompanyID").val(),
+                CinemaCompanyID: $("#CinemaCompanyID").val(),
+
+                MovieDay: $("#MovieDay").val(),
+                MovieTime: $("#MovieTime").val(),
+                MovieName: $("#MovieName").val(),
+
+                IsCoupon: $("#IsCoupon").val(),
+                Coupon: $("#Coupon").val(),
+                CouponAgentId: $("#CouponAgentId").val(),
+                CouponAssignId: $("#CouponAssignId").val(),
+                CouponID: $("#CouponID").val(),
+                nErrorCode: $("#nErrorCode").val(),
+                CouponValue: $("#CouponValue").val()
+            });
+
+
+
+            $.when(InitTransaction(data)).then(function (response) {
+
+
+                if (response.error == false) {
+                    $("#status").fadeOut();
+                    $("#preloader").delay(350).fadeOut("slow");
+                    console.log(response.result.data.authorization_url);
+                    window.location.href = response.result.data.authorization_url;
+
+                } else {
+                    $("#status").fadeOut();
+                    $("#preloader").delay(350).fadeOut("slow");
+                }
+
+            }).fail(function () {
+                $("#status").fadeOut();
+                $("#preloader").delay(350).fadeOut("slow");
+            });
+
+        });
+
+    });
+
+</script>
 
 
 

@@ -21,9 +21,9 @@
                     $("#drpLocation").append($('<option></option>').val(cinema === "3" ? lct.SiteId:lct.Itbid).html(lct.CinemaName));
                 });
                
-
+                $('#OthersFilmHouse').html("");
                 GetMovies();
-                $("#loaderbody").hide();
+                //$("#loaderbody").hide();
             },
             error: function () {
                 alert("Whooaaa! Something went wrong..");
@@ -85,6 +85,7 @@ function GetMovies()
     var location = $('#drpLocation').val();
     //alert(company)
     //alert(location)
+    $("#loaderbody").show();
     $.ajax({
         url: $('#GetMovies').data('request-url'),
         type: 'POST',
@@ -93,11 +94,12 @@ function GetMovies()
         data: { company: company, location: location },
         success: function (data, textStatus, XMLHttpRequest) {
             if (data !== null) {
-
+                //console.log(data);
                 $('#FilmHouse').show();
                 $('#OthersFilmHouse').html('');
+                //$("#loaderbody").show();
                 $('#OthersFilmHouse').html(data);
-
+                $("#loaderbody").hide();
             }
 
 

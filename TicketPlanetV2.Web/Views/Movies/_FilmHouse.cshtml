@@ -85,7 +85,7 @@
             @Html.AntiForgeryToken()
             foreach (var movie in Model.ShowtimeList.OrderByDescending(o => o.startDate))
             {
-                if (!string.IsNullOrWhiteSpace(@movie.url))
+                if (!string.IsNullOrWhiteSpace(@movie.title))
                 {
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first">
                         <div class="prs_upcom_movie_box_wrapper">
@@ -96,17 +96,17 @@
                                 <div class="prs_upcom_movie_img_btn_wrapper">
                                     <ul>
                                         <li>
-                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#movieModals-@movie.id" data-src="@movie.youtube" data-filmcode="@movie.id" data-title="@movie.title">View Trailer</a>
+                                            <a href="javascript:void(0)" class="btnViewTrailer" data-filmcode="@movie.id" data-title="@movie.title" data-src="@movie.youtube" >View Trailer</a>
                                         </li>
                                         <li>
-                                            <a class="btnFilmHouse" data-key='@movie.id*@movie.siteId' href="#">Buy Ticket</a>
+                                            <a class="btnFilmHouse" data-key='@movie.id*@movie.siteId' href="javascript:void(0)">Buy Ticket</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="prs_upcom_movie_content_box">
                                 <div class="prs_upcom_movie_content_box_inner">
-                                    <b style="color:black">@movie.title</b>
+                                    <h6><b style="color:black">@movie.title</b></h6>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@ else if (Model.cinemaCompany == "1")
                             </div>
                             <div class="prs_upcom_movie_content_box">
                                 <div class="prs_upcom_movie_content_box_inner">
-                                    <b style="color:black">@i._FilmTitle</b>
+                                    <h6><b style="color:black">@i._FilmTitle</b></h6>
                                     <p> @i.ComingSoon</p>
 
                                 </div>
@@ -183,7 +183,7 @@ else if (Model.cinemaCompany == "2")
             // {string demacate = " ";}
             foreach (var i in Model.MovieList)
             {
-                if (!string.IsNullOrWhiteSpace(i.Img_1s))
+                if (!string.IsNullOrWhiteSpace(i._FilmTitle))
                 {
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_first">
                         <div class="prs_upcom_movie_box_wrapper">
@@ -205,7 +205,7 @@ else if (Model.cinemaCompany == "2")
                             </div>
                             <div class="prs_upcom_movie_content_box">
                                 <div class="prs_upcom_movie_content_box_inner">
-                                    <b style="color:black">@i._FilmTitle</b>
+                                    <h6><b style="color:black">@i._FilmTitle</b></h6>
                                     <p> @i.ComingSoon</p>
 
                                 </div>
@@ -226,7 +226,7 @@ else if (Model.cinemaCompany == "2")
 
     
 
-   $(".btnGenesis").on('click', function () {
+$(".btnGenesis").on('click', function () {
 
     var location = $('#drpLocation').val();
      var id = $(this).data('key');
@@ -255,7 +255,6 @@ $(".btnMaturion").on('click', function () {
     if (location != null && id != null)
     {
         window.location = $('#MaturionMovies').data('request-url') + '?filmCode=' + id + '&CinemaId=' + location;
-
     }
 
 });

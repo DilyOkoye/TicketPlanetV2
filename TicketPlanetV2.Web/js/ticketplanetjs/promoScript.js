@@ -18,13 +18,13 @@
         $('#btnVoucher').attr('disabled', false);
         $('#loadVoucherCode').hide()
         //  alert(data.nErrorCode)
-        if (data != null)
+        if (data !== null)
         {
 
             if (data.nErrorCode == 1)
 
             {
-                if (Amount != "")
+                if (Amount !== "")
                 {
 
                     var amt = Number(Amount.replace(/[^0-9\.-]+/g, ""));
@@ -134,9 +134,9 @@ $("#btnPromo").on('click', function ()
 });
 
 
-$("#btnSaveTrans").on('click', function ()
+$("#btnAddToOrder").click(function ()
 {
-    $("#loaderbody").show();
+    //$("#loaderbody").show();
 
 
     var PromoCode = $("#PromoCode").val();
@@ -152,12 +152,111 @@ $("#btnSaveTrans").on('click', function ()
 
     //alert(MovieDay)
     //alert(MovieCategory)
+    if ($('#PromoCode').val() == null || $().val('#PromoCode') === "") {
+        //alert("you clicked me");
+        var MovieDate = $("#MovieDate").val();
+        var MovieTime = $("#MovieTime").val();
+        var MovieCategory = $("#MovieCategory").val();
+        var MoviePrice = $("#MoviePrice").val();
+        var NoOfPersons = $("#NoOfPersons").val();
+        var showtimeId = $("#showtimeId").val();
+
+        if (Fullname === null || Fullname === "") {
+            alertify.error("Full Name is Required");
+            return;
+        }
+
+        if (email === null || email === "") {
+            alertify.error("Email is Required");
+            return;
+        }
+        if (phoneNo === null || phoneNo === "") {
+            alertify.error("Phone Number is Required");
+            return;
+        }
+        if (MovieDate === null || MovieDate === "") {
+            alertify.error("Movie Date is Required");
+            return;
+        }
+        if (MovieTime === null || MovieTime === "") {
+            alertify.error("Movie Time is Required");
+            return;
+
+        }
+        if (MovieCategory === null || MovieCategory === "") {
+            alertify.error("Movie Category is Required");
+            return;
+
+        }
+        if (MoviePrice === null || MoviePrice === "") {
+            alertify.error("Movie Price is Required");
+            return;
+        }
+
+        if (NoOfPersons == null || NoOfPersons === "") {
+            alertify.error("No Of Persons is Required");
+            return;
+        }
+
+        $("#spinner").show()
+        
+        $(this).prop("disabled", true);
+
+        $.ajax({
+            url: "/Movies/AddToOrder/",
+            data: { MovieCategory: MovieCategory, MovieTime: MovieTime, NoOfPersons: NoOfPersons },
+            dataType: "json",
+            type: "POST",
+            processData: true,
+            success: function (data) {
+                $("#spinner").hide();
+               //check if the json data return from the controller is not equal to zero
+                if (data != 0) {
+
+                    $(this).prop('disabled', false);
+                    $("#OrderId").val(data);
+
+                    //console.log("before " + $(this).data('target'));
+                    $(this).data("target", "#paymentModal");
+                    $(this).attr('data-target', '#paymentModal');
+                    console.log("after " + $(this).attr('data-target'));
+                    
+                    $("#txtTextDisplay").hide();
+                    $("#selectTransaction").show();
+                }
+                else if (data == 0) {
+                    
+                    $('#btnAddToOrder').prop('disabled', false);
+                    //$("#btnGatewayPayment").hide();
+                    $("#txtTextDisplay").show();
+                    $("#selectTransaction").hide();
+                    $("#spinner").hide();
+                    alert('The requested Booking was not found for This showtime Please select another Ticket Category Or Try again later!');
+                    alertify.error("The requested Booking was not found for This showtime Please select another Ticket Category Or Try again later!");
+                }
+
+            },
+            error: function (data) {
+                //$('#btnSaveTrans').prop('disabled', false);
+                //$("#btnSaveTrans").show();
+                $("#btnGatewayPayment").hide();
+                $("#txtTextDisplay").show();
+                $("#selectTransaction").hide();
+                $("#spinner").hide();
+                alert('The requested Booking was not found for This showtime Please select another Ticket Category Or Try again later!');
+            }
+        });
+
+    }
+    else if($('#PromoCode').val() != null) {
+        alert($("#PromoCode").val());
+        $("#loaderbody").show();
 
     if ($("#Fullname").val() === "" || $('#phoneNo').val() === "" ||
-                   $('#email').val() === "" ||
-                   $('#NoOfPersons').val() === "" ||
-                   $('#MovieCategory').val() === "" ||
-                   $('#MovieDay').val() === "" || $('#MovieTime').val() === "") {
+        $('#email').val() === "" ||
+        $('#NoOfPersons').val() === "" ||
+        $('#MovieCategory').val() === "" ||
+        $('#MovieDay').val() === "" || $('#MovieTime').val() === "") {
 
         alertify.error("One or Two Compulsory Fields is Empty");
         $("#loaderbody").hide();
@@ -166,8 +265,7 @@ $("#btnSaveTrans").on('click', function ()
     }
 
 
-    if (NoOfPersons > 1)
-    {
+    if (NoOfPersons > 1) {
         alertify.error("Ticket Planet Awoof Promo is Limited to Just One Person", "", 0);
         $("#loading").hide();
         $('#btnSaveTrans').attr('btnSaveTrans', false);
@@ -227,5 +325,7 @@ $("#btnSaveTrans").on('click', function ()
     }
 });
 
+    }
 
+   
 });

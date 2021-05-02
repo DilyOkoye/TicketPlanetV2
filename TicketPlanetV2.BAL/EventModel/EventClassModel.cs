@@ -182,6 +182,61 @@ namespace TicketPlanetV2.BAL.EventModel
             return items;
         }
 
+        public async Task<bool> GetCardBin(string cardNumber)
+        {
+            string url = "https://api.flutterwave.com/v3/card-bins/" + cardNumber;
+            string bearer = "Bearer FLWSECK-b4b0dfa202eeb53dadf25da3f54dafaf-X";
+            string secretKey = "";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json;";
+            httpWebRequest.Headers.Add("Authorization", bearer);
+            
+            httpWebRequest.Method = "GET";
+            httpWebRequest.Accept = "application/json";
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
+            StreamReader responseStream = new StreamReader(httpResponse.GetResponseStream(), enc);
+            Root check = new Root();
+            string result = string.Empty;
+
+            result = await responseStream.ReadToEndAsync();
+
+            string vals = result.Replace(@"\", "");
+            //string result = response.Content.ReadAsStringAsync().Result;
+            check = JsonConvert.DeserializeObject<Root>(result);
+            //check = JsonConvert.SerializeObject(result);
+            httpResponse.Close();
+            if(check != null)
+            {
+                if(check.data.card_type.ToUpper() == "VERVE")
+                {
+                    return true;
+                }
+            }
+           
+
+            return false;
+        }
+
+        
+
+        public class Data
+        {
+            public string issuing_country { get; set; }
+            public string bin { get; set; }
+            public string card_type { get; set; }
+            public string issuer_info { get; set; }
+        }
+
+        public class Root
+        {
+            public string status { get; set; }
+            public string message { get; set; }
+            public Data data { get; set; }
+        }
+
+
 
         public CouponObject ValidateCoupon(string coupon)
         {
@@ -908,6 +963,25 @@ namespace TicketPlanetV2.BAL.EventModel
                     int amt = Convert.ToInt32((Convert.ToInt32(flutterAmount) * NoOfPerson) - Convert.ToDecimal(CouponValue));
                     return Convert.ToInt32(amt);
                 }
+
+            }
+            else
+            {
+
+                return (Convert.ToInt32(flutterAmount) * NoOfPerson);
+            }
+
+        }
+
+        public int CalculateFlutterTravelsAmount(string amount, int category, string TicketCategoryName, int NoOfPerson, string cardCategory)
+        {
+            var flutterAmount = repoEventCategory.GetNonAsync(o => o.CategoryName == TicketCategoryName && o.Itbid == category).Amount;
+
+            if (cardCategory == "Y")
+            {
+                decimal? val = Convert.ToDecimal(amount);
+
+                return (Convert.ToInt32(val) * NoOfPerson);
 
             }
             else

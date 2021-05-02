@@ -55,6 +55,7 @@ namespace TicketPlanetV2.BAL.GenericModel.ViewModel
         public string MovieName { get; set; }
         public string MovieSynopsis { get; set; }
         public string MovieYouTube { get; set; }
+        public string Img_Banner { get; set; }
         public int CinemaID { get; set; }
 
         public int MaturionCinemaID { get; set; }

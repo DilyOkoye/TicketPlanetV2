@@ -1,30 +1,42 @@
 ﻿@model TicketPlanetV2.BAL.GenericModel.ViewModel.GenericViewModel
    
 <!-- prs Slider Start -->
+@if (Model.sliderImages != null)
+{
 <div class="prs_main_slider_wrapper">
     <div class="prs_top_main_slider_wrapper">
-        <a href="@Url.Action("Index", "Movies")">
-            <div class="img_main">
-                <img src="@Model.sliderImages.Slider1">
-            </div>
-        </a>
+        @*<a href="@Url.Action("Index", "Movies")">
+            
+        </a>*@
+        <div class="img_main">
+            <img src="@Model.sliderImages.Slider1">
+        </div>
+
         <a href="@Url.Action("Index", "Movies")">
             <div class="img_main">
                 <img src="@Model.sliderImages.Slider2">
             </div>
         </a>
-        <a href="@Url.Action("Index", "Movies")">
+        <a href="@Url.Action("Index", "Events")">
             <div class="img_main">
                 <img src="@Model.sliderImages.Slider3">
             </div>
         </a>
-        <a href="@Url.Action("Index", "Movies")">
+        <div class="img_main">
+            <img src="@Model.sliderImages.Slider4">
+        </div>
+        @*<a href="@Url.Action("Index", "Movies")">
+            
+        </a>*@
+        <a href="@Url.Action("DubaiTourTicket", "Home", new { TicketType = 1282 })">
             <div class="img_main">
-                <img src="@Model.sliderImages.Slider4">
+                <img src="@Model.sliderImages.SliderCategory">
             </div>
         </a>
+        
     </div>
 </div>
+
 <div class="prs_slider_upcoming_main_wrapper">
     <div class="prs_slider_upcom_heading_wrapper">
         <div class="prs_slider_upcom_heading_img_overlay"></div>
@@ -38,23 +50,39 @@
         <div class="prs_top_main_upcom_slider_wrapper">
             <div class="img_main_up">
                 <img src="@Model.sliderImages.Slider5">
-                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.SliderCategory5</span></h4>
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
             </div>
             <div class="img_main_up">
                 <img src="@Model.sliderImages.Slider6">
-                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.SliderCategory6</span></h4>
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
             </div>
             <div class="img_main_up">
                 <img src="@Model.sliderImages.Slider7">
-                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.SliderCategory7</span></h4>
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
+            </div>
+            <div class="img_main_up">
+                <img src="@Model.sliderImages.TransportHeader">
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
             </div>
             <div class="img_main_up">
                 <img src="@Model.sliderImages.HomePageBox1">
-                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.HomePageBox1Category</span></h4>
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
             </div>
             <div class="img_main_up">
                 <img src="@Model.sliderImages.HomePageBox2">
-                <h4><a href="@Url.Action("Index", "Movies")">Aquaman</a> &nbsp;&nbsp;<span>@Model.sliderImages.HomePageBox1Category2</span></h4>
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
+            </div>
+            <div class="img_main_up">
+                <img src="@Model.sliderImages.HomePageBox1Category2">
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
+            </div>
+            <div class="img_main_up">
+                <img src="@Model.sliderImages.HomePageBox3">
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
+            </div>
+            <div class="img_main_up">
+                <img src="@Model.sliderImages.HomePageBox1Category3">
+                <h4><a href="@Url.Action("Index", "Movies")"><span style="font-weight:bolder; font-style:normal;color:black">Get Ticket</span></a></h4>
             </div>
 
 
@@ -62,7 +90,7 @@
     </div>
 </div>
 
-
+}
 <!-- prs theater Slider Start -->
 <div class="prs_theater_main_slider_wrapper">
     <div class="prs_theater_img_overlay"></div>

@@ -120,7 +120,7 @@ function buildHomeFrames(src, eventTitle) {
                         Loading...
                       </div>
                     </div>
-                     <img src="${src}" alt="" class ="img-responsive"  />
+                     <img src="${src}" alt="" class ="img-responsive" style="width:"  />
                   </div>
                   <footer class ="w3-container w3-black">
                     <button class ="w3-button w3-right w3-black w3-text-white closeFrame">Close</button>
@@ -132,10 +132,12 @@ function buildHomeFrames(src, eventTitle) {
 
 $(".btnHomeDetails").on('click', function () {
 
+    //alert('you clicked me');
     //e.preventDefault();
     //console.log('Event', e);
     const src = $(this).data('src');
     //const filmCode = $(this).data('filmcode');
+    //console.log("source " + src);
     const eventTitle = $(this).data('title');
     const overlay = buildHomeFrames(src, eventTitle);
 

@@ -4,6 +4,8 @@ $(document).ready(function () {
     var filmName = $("#MovieName").val();
     var cinemaLocation = $("#CinemaCompanyID").val();
     var filmCode = $("#FilmCode1").val();
+    console.log("Film " + filmName);
+    console.log("cinemaLoc " + cinemaLocation);
     $.ajax({
         url: '/Movies/GetMovieDays',
         data: { filmName: filmName, cinemaLocation: cinemaLocation},
@@ -18,7 +20,7 @@ $(document).ready(function () {
 
         //console.log(data);
 
-        if (data.list == 0) {
+        if (data.list === 0) {
             alert("No Movie Day available");
         }
 
@@ -35,7 +37,7 @@ $(document).ready(function () {
         $("#FilmCode").val(data.FCode);
     },
     error: function (data) {
-        if (data == 0) {
+        if (data === 0) {
             alert("No Movie time available");
         }
     }
@@ -50,6 +52,8 @@ $("#CinemaCompanyID").on('change', function () {
 
     var filmName = $("#MovieName").val();
     var cinemaLocation = $("#CinemaCompanyID").val();
+    console.log("cinema id " + cinemaLocation);
+
     $("#MovieTime").html("");
     $("#MovieTime").val("");
 
@@ -63,12 +67,14 @@ $("#CinemaCompanyID").on('change', function () {
     success: function (data) {
         // alert("hhh")
         $("#MovieDay").html("");
-        $("#MovieDay").append($('<option></option>').val(null).html("--Select Movie Time--"));
-
+        $("#MovieDay").append($('<option></option>').val(null).html("--Select Movie Day--"));
+        console.log('data day ' + data.list);
         $.each(data.list, function (item, lct) {
             //alert(lct.PerformDate)
             //alert(lct.FilmCode)
-            if (lct.PerformDate != null) {
+            
+            console.log("pda " + lct);
+            if (lct.PerformDate !== null) {
                 $("#MovieDay").append($('<option></option>').val(lct.PerformDate).html(lct.PerformDate))
             } else {
                 alert("No movie Time available");
@@ -114,12 +120,12 @@ $("#MovieDay").on('change', function () {
         //    alert(data);
         //}
 
-        if (data.location == '0') {
+        if (data.location === '0') {
             alert("No Movie time available for today, Please select another day!");
         }
         $.each(data, function (item, lct)
         {
-            if (lct.StartTime != null) {
+            if (lct.StartTime !== null) {
                 $("#MovieTime").append($('<option></option>').val(lct.StartTime).html(lct.StartTime))
             }
 
@@ -163,7 +169,7 @@ $("#MovieTime").on('change', function ()
     type: "POST",
     success: function(data) {
         //console.log(data);
-        if (data.nErrorCode == '0') {
+        if (data.nErrorCode === '0') {
                     
             alert("The current Movie time has expired, Please select another time");
             //$("#status").fadeOut();
@@ -328,6 +334,7 @@ $("#NoOfPersons").on('change', function () {
 
 });
 
+
 $("#MovieCategory").on('change', function () {
 
     $('#loaderbody').show();
@@ -341,8 +348,8 @@ $("#MovieCategory").on('change', function () {
     var CouponValue = $("#CouponValue").val();
     var MovieTime = $("#MovieTime").val();
     //   alert(FromRoute)
-    //console.log(MovieTime);
-    //console.log(MovieDay);
+    console.log(MovieTime + ", " + FilmCode + " , " + MovieCategory);
+    console.log(MovieDay);
     if (MovieTime == null || MovieTime == "") {
         //$("#status").fadeOut();
         //$("#preloader").delay(350).fadeOut("slow");
@@ -358,102 +365,103 @@ $("#MovieCategory").on('change', function () {
     }
 
 
+    //console.log("check movie time ");
     $.ajax({
         url: '/Movies/CheckMovieTime',
         data: { movieTime: MovieTime },
-    dataType: "json",
-    type: "POST",
-    success: function(data) {
-                
-        if (data.nErrorCode == '0') {
-            alert("The current Movie time has expire, Please select another time");
-            //$("#status").fadeOut();
-            //$("#preloader").delay(350).fadeOut("slow");
-            $('#loaderbody').hide();
-            alertify.error("The current Movie time has expire, Please select another time");
-            $("#Amount").val("");
-            $("#Amount").html("");
-        }
-        else {
-                
-            $.ajax({
-               
-                url: '/Movies/GetMovieAmount',
-                data: { MovieCategory: MovieCategory, NoOfPersons: NoOfPersons, CinemaCompanyID: CinemaCompanyID, MovieDay: MovieDay, FilmCode: FilmCode, CouponValue: CouponValue, MovieTime: MovieTime },
-            dataType: "json",
-            type: "POST",
-            success: function (data)
-            {
-                //$("#loaderbody").show();
-                if (data.OrigAmount == null)
-                {
+        dataType: "json",
+        type: "POST",
+        success: function (data) {
 
-                    if (data.Amount == "0.00") {
-                        alert("No Amount Available");
-                        $('#loaderbody').hide();
-                        //$("#status").fadeOut();
-                        //$("#preloader").delay(350).fadeOut("slow");
-                        $("#Amount").val(data.Amount);
-                        $('#amtCharge').val(data.amtCharge);
-                        $(".amountText").show();
-                        var x = $("#Amount").val(data.Amount);
-                        var y = $("#amtCharge").val(data.amtCharge);
-
-                        var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
-                        //alert(totalAmounts);
-                    }
-                    else if (data.Amount == null)
-                    {
-                        alert("No Amount Available");
-                        $('#loaderbody').hide();
-                        //$("#status").fadeOut();
-                        //$("#preloader").delay(350).fadeOut("slow");
-                        $("#Amount").val(data.Amount);
-                        $("#amtCharge").val(data.amtCharge);
-                        $(".amountText").show();
-                        var x = $("#Amount").val(data.Amount);
-                        var y = $("#amtCharge").val(data.amtCharge);
-                        var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
-                        //alert(totalAmounts);
-                    }
-                    else {
-                        $('#loaderbody').hide();
-                        //$("#status").fadeOut();
-                        //$("#preloader").delay(350).fadeOut("slow");
-                        $("#Amount").val(data.Amount);
-                        $("#amtCharge").val(data.amtCharge);
-                        $(".amountText").show();
-                        var x = $("#Amount").val(data.Amount);
-                        var y = $("#amtCharge").val(data.amtCharge);
-                        var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
-                        //alert(totalAmounts);
-                    }
-
-                }
-                else if (data.OrigAmount != null)
-                {
-                    $("#Amount").val(data.Amount);
-                    $("#amtCharge").val(data.amtCharge);
-                    $("#OrigAmount").text(data.OrigAmount);
-                    $("#OrigAmount").show();
-                    $("#NewAmount").text(data.OrigAmount);
-                    $("#OrigAmount").show();
-                    $("#CouponValue").val(data.CouponValue);
-                    $('#loaderbody').hide();
-                    //$("#status").fadeOut();
-                    //$("#preloader").delay(350).fadeOut("slow");
-                    $(".amountText").hide();
-                    var x = $("#Amount").val(data.Amount);
-                    var y = $("#amtCharge").val(data.amtCharge);
-                    var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
-                    //alert(totalAmounts);
-                }
+            if (data.nErrorCode == '0') {
+                alert("The current Movie time has expire, Please select another time");
+                //$("#status").fadeOut();
+                //$("#preloader").delay(350).fadeOut("slow");
+                $('#loaderbody').hide();
+                alertify.error("The current Movie time has expire, Please select another time");
+                $("#Amount").val("");
+                $("#Amount").html("");
             }
-        });
-    }
-    $("#loaderbody").hide();
-}
-});
+            else {
+                //console.log("check Get Moview Amount");
+                $.ajax({
+
+                    url: '/Movies/GetMovieAmount',
+                    data: { MovieCategory: MovieCategory, NoOfPersons: NoOfPersons, CinemaCompanyID: CinemaCompanyID, MovieDay: MovieDay, FilmCode: FilmCode, CouponValue: CouponValue, MovieTime: MovieTime },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+                        //console.log("data " + data);
+                        //$("#loaderbody").show();
+                        if (data.OrigAmount == null) {
+
+                            if (data.Amount == "0.00") {
+                                alert("No Amount Available");
+                                $('#loaderbody').hide();
+                                //$("#status").fadeOut();
+                                //$("#preloader").delay(350).fadeOut("slow");
+                                $("#Amount").val(data.Amount);
+                                $('#amtCharge').val(data.amtCharge);
+                                $(".amountText").show();
+                                var x = $("#Amount").val(data.Amount);
+                                var y = $("#amtCharge").val(data.amtCharge);
+                                //console.log('xxx' + x);
+
+                                var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
+                                //alert(totalAmounts);
+                            }
+                            else if (data.Amount == null) {
+                                alert("No Amount Available");
+                                $('#loaderbody').hide();
+                                //$("#status").fadeOut();
+                                //$("#preloader").delay(350).fadeOut("slow");
+                                $("#Amount").val(data.Amount);
+                                $("#amtCharge").val(data.amtCharge);
+                                $(".amountText").show();
+                                var x = $("#Amount").val(data.Amount);
+                                var y = $("#amtCharge").val(data.amtCharge);
+                                var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
+                                alert(totalAmounts);
+                            }
+                            else {
+                                $('#loaderbody').hide();
+                                //$("#status").fadeOut();
+                                //$("#preloader").delay(350).fadeOut("slow");
+                                console.log("amou " + data);
+                                $("#Amount").val(data.Amount);
+                                $("#amtCharge").val(data.amtCharge);
+                                $(".amountText").show();
+                                var x = $("#Amount").val(data.Amount);
+                                var y = $("#amtCharge").val(data.amtCharge);
+                                var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
+                                alert(totalAmounts);
+                            }
+
+                        }
+                        else if (data.OrigAmount != null) {
+                            $("#Amount").val(data.Amount);
+                            $("#amtCharge").val(data.amtCharge);
+                            $("#OrigAmount").text(data.OrigAmount);
+                            $("#OrigAmount").show();
+                            $("#NewAmount").text(data.OrigAmount);
+                            $("#OrigAmount").show();
+                            $("#CouponValue").val(data.CouponValue);
+                            $('#loaderbody').hide();
+                            //$("#status").fadeOut();
+                            //$("#preloader").delay(350).fadeOut("slow");
+                            $(".amountText").hide();
+                            var x = $("#Amount").val(data.Amount);
+                            var y = $("#amtCharge").val(data.amtCharge);
+                            var totalAmounts = parseInt(data.Amount) + parseInt(data.amtCharge);
+                            //alert(totalAmounts);
+                        }
+                    }
+                });
+            }
+            $("#loaderbody").hide();
+        }
+    });
 
 
 });
+

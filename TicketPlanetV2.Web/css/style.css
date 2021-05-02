@@ -82,7 +82,8 @@ ul{
 
 /*-- Preloader css start --*/
 #preloader {
-	    background-color: #ebf2f5;
+	background-color: #ebf2f5;
+    /*background-color: orange;*/
 	bottom: 0;
 	left: 0;
 	position: fixed;
